@@ -21,7 +21,7 @@ rec {
       ./include/postfix_relay.nix
       ./include/templatecfg.nix
       ./include/xfce-overrides.nix
-      ./include/firefox-with-localization.nix
+      # ./include/firefox-with-localization.nix
       # ./include/syncthing.nix
       ./include/wheel.nix
       ./include/ntpd.nix
@@ -201,7 +201,7 @@ rec {
     xlsfonts
     djvulibre
     wine
-    libreoffice
+    # libreoffice
     pidgin
     skype
     networkmanagerapplet
@@ -225,6 +225,12 @@ rec {
     imagemagickBig
     geeqie
     gimp_2_8
+    firefoxWrapper
+    encfs
+    plowshare
+    lsof
+    google-drive-ocamlfuse
+    ffmpeg
   ];
 
   nixpkgs.config = {
@@ -232,6 +238,10 @@ rec {
     allowBroken = true;
     allowUnfree = true;
     chrome = {
+      jre = true;
+      enableAdobeFlash = true;
+    };
+    firefox = {
       jre = true;
       enableAdobeFlash = true;
     };
