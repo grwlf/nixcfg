@@ -22,7 +22,7 @@ rec {
       ./include/postfix_relay.nix
       ./include/templatecfg.nix
       ./include/xfce-overrides.nix
-      ./include/firefox-with-localization.nix
+      # ./include/firefox-with-localization.nix
       ./include/wheel.nix
       ./include/ntpd.nix
       # ./include/syncthing.nix
@@ -170,7 +170,7 @@ rec {
     djvulibre
     wine
     vlc
-    libreoffice
+    # libreoffice
     pidgin
     skype
     pavucontrol
@@ -190,18 +190,24 @@ rec {
     dmidecode
     xscreensaver
     wireshark
-    pv
     mlton
     ruby
-    pv
     bvi
     i7z
+    firefoxWrapper
+    encfs
+    imagemagick
+    cvc4
   ];
 
   nixpkgs.config = {
     virtualbox.enableExtensionPack = true;
     allowBroken = true;
     allowUnfree = true;
+    firefox = {
+      jre = true;
+      enableAdobeFlash = true;
+    };
   };
 
 }
