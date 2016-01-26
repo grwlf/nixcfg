@@ -51,5 +51,7 @@
     subversion
     tig
     mercurial
+    plowshare
+    pv
   ];
 }
