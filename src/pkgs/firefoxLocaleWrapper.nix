@@ -1,7 +1,7 @@
-{ stdenv, language, firefox, firefoxWrapper, gnused, bash, curl }:
+{ stdenv, language, firefox-unwrapped, firefoxWrapper, gnused, bash, curl }:
 let
 
-  version = firefox.version;
+  version = firefox-unwrapped.version;
 
   mkscript = name : text : ''
     mkdir -pv $out/bin
@@ -20,7 +20,7 @@ let
       then "linux-x86_64"
       else "linux-i686";
 
-  langurl = "ftp://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${version}/${arch}/xpi/${language}.xpi";
+  langurl = "http://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${version}/${arch}/xpi/${language}.xpi";
 
   wrapper = mkscript "firefox" ''
     LANGPACK=~/.firefox-${version}-langpack-${language}.xpi
@@ -45,8 +45,8 @@ stdenv.mkDerivation {
     mkdir -pv $out/share/applications
     cp ${firefoxWrapper}/share/applications/* $out/share/applications
 
-    mkdir -pv $out/nix-support
-    echo ${firefoxWrapper} > $out/nix-support/propagated-user-env-packages
+    # mkdir -pv $out/nix-support
+    # echo ${firefoxWrapper} > $out/nix-support/propagated-user-env-packages
   '';
 
   meta = {
