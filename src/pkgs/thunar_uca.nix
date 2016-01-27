@@ -76,9 +76,18 @@ writeText "uca.xml.in" ''
       <video-files/>
     </action>
     <action>
+      <icon>mime-video</icon>
+      <name>Понизить частоту кадров видеофайла</name>
+      <unique-id>1389351656678468-10</unique-id>
+      <command>videoconvert %F</command>
+      <description>Понижает частоту кадров видео</description>
+      <patterns>*</patterns>
+      <video-files/>
+    </action>
+    <action>
       <icon>gtk-find</icon>
       <name>Уменьшить фотографии в этом каталоге</name>
-      <unique-id>1389351656678468-10</unique-id>
+      <unique-id>1389351656678468-11</unique-id>
       <command>photoresize %F</command>
       <description>Уменьшает все фотографии в этом каталоге</description>
       <patterns>*</patterns>

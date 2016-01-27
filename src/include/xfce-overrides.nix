@@ -18,6 +18,7 @@
 
     photofetcher
     handyscripts
+    videoconvert
   ];
 
   nixpkgs.config = {
@@ -27,7 +28,9 @@
 
       handyscripts = pkgs.callPackage ../pkgs/handyscripts.nix {};
 
-      xfce = pkgs.xfce // {
+      videoconvert = pkgs.callPackage ../pkgs/videoconvert.nix {};
+
+      xfce = pkgs.xfce // rec {
 
         xfce4_xkb_plugin = pkgs.lib.overrideDerivation (pkgs.xfce.xfce4_xkb_plugin) (o:{
           name = o.name + "-patched";
@@ -40,6 +43,8 @@
             cp -pv ${pkgs.callPackage ../pkgs/thunar_uca.nix {}} plugins/thunar-uca/uca.xml.in
           '';
         });
+
+        thunar = pkgs.xfce.thunar.override { inherit thunar-build; };
       };
     };
   };
