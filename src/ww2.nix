@@ -178,12 +178,12 @@ rec {
     cups
     (devenv {
       name = "dev";
-      extraPkgs = [ haskell710 ]
+      extraPkgs = [ haskell-latest ]
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
     (devenv {
       name = "dev-lts221";
-      extraPkgs = [ lts221 ]
+      extraPkgs = [ haskell-lts221 ]
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
     unetbootin

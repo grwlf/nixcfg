@@ -1,37 +1,28 @@
 { config, pkgs, ... } :
 
+let mypkgs = a : with a ; [
+  cabal-install
+  alex
+  happy
+  parsec
+  optparse-applicative
+  hasktags];
+
+in
+
 {
 
   nixpkgs.config = {
 
     packageOverrides = pkgs: {
 
-      haskell_7_6 = (pkgs.haskellPackages_ghc763.ghcWithPackagesOld (self: [
-        self.haskellPlatform
-        self.cabalInstall
-      ]));
-
-      # haskell710 = (pkgs.haskellngPackages.ghcWithPackages (self: [ self.cabal-install ]));
-
-      lts221 = (pkgs.haskell.packages.lts-2_21.override {
+      haskell-lts221 = (pkgs.haskell.packages.lts-2_21.override {
         overrides = config.haskellPackageOverrides or (self: super: {});
-      }).ghcWithPackages (self: [ self.cabal-install]);
+      }).ghcWithPackages mypkgs;
 
-      lts311 = (pkgs.haskell.packages.lts-3_11.override {
+      haskell-latest = (pkgs.haskell.packages.lts-4_2.override {
         overrides = config.haskellPackageOverrides or (self: super: {});
-      }).ghcWithPackages (self: [ self.cabal-install]);
-
-      haskell710 = (pkgs.haskell.packages.ghc7102.override {
-        overrides = config.haskellPackageOverrides or (self: super: {});
-      }).ghcWithPackages (self: [ self.cabal-install ]);
-
-      haskell78 = (pkgs.haskell.packages.ghc784.override {
-        overrides = config.haskellPackageOverrides or (self: super: {});
-      }).ghcWithPackages (self: [ self.cabal-install ]);
-
-      haskell74 = (pkgs.haskell.packages.ghc742.override {
-        overrides = config.haskellPackageOverrides or (self: super: {});
-      }).ghcWithPackages (self: [ self.cabal-install ]);
+      }).ghcWithPackages mypkgs;
 
     };
   };

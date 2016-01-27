@@ -34,7 +34,7 @@
           patches = [ ../pkgs/xfce4-xkb.patch ];
         });
 
-        thunar = pkgs.lib.overrideDerivation pkgs.xfce.thunar (a:{
+        thunar-build = pkgs.lib.overrideDerivation pkgs.xfce.thunar-build (a:{
           name = a.name + "-patched";
           prePatch = ''
             cp -pv ${pkgs.callPackage ../pkgs/thunar_uca.nix {}} plugins/thunar-uca/uca.xml.in

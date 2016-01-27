@@ -218,7 +218,7 @@ rec {
 
     (devenv {
       name = "dev";
-      extraPkgs = [ haskell710 ]
+      extraPkgs = [ haskell-latest ]
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
 
