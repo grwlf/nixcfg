@@ -26,10 +26,7 @@ stdenv.mkDerivation {
         D=`${byad} --file --save --confirm-overwrite="Переписать файл?"`
         T=`mktemp`
 
-        ${xterm}/bin/xterm -e "${bffmpeg} -i '$S' -r 25 -strict -2  '$T.$EXT' && echo 1 > $T"
-        ${gnugrep}/bin/grep -q 1 "$T"
-
-        cp "$T.$EXT" "$D" || true
+        ${xterm}/bin/xterm -e "${bffmpeg} -i '$S' -r 25 -strict -2  '$T.$EXT' && cp -v '$T.$EXT' '$D' ; echo Done ; read"
         rm "$T" "$T.$EXT"
 
       ''} $out
