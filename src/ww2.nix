@@ -22,7 +22,7 @@ rec {
       ./include/postfix_relay.nix
       ./include/templatecfg.nix
       ./include/xfce-overrides.nix
-      # ./include/firefox-with-localization.nix
+      ./include/firefox-with-localization.nix
       ./include/wheel.nix
       ./include/ntpd.nix
       # ./include/syncthing.nix
@@ -194,10 +194,10 @@ rec {
     ruby
     bvi
     i7z
-    firefoxWrapper
     encfs
     imagemagick
     cvc4
+    firefox-langpack
   ];
 
   nixpkgs.config = {
