@@ -60,10 +60,10 @@ let
           echo "ffi ${uwModuleName file}" >> lib.urp.header
         '';
 
-      mkLib = file : let
-          l =
-            trace "loading lib ${file}"
-                  "${import "${file}/build.nix"}/lib.urp";
+      mkLib = file :
+        let
+          i = import "${builtins.toPath file}/build.nix";
+          l = "${i}/lib.urp";
         in
         ''
           echo "library ${l}" >> lib.urp.header
