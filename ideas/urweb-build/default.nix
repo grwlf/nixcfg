@@ -19,14 +19,15 @@ let
     with lib; with builtins;
     let
       x =  lastSegment "/" src;
+      trimmed = concatStringsSep "-" ( drop 1 (splitString "-" x));
     in
-    if stringLength x < 30
+    if ((stringLength x) < 30) || (trimmed == "")
       then x
-      else concatStringsSep "-" ( drop 1 (splitString "-" x));
+      else trimmed;
 
   uwModuleName = src :
     with lib; with builtins;
-      replaceStrings ["-" "."] ["_" "_"] (
+      replaceStrings ["-" "." "\n"] ["_" "_" ""] (
         calcFileName (removeUrSuffixes src)
       );
 
@@ -106,7 +107,8 @@ let
 
           o = e.out;
 
-        in ''
+        in
+        ''
         cp ${o}/*c ${o}/*h ${o}/*urs ${o}/*ur ${o}/*o .
         cat ${o}/lib.urp.header >> lib.urp.header
         echo ${uwModuleName e.urFile} >> lib.urp.body
@@ -150,7 +152,7 @@ let
             cat lib.urp.header >> lib.urp
             echo >> lib.urp
             cat lib.urp.body >> lib.urp
-            rm lib.urp.header lib.urp.body
+            # rm lib.urp.header lib.urp.body
           '';
         };
     };
