@@ -61,20 +61,27 @@ let
           echo "ffi ${uwModuleName file}" >> lib.urp.header
         '';
 
-      mkLib = file :
+      mkLib = l :
         let
-          i = import "${builtins.toPath file}/build.nix";
-          l = "${i}/lib.urp";
+          lib = "${import "${builtins.toPath l}/build.nix"}";
         in
+        ''
+          echo "library ${lib}" >> lib.urp.header
+        '';
+
+      mkLib2 = l :
         ''
           echo "library ${l}" >> lib.urp.header
         '';
 
-      mkEmbed = file :
+      mkEmbed_ = { css ? false, js ? false } : file :
         let
 
           sn = clearNixStore (uwModuleName file);
           snc = "${sn}_c";
+          snj = "${sn}_j";
+          flag_css = if css then "--css-mangle-urls" else "";
+          flag_js = if js then "-j ${snj}.urs" else "";
 
           e = rec {
             urFile = "${out}/${sn}.ur";
@@ -88,11 +95,13 @@ let
                 cd $out
 
                 (
-                ${urembed} -c ${snc}.c -H ${snc}.h -s ${snc}.urs  -w ${sn}.ur ${file}
-                echo 'ffi ${snc}.urs'
+                ${urembed} -c ${snc}.c -H ${snc}.h -s ${snc}.urs  -w ${sn}.ur ${flag_css} ${flag_js} ${file}
+                echo 'ffi ${snc}'
                 echo 'include ${snc}.h'
                 echo 'link ${snc}.o'
+                ${if js then "echo 'ffi ${snj}'" else ""}
                 ) > lib.urp.header
+
 
                 UWCC=`${urweb}/bin/urweb -print-ccompiler`
                 IDir=`${urweb}/bin/urweb -print-cinclude`
@@ -114,9 +123,9 @@ let
         echo ${uwModuleName e.urFile} >> lib.urp.body
         '';
 
-      # FIXME: implement embedding for CSS and JS
-      mkEmbedCSS = mkEmbed;
-      mkEmbedJS = mkEmbed;
+      mkEmbed = mkEmbed_ {} ;
+      mkEmbedCSS = mkEmbed_ { css = true; };
+      mkEmbedJS = mkEmbed_ { js = true; };
 
       mkSrc = ur : urs : ''
         cp ${ur} `echo ${ur} | sed 's@.*/[a-z0-9]\+-\(.*\)@\1@'`
@@ -139,7 +148,8 @@ let
           name = "urweb-lib-${name}";
           buildCommand = ''
             . $stdenv/setup
-            mkdir -pv $out ; cd $out
+            mkdir -pv $out
+            cd $out
 
             set -x
 
@@ -153,6 +163,38 @@ let
             echo >> lib.urp
             cat lib.urp.body >> lib.urp
             # rm lib.urp.header lib.urp.body
+          '';
+        };
+
+      mkUrpExe = {name, body, header ? []} :
+        with lib; with builtins;
+        stdenv.mkDerivation {
+          name = "urweb-exe-${name}";
+          buildCommand = ''
+            . $stdenv/setup
+            mkdir -pv $out
+            cd $out
+
+            set -x
+
+            echo -n > lib.urp.header
+            echo -n > lib.urp.body
+
+            ${concatStrings header}
+            ${concatStrings body}
+
+            {
+              cat lib.urp.header
+              echo
+              cat lib.urp.body
+            } > ${name}.urp
+            # rm lib.urp.header lib.urp.body
+
+            cat ${name}.urp
+            ls
+
+            ${urweb}/bin/urweb -dbms postgres ${name}
+
           '';
         };
     };
