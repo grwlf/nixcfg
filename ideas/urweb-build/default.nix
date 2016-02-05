@@ -33,17 +33,24 @@ let
 
   defs =  rec {
 
-    inherit (pkgs) stdenv lib;
+    inherit (pkgs) stdenv lib postgresql sqlite;
 
     urembed = ./cake3/dist/build/urembed/urembed;
 
+    defaultDbms = "postgres";
+
     public = rec {
 
-      mkVerbose = txt : ''
-          echo ${txt} >> lib.urp.header
+      set = rule;
+      rule = txt : ''
+          echo "${txt}" >> lib.urp.header
         '';
 
-      mkObj = file : ''
+      sql = file : rule "sql ${file}";
+
+      database = arg : rule "database ${arg}";
+
+      obj = file : ''
           UWCC=`${urweb}/bin/urweb -print-ccompiler`
           IDir=`${urweb}/bin/urweb -print-cinclude`
           CC=`$UWCC -print-prog-name=gcc`
@@ -51,17 +58,17 @@ let
           echo "link `basename ${file}`.o" >> lib.urp.header
         '';
 
-      mkInclude = file : ''
+      include = file : ''
           cp ${file} ${calcFileName file}
           echo "include ${calcFileName file}" >> lib.urp.header
         '';
 
-      mkFFI = file : ''
+      ffi = file : ''
           cp ${file} ${uwModuleName file}.urs
           echo "ffi ${uwModuleName file}" >> lib.urp.header
         '';
 
-      mkLib = l :
+      lib-extern = l :
         let
           lib = "${import "${builtins.toPath l}/build.nix"}";
         in
@@ -69,12 +76,12 @@ let
           echo "library ${lib}" >> lib.urp.header
         '';
 
-      mkLib2 = l :
+      lib-local = l :
         ''
           echo "library ${l}" >> lib.urp.header
         '';
 
-      mkEmbed_ = { css ? false, js ? false } : file :
+      embed_ = { css ? false, js ? false } : file :
         let
 
           sn = clearNixStore (uwModuleName file);
@@ -123,53 +130,56 @@ let
         echo ${uwModuleName e.urFile} >> lib.urp.body
         '';
 
-      mkEmbed = mkEmbed_ {} ;
-      mkEmbedCSS = mkEmbed_ { css = true; };
-      mkEmbedJS = mkEmbed_ { js = true; };
+      embed = embed_ {} ;
+      embed-css = embed_ { css = true; };
+      embed-js = embed_ { js = true; };
 
-      mkSrc = ur : urs : ''
+      src = ur : urs : ''
         cp ${ur} `echo ${ur} | sed 's@.*/[a-z0-9]\+-\(.*\)@\1@'`
         cp ${urs} `echo ${urs} | sed 's@.*/[a-z0-9]\+-\(.*\)@\1@'`
         echo ${uwModuleName ur} >> lib.urp.body
         '';
 
-      mkSrc1 = ur : ''
+      src1 = ur : ''
         cp ${ur} `echo ${ur} | sed 's@.*/[a-z0-9]\+-\(.*\)@\1@'`
         echo ${uwModuleName ur} >> lib.urp.body
         '';
 
-      mkSys = nm : ''
+      sys = nm : ''
         echo $/${nm} >> lib.urp.body
         '';
 
-      mkUrpLib = {name, body, header ? []} :
+      mkUrp = {name, statements, isLib ? false, dbms, dbname ? ""} :
         with lib; with builtins;
-        stdenv.mkDerivation {
-          name = "urweb-lib-${name}";
-          buildCommand = ''
-            . $stdenv/setup
-            mkdir -pv $out
-            cd $out
+        let
+          isExe = !isLib;
+          isPostgres = dbms == "postgres";
+          isSqlite = dbms == "sqlite";
+          urp = if isLib then "lib.urp" else "${name}.urp";
+          db = name;
 
-            set -x
-
-            echo -n > lib.urp.header
-            echo -n > lib.urp.body
-
-            ${concatStrings header}
-            ${concatStrings body}
-
-            cat lib.urp.header >> lib.urp
-            echo >> lib.urp
-            cat lib.urp.body >> lib.urp
-            # rm lib.urp.header lib.urp.body
+          mkPostgresDB = ''
+            (
+            echo "#!/bin/sh"
+            echo set -x
+            echo ${postgres}/bin/dropdb --if-exists ${db}
+            echo ${postgres}/bin/createdb ${db}
+            echo ${postgres}/bin/createdb/psql -f $out/${name}.sql ${db}
+            ) > ./mkdb.sh
+            chmod +x ./mkdb.sh
           '';
-        };
 
-      mkUrpExe = {name, body, header ? []} :
-        with lib; with builtins;
+          mkSqliteDB = ''
+            (
+            echo "#!/bin/sh"
+            echo set -x
+            echo ${sqlite}/bin/sqlite3 ${name}.db \< $out/${name}.sql
+            ) > ./mkdb.sh
+            chmod +x ./mkdb.sh
+          '';
+        in
         stdenv.mkDerivation {
-          name = "urweb-exe-${name}";
+          name = "urweb-urp-${name}";
           buildCommand = ''
             . $stdenv/setup
             mkdir -pv $out
@@ -180,23 +190,28 @@ let
             echo -n > lib.urp.header
             echo -n > lib.urp.body
 
-            ${concatStrings header}
-            ${concatStrings body}
+            ${concatStrings statements}
+            ${optionalString isExe (sql "${name}.sql")}
+            ${optionalString isPostgres (database "dbname=${name}")}
+            ${optionalString isSqlite (database "dbname=${name}.db")}
 
             {
               cat lib.urp.header
               echo
               cat lib.urp.body
-            } > ${name}.urp
+            } > ${urp}
             # rm lib.urp.header lib.urp.body
 
-            cat ${name}.urp
-            ls
+            ${optionalString isPostgres mkPostgresDB}
+            ${optionalString isSqlite mkSqliteDB}
 
-            ${urweb}/bin/urweb -dbms postgres ${name}
-
+            ${optionalString isExe "${urweb}/bin/urweb -dbms ${dbms} ${name}"}
           '';
         };
+
+      mkLib = {name, statements} : mkUrp { inherit name statements; dbms = ""; isLib = true; };
+      mkExe = {name, statements, dbms ? defaultDbms} : mkUrp { inherit name statements dbms; isLib = false; };
+
     };
   };
 
