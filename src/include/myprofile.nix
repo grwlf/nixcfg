@@ -49,6 +49,9 @@ in pkgs.writeText "myprofile.sh" ''
   gf()      { ${git}/bin/git fetch github || ${git}/bin/git fetch origin ; }
   beep()    { aplay ~/proj/dotfiles/beep.wav ; }
 
+  alias nb='nix-build --option use-binary-caches false'
+  alias ns='nix-shell --option use-binary-caches false'
+
   alias ga='${gitbin} add'
   alias gai='${gitbin} add -i'
   alias gb='${gitbin} branch'
