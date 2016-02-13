@@ -68,11 +68,13 @@ in pkgs.writeText "myprofile.sh" ''
   alias gr='${gitbin} reset'
   alias grh='${gitbin} reset --hard'
   alias grm='${gitbin} remote'
+  alias grv='${gitbin} remote -v'
   alias grma='${gitbin} remote add'
   alias gs='${gitbin} status'
   alias gsta='${gitbin} stash pop'
   alias gstl='${gitbin} stash list'
   alias gsts='${gitbin} stash save'
+  alias gsu='${gitbin} submodule update'
 
   vim()     {
     case "$1" in
