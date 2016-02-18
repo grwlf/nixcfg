@@ -1,9 +1,6 @@
-# let
-#   system = "x86_64-linux";
-#   pkgs = import <nixpkgs> {inherit system;};
-# in
-# with pkgs;
-{ stdenv, bash, writeShellScriptBin, ffmpeg, yad, gnused, xterm, gnugrep }:
+# { stdenv, bash, writeShellScriptBin, ffmpeg, yad, gnused, xterm, gnugrep }:
+{ pkgs ? import <nixpkgs> {} } :
+with pkgs;
 let
   byad = "${yad}/bin/yad";
   bffmpeg = "${ffmpeg}/bin/ffmpeg";
@@ -15,19 +12,23 @@ stdenv.mkDerivation {
 
   buildCommand = ''
     cp -r -v ${writeShellScriptBin "videoconvert" ''
-        echo "ffmpeg is ${ffmpeg}"
-        echo "yad is ${yad}"
-
         set -e -x
 
-        S="$1"
-        EXT=`echo "$S" | ${bsed} 's/\(.*\)\.//'`
-        test -f "$S"
-        D=`${byad} --file --save --confirm-overwrite="Переписать файл?"`
-        T=`mktemp`
+        while test -n "$1" ; do
 
-        ${xterm}/bin/xterm -e "${bffmpeg} -i '$S' -r 25 -strict -2  '$T.$EXT' && cp -v '$T.$EXT' '$D' ; echo Done ; read"
-        rm "$T" "$T.$EXT"
+          S="$1"
+          EXT=`echo "$S" | ${bsed} 's/\(.*\)\.//'`
+          test -f "$S"
+          D=`${byad} --file --save --confirm-overwrite="Переписать файл?" --filename="$S" --geometry=750x500`
+          test -n "$D"
+          T=`mktemp`
+
+          ${xterm}/bin/xterm -e " { ${bffmpeg} -i '$S' -r 25 -strict -2 '$T.$EXT' ; mv --verbose '$T.$EXT' '$D' ; echo Done ; } || read "
+
+          rm "$T" "$T.$EXT" || true
+
+          shift
+        done
 
       ''} $out
   '';
