@@ -52,7 +52,8 @@ rec {
 
   hardware = {
     opengl.videoDrivers = [ "intel" ];
-    opengl.driSupport32Bit = true;
+    # opengl.videoDrivers = [ "vesa" ];
+    # opengl.driSupport32Bit = true;
     enableAllFirmware = true;
     # firmware = [ "/root/firmware" ];
     bluetooth.enable = false;
@@ -117,6 +118,11 @@ rec {
 
     displayManager = {
       sddm.enable = true;
+      #lightdm.enable = true;
+      # slim = {
+      #   enable = true;
+      #   defaultUser = "grwlf";
+      # };
     };
 
     multitouch.enable = false;
