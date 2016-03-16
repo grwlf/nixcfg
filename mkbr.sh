@@ -8,15 +8,20 @@ echo $@ | grep -qwE -e '-h|--help' && {
   return 1
 }
 
+echo $@ | grep -qwE -e '-f|--force' && {
+  FORCE=y
+}
+
+args=`echo "$@" | grep -v -e '-.*'`
+
 set -e
 
-
-if test -z "$@" ; then
+if test -z "$args" ; then
   # cmts=`git rev-parse HEAD`
   crev=`git merge-base HEAD origin/master`
   cmts=`git log --reverse --oneline $crev..HEAD | awk '{print $1}'`
 else
-  cmts=`git rev-parse "$@"`
+  cmts=`git rev-parse "$args"`
 fi
 
 cwd=`pwd`
@@ -29,7 +34,15 @@ read bname
 set -x
 cb=`git branch --list | grep '*' | awk '{print $2}'`
 base=`git merge-base "$cb" origin/master`
-{ git branch $bname $base || echo "$ME: branch $bname exists? Well, OK" ; }
+{ git branch $bname $base || {
+    if test "$FORCE" = "y" ; then
+      git branch -D "$bname"
+      git branch "$bname" "$base"
+    else
+      echo "$ME: branch $bname exists? Well, OK" ;
+    fi
+  }
+}
 git checkout "$bname"
 git cherry-pick $cmts
 git rebase -i $base
