@@ -36,8 +36,8 @@
     tree
     curlFull
     usbutils
+    pciutils
     stunnel
-    usbutils
     swaks
     which
     socat
