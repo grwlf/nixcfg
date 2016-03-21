@@ -31,6 +31,22 @@ rec {
 
   boot.blacklistedKernelModules = [
     "fbcon"
+
+    # Debug audio
+    "snd_hda_codec_hdmi"
+    "snd_hda_codec_realtek"
+    "snd_hda_codec_generic"
+    "snd_hda_intel"
+    "snd_hda_controller"
+    "snd_hda_codec"
+    "snd_hda_core"
+    "snd_hwdep"
+    "snd_pcm_oss"
+    "snd_mixer_oss"
+    "snd_pcm"
+    "snd_timer"
+    "snd"
+    "soundcore"
     ];
 
   boot.kernelParams = [
@@ -238,6 +254,15 @@ rec {
     google-drive-ocamlfuse
     ffmpeg
   ];
+
+  # users.extraUsers = {
+  #   ilanacarra = {
+  #     group = "users";
+  #     extraGroups = ["wheel" "audio"];
+  #     home = "/home/ilanacarra";
+  #     useDefaultShell = true;
+  #   };
+  # };
 
   nixpkgs.config = {
     sox.enableLame = true;
