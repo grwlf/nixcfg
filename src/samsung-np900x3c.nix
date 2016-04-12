@@ -33,20 +33,20 @@ rec {
     "fbcon"
 
     # Debug audio
-    "snd_hda_codec_hdmi"
-    "snd_hda_codec_realtek"
-    "snd_hda_codec_generic"
-    "snd_hda_intel"
-    "snd_hda_controller"
-    "snd_hda_codec"
-    "snd_hda_core"
-    "snd_hwdep"
-    "snd_pcm_oss"
-    "snd_mixer_oss"
-    "snd_pcm"
-    "snd_timer"
-    "snd"
-    "soundcore"
+    # "snd_hda_codec_hdmi"
+    # "snd_hda_codec_realtek"
+    # "snd_hda_codec_generic"
+    # "snd_hda_intel"
+    # "snd_hda_controller"
+    # "snd_hda_codec"
+    # "snd_hda_core"
+    # "snd_hwdep"
+    # "snd_pcm_oss"
+    # "snd_mixer_oss"
+    # "snd_pcm"
+    # "snd_timer"
+    # "snd"
+    # "soundcore"
     ];
 
   boot.kernelParams = [
@@ -69,7 +69,7 @@ rec {
   hardware = {
     opengl.videoDrivers = [ "intel" ];
     # opengl.videoDrivers = [ "vesa" ];
-    # opengl.driSupport32Bit = true;
+    opengl.driSupport32Bit = true;
     enableAllFirmware = true;
     # firmware = [ "/root/firmware" ];
     bluetooth.enable = false;
@@ -202,6 +202,11 @@ rec {
     user = me;
     dataDir = "/var/lib/syncthing-${me}";
   };
+
+  services.thermald = {
+    enable = true;
+  };
+
 
   # security = {
   #   pam = {
