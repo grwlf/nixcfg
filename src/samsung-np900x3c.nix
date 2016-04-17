@@ -258,6 +258,7 @@ rec {
     lsof
     google-drive-ocamlfuse
     ffmpeg
+    electrum
   ];
 
   # users.extraUsers = {
