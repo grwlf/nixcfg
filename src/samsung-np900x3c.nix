@@ -87,11 +87,11 @@ rec {
   fileSystems = [
     { mountPoint = "/";
       device = "/dev/disk/by-label/ROOT";
-      options = "defaults,relatime,discard";
+      options = ["defaults" "relatime" "discard"];
     }
     { mountPoint = "/home";
       device = "/dev/disk/by-label/HOME";
-      options = "defaults,relatime,discard";
+      options = ["defaults" "relatime" "discard"];
     }
   ];
 
