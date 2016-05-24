@@ -131,6 +131,8 @@ in pkgs.writeText "myprofile.sh" ''
   nix_unpack() { nix-build '<nixpkgs>' -A $1.src --no-out-link | grep /nix/store | xargs ${atool}/bin/aunpack ; }
   alias nix-unpack='nix_unpack'
 
+  encfs() { `which encfs` -i 60 "$@" ; }
+
   ${if extra != null then extra else ""}
 ''
 
