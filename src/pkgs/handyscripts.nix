@@ -26,6 +26,9 @@ stdenv.mkDerivation {
     ${mkscript "$out/bin/xpaste" ''
       ${binxdotool} type "`${binxsel}`"
     ''}
+    ${mkscript "$out/bin/lockhyb" ''
+      i3lock -d && xfce4-session-logout --suspend
+    ''}
   '';
 
   meta = {
