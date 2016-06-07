@@ -133,11 +133,12 @@ rec {
     };
 
     displayManager = {
-      sddm.enable = true;
-      #lightdm.enable = true;
+      # sddm.enable = true;
+      lightdm.enable = true;
+      # gdm.enable = true;
       # slim = {
       #   enable = true;
-      #   defaultUser = "grwlf";
+      # #   defaultUser = "grwlf";
       # };
     };
 

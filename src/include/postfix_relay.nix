@@ -13,7 +13,7 @@ with pkgs;
       inet_interfaces = loopback-only
       relayhost=[smtp.gmail.com]:587
       smtp_use_tls=yes
-      smtp_tls_CAfile=${cacert}/etc/ca-bundle.crt
+      smtp_tls_CAfile=${cacert}/etc/ssl/certs/ca-bundle.crt
       smtp_sasl_auth_enable=yes
       smtp_sasl_password_maps=hash:/etc/postfix.local/sasl_passwd
       smtp_sasl_security_options=noanonymous
