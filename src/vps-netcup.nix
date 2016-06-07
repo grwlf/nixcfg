@@ -132,7 +132,7 @@ rec {
     vimHugeX
     (devenv {
       name = "dev";
-      extraPkgs = [ haskell710 ];
+      extraPkgs = [ haskell-latest ];
     })
     postgresql
     imagemagick
