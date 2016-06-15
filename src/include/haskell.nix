@@ -24,6 +24,16 @@ in
         overrides = config.haskellPackageOverrides or (self: super: {});
       }).ghcWithPackages mypkgs;
 
+      haskell-latest-profiling = (pkgs.haskell.packages.lts-4_2.override {
+        overrides = config.haskellPackageOverrides or (self: super: {
+
+          mkDerivation = args: super.mkDerivation (args // {
+            enableLibraryProfiling = true;
+          });
+
+        });
+      }).ghcWithPackages mypkgs;
+
     };
   };
 }

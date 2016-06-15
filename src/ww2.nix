@@ -178,7 +178,7 @@ rec {
     cups
     (devenv {
       name = "dev";
-      extraPkgs = [ haskell-latest ]
+      extraPkgs = [ haskell-latest-profiling ]
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
     (devenv {
