@@ -52,6 +52,7 @@ rec {
   boot.kernelParams = [
     # Use better scheduler for SSD drive
     "elevator=noop"
+    "intel_pstate=disable"
     ];
 
   boot.loader.grub.enable = true;
@@ -246,7 +247,7 @@ rec {
 
     (devenv {
       name = "dev";
-      extraPkgs = [ haskell-latest ]
+      extraPkgs = [ haskell-latest-profiling ]
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
 
