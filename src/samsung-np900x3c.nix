@@ -21,7 +21,7 @@ rec {
       ./include/postfix_relay.nix
       ./include/templatecfg.nix
       ./include/xfce-overrides.nix
-      ./include/firefox-with-localization.nix
+      # ./include/firefox-with-localization.nix
       # ./include/syncthing.nix
       ./include/wheel.nix
       ./include/ntpd.nix
@@ -68,7 +68,6 @@ rec {
   };
 
   hardware = {
-    opengl.videoDrivers = [ "intel" ];
     # opengl.videoDrivers = [ "vesa" ];
     opengl.driSupport32Bit = true;
     enableAllFirmware = true;
@@ -88,11 +87,11 @@ rec {
   fileSystems = [
     { mountPoint = "/";
       device = "/dev/disk/by-label/ROOT";
-      options = "defaults,relatime,discard";
+      options = ["defaults" "relatime" "discard"];
     }
     { mountPoint = "/home";
       device = "/dev/disk/by-label/HOME";
-      options = "defaults,relatime,discard";
+      options = ["defaults" "relatime" "discard"];
     }
   ];
 
@@ -114,6 +113,9 @@ rec {
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql92;
+    initialScript =  pkgs.writeText "postgreinit.sql" ''
+      create role grwlf superuser login createdb createrole replication;
+    '';
   };
 
   services.printing = {
@@ -123,7 +125,7 @@ rec {
   services.xserver = {
     enable = true;
 
-    startOpenSSHAgent = true;
+    videoDrivers = [ "intel" ];
 
     layout = "us,ru";
 
@@ -175,7 +177,9 @@ rec {
     '';
   };
 
-  services.virtualboxHost.enable = false;
+  programs.ssh.startAgent = true;
+
+  virtualisation.virtualbox.host.enable = false;
 
 
   services.journald = {
@@ -200,6 +204,7 @@ rec {
   };
 
   services.syncthing ={
+    package = pkgs.syncthing012;
     enable = true;
     user = me;
     dataDir = "/var/lib/syncthing-${me}";
@@ -247,20 +252,23 @@ rec {
 
     (devenv {
       name = "dev";
-      extraPkgs = [ haskell-latest-profiling ]
+      extraPkgs = [ haskell-latest ]
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
 
     imagemagickBig
     geeqie
     gimp_2_8
-    firefox-langpack
+    # firefox-langpack
+    # firefox-bin
     encfs
     plowshare
     lsof
     google-drive-ocamlfuse
     ffmpeg
     electrum
+
+    gnuplot
   ];
 
   # users.extraUsers = {
