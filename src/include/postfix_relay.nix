@@ -20,7 +20,7 @@ with pkgs;
     '';
   };
 
-  jobs.postfix.preStart =
+  systemd.services.postfix.preStart =
     let
         saslpwd = callPackage ./sasl_passwd.nix {};
     in ''

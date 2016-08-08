@@ -64,6 +64,7 @@
           mpfr
           gcc
           mlton
+          stack
         ];
 
         myprofile = import ./myprofile.nix {

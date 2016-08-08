@@ -2,7 +2,7 @@
 {
 
   fonts = {
-    enableFontConfig = true;
+    fontconfig.enable = true;
     enableFontDir = true;
     enableCoreFonts = true;
     enableGhostscriptFonts = true;

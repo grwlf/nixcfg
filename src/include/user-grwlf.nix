@@ -19,13 +19,6 @@
 
   };
 
-  services = pkgs.lib.mkIf config.services.postgresql.enable {
-
-    postgresql.initialScript = pkgs.writeText "postgreinit.sql" ''
-      create role grwlf superuser login createdb createrole replication;
-      '';
-
-  };
 
 }
 

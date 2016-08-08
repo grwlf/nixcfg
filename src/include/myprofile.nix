@@ -8,6 +8,7 @@ let
   gitbin = "${git}/bin/git";
 
 in pkgs.writeText "myprofile.sh" ''
+
   export EDITOR=${vimHugeX}/bin/vim
   export VERSION_CONTROL=numbered
   export SVN_EDITOR=$EDITOR

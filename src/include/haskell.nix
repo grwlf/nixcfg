@@ -20,11 +20,11 @@ in
         overrides = config.haskellPackageOverrides or (self: super: {});
       }).ghcWithPackages mypkgs;
 
-      haskell-latest = (pkgs.haskell.packages.lts-4_2.override {
+      haskell-latest = (pkgs.haskell.packages.lts-6_7.override {
         overrides = config.haskellPackageOverrides or (self: super: {});
       }).ghcWithPackages mypkgs;
 
-      haskell-latest-profiling = (pkgs.haskell.packages.lts-4_2.override {
+      haskell-latest-profiling = (pkgs.haskell.packages.lts-6_7.override {
         overrides = config.haskellPackageOverrides or (self: super: {
 
           mkDerivation = args: super.mkDerivation (args // {
