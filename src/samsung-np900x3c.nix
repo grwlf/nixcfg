@@ -261,6 +261,7 @@ rec {
     gimp_2_8
     # firefox-langpack
     # firefox-bin
+    firefox
     encfs
     plowshare
     lsof
@@ -271,15 +272,6 @@ rec {
     gnuplot
   ];
 
-  # users.extraUsers = {
-  #   ilanacarra = {
-  #     group = "users";
-  #     extraGroups = ["wheel" "audio"];
-  #     home = "/home/ilanacarra";
-  #     useDefaultShell = true;
-  #   };
-  # };
-
   nixpkgs.config = {
     sox.enableLame = true;
     allowBroken = true;
@@ -289,7 +281,7 @@ rec {
       enableAdobeFlash = true;
     };
     firefox = {
-      jre = true;
+      jre = false;
       enableAdobeFlash = true;
     };
   };

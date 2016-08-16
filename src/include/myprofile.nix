@@ -134,6 +134,8 @@ in pkgs.writeText "myprofile.sh" ''
 
   encfs() { `which encfs` -i 60 "$@" ; }
 
+  firefox() { `which firefox` -UILocale ru ; }
+
   ${if extra != null then extra else ""}
 ''
 
