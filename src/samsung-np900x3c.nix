@@ -270,6 +270,7 @@ rec {
     electrum
 
     gnuplot
+    cutegram
   ];
 
   nixpkgs.config = {
