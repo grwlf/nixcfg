@@ -108,7 +108,7 @@ rec {
     '';
   };
 
-  services.dbus.packages = [ pkgs.gnome.GConf ];
+  # services.dbus.packages = [ pkgs.gnome.GConf ];
 
   services.postgresql = {
     enable = true;
