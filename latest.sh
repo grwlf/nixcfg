@@ -2,8 +2,9 @@
 
 me=`basename $0`
 
-rev=`curl http://releases.nixos.org/nixos/unstable/ 2>/dev/null |
-  sed -n 's/.*pre.*\.\([a-z0-9]\+\)\/.*/\1/g p' | tail -n 1`
+nix-channel --update
+rev=`nix-instantiate --eval -E "(import ~/.nix-defexpr/channels/nixpkgs/default.nix {}).lib.nixpkgsVersion" |
+  sed -n 's/.*pre.*\.\([a-z0-9]\+\).*/\1/g p' | tail -n 1`
 
 if test -z "$rev" ; then
   echo "$me: Error obtaining channel info from nixos.org" >&2
