@@ -22,7 +22,17 @@
         scipy
         numpy
         matplotlib
+        xlibs.xeyes
+        pycairo
+        pyqt5
+        pygobject3
+        gtk3
+        gobjectIntrospection
       ];
+
+      shellHook = ''
+        export MPLBACKEND='Qt5Agg'
+      '';
     };
 
   };
