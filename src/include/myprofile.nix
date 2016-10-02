@@ -136,6 +136,8 @@ in pkgs.writeText "myprofile.sh" ''
 
   firefox() { `which firefox` -UILocale ru ; }
 
+  nshell() { N=$1; shift ; nix-shell '<nixpkgs>' -A "$N" "$@" ; }
+
   ${if extra != null then extra else ""}
 ''
 

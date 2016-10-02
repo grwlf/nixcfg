@@ -3,6 +3,9 @@
   allowBroken = true;
 
   packageOverrides = pkgs:
+    let
+      inherit (pkgs) stdenv;
+    in
     with pkgs; {
 
     rEnv = pkgs.rWrapper.override {
@@ -15,7 +18,7 @@
       ];
     };
 
-    pydev = pkgs.stdenv.mkDerivation {
+    pydev = stdenv.mkDerivation {
       name = "pydev";
       buildInputs = with python3Packages; [
         python
@@ -33,6 +36,14 @@
       shellHook = ''
         export MPLBACKEND='Qt5Agg'
       '';
+    };
+
+    odev = stdenv.mkDerivation {
+      name = "odev";
+      buildInputs = [
+        octave
+        gnuplot
+      ];
     };
 
   };
