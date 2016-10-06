@@ -20,6 +20,15 @@ in pkgs.writeText "myprofile.sh" ''
   export PATH="$HOME/.cabal/bin:$PATH"
   export PATH="$HOME/local/bin:$PATH"
 
+  if env | grep -q SSH_CONNECTION= ; then
+    if env | grep -q DISPLAY= ; then
+      echo DISPLAY is $DISPLAY >/dev/null
+      echo "export DISPLAY=$DISPLAY" > $HOME/.display
+    else
+      echo No DISPLAY was set >/dev/null
+    fi
+  fi
+
   cal()     { `which cal` -m "$@" ; }
   df()      { `which df` -h "$@" ; }
   du()      { `which du` -h "$@" ; }
@@ -47,12 +56,13 @@ in pkgs.writeText "myprofile.sh" ''
               fi
             }
   manconf() { ${man}/bin/man configuration.nix ; }
-  gf()      { ${git}/bin/git fetch github || ${git}/bin/git fetch origin ; }
   beep()    { aplay ~/proj/dotfiles/beep.wav ; }
 
-  alias nb='nix-build --option use-binary-caches false'
-  alias ns='nix-shell --option use-binary-caches false'
+  #
+  # GIT Aliases
+  #
 
+  gf()      { ${git}/bin/git fetch github || ${git}/bin/git fetch origin ; }
   alias ga='${gitbin} add'
   alias gai='${gitbin} add -i'
   alias gb='${gitbin} branch'
@@ -77,6 +87,36 @@ in pkgs.writeText "myprofile.sh" ''
   alias gsts='${gitbin} stash save'
   alias gsu='${gitbin} submodule update'
 
+  #
+  # NIX aliases
+  #
+
+  nix_dev() { (
+    N=$1; shift ;
+    NIXPKGS_CONFIG=$NIX_DEV_ROOT/ideas/nixpkgs-config.nix \
+      nix-shell '<nixpkgs>' -A "$N" "$@" ;
+  ) }
+
+  nix_env() { (
+    NIXPKGS_CONFIG=$NIX_DEV_ROOT/ideas/nixpkgs-config.nix \
+      nix-env -f '<nixpkgs>' "$@"
+  ) }
+
+  nix_unpack() { (
+    NIXPKGS_CONFIG=$NIX_DEV_ROOT/ideas/nixpkgs-config.nix \
+      nix-build '<nixpkgs>' -A $1.src --no-out-link | \
+        grep /nix/store | xargs ${atool}/bin/aunpack
+  ) }
+
+  alias ne="nix_env"
+  alias nu="nix_unpack"
+  alias nd="nix_dev"
+
+
+  #
+  # Custom aliases
+  #
+
   vim()     {
     case "$1" in
       "") ${vimHugeX}/bin/vim . ;;
@@ -96,15 +136,6 @@ in pkgs.writeText "myprofile.sh" ''
       echo "Failed to get PID. Do you have GNU/Screen running?" >&2
     fi
   }
-
-  if env | grep -q SSH_CONNECTION= ; then
-    if env | grep -q DISPLAY= ; then
-      echo DISPLAY is $DISPLAY >/dev/null
-      echo "export DISPLAY=$DISPLAY" > $HOME/.display
-    else
-      echo No DISPLAY was set >/dev/null
-    fi
-  fi
 
   make() {
     if test -f "Makefile.dev" ; then
@@ -129,15 +160,10 @@ in pkgs.writeText "myprofile.sh" ''
   ghc() { my_ghc_cmd ghc "$@"; }
   ghci() { my_ghc_cmd ghci "$@"; }
 
-  nix_unpack() { nix-build '<nixpkgs>' -A $1.src --no-out-link | grep /nix/store | xargs ${atool}/bin/aunpack ; }
-  alias nix-unpack='nix_unpack'
-
   encfs() { `which encfs` -i 60 "$@" ; }
-
   firefox() { `which firefox` -UILocale ru ; }
 
-  nshell() { N=$1; shift ; nix-shell '<nixpkgs>' -A "$N" "$@" ; }
-
   ${if extra != null then extra else ""}
+
 ''
 

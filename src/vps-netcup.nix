@@ -17,7 +17,7 @@ rec {
     ./include/postfix_relay.nix
     ./include/templatecfg.nix
     ./include/user-grwlf.nix
-    ./include/syncthing.nix
+    # ./include/syncthing.nix
     ./include/wheel.nix
     ./include/ntpd.nix
   ];
@@ -126,6 +126,13 @@ rec {
           use_backend ssh if client_attempts_ssh
           use_backend secure_http if HTTP
     '';
+  };
+
+  services.syncthing ={
+    enable = true;
+    package = pkgs.syncthing012;
+    user = "syncthing";
+    dataDir = "/var/lib/syncthing";
   };
 
   environment.systemPackages = with pkgs ; [

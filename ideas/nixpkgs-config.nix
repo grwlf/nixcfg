@@ -8,7 +8,7 @@
     in
     with pkgs; {
 
-    rEnv = pkgs.rWrapper.override {
+    rdev = pkgs.rWrapper.override {
       packages = with pkgs.rPackages; [
         devtools
         ggplot2
