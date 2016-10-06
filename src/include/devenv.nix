@@ -69,6 +69,8 @@ in
 
     packageOverrides = pkgs : {
 
+      inherit devlibs_x11 devlibs_cross;
+
       devenv = { name ? "dev", extraPkgs ? []} :
         let
 
