@@ -91,10 +91,10 @@ au BufEnter *grm set filetype=ur
 au BufEnter nixos-config set filetype=nix
 au FileType nix set expandtab shiftwidth=2 tabstop=2
 au FileType nix set commentstring=#\ %s
-au FileType sh set expandtab shiftwidth=2 tabstop=2
+au FileType sh set expandtab shiftwidth=2 tabstop=2 textwidth=0
 au FileType haskell set expandtab shiftwidth=2 tabstop=2
 au FileType cabal set expandtab
-au FileType python set expandtab
+au FileType python set expandtab shiftwidth=2 tabstop=2
 au FileType *asciidoc set expandtab shiftwidth=2 tabstop=2
 au FileType *asciidoc set comments+=fb:*
 au FileType *asciidoc set comments+=fb:.
