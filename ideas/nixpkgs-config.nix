@@ -31,6 +31,7 @@
         pygobject3
         gtk3
         gobjectIntrospection
+        ipython
       ];
 
       shellHook = ''
