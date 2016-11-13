@@ -63,21 +63,21 @@ rec {
     adminAddr = "grrwlf@gmail.com";
     logPerVirtualHost = true;
     virtualHosts = [
+      # {
+      #   hostName = "sthdwp.com";
+      #   globalRedirect = "http://hit.msk.ru:8080/";
+      # }
       {
-        hostName = "callback.hit.msk.ru";
-        globalRedirect = "http://hit.msk.ru:8080/";
-      }
-      {
-        hostName = "uru.hit.msk.ru";
-        globalRedirect = "http://hit.msk.ru:8081/";
-      }
-      {
-        hostName = "compet.hit.msk.ru";
-        globalRedirect = "http://hit.msk.ru:8082/";
-      }
-      {
-        hostName = "urweb.hit.msk.ru";
-        globalRedirect = "http://hit.msk.ru:8083/";
+        hostName = "sthdwp.com";
+        extraConfig = ''
+          ProxyPreserveHost On
+          ProxyRequests Off
+          ServerName sthdwp.com
+          ServerAlias www.sthdwp.com
+          ProxyPassMatch "^/$" http://127.0.0.1:8080
+          ProxyPassMatch "^.*$" http://127.0.0.1:8080
+          ProxyPassReverse / http://127.0.0.1:8080/
+        '';
       }
       {
         hostName = "archerydays.ru";
