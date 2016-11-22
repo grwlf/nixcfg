@@ -25,14 +25,7 @@ rec {
       ./include/firefox-with-localization.nix
       ./include/wheel.nix
       ./include/ntpd.nix
-      # ./include/syncthing.nix
     ];
-
-  # boot.kernelPackages = pkgs.linuxPackages_3_12 // {
-  #   virtualbox = pkgs.linuxPackages_3_12.virtualbox.override {
-  #     enableExtensionPack = true;
-  #   };
-  # };
 
   boot.blacklistedKernelModules = [
     "fbcon"
@@ -76,13 +69,13 @@ rec {
     gatewayPorts = "yes";
   };
 
-  services.dbus.packages = [ pkgs.gnome.GConf ];
-
-  services.virtualboxHost.enable = true;
-
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql92;
+
+    initialScript = pkgs.writeText "postgreinit.sql" ''
+      create role smironov superuser login createdb createrole replication;
+    '';
   };
 
   services.printing = {
@@ -113,9 +106,6 @@ rec {
 
     displayManager = {
       sddm.enable = true;
-      #lightdm = {
-      #  enable = true;
-      #};
     };
   };
 
@@ -151,7 +141,6 @@ rec {
   ];
 
   environment.systemPackages = with pkgs ; [
-    # X11 apps
     unclutter
     xorg.xdpyinfo
     xorg.xinput
@@ -170,7 +159,7 @@ rec {
     djvulibre
     wine
     vlc
-    # libreoffice
+    libreoffice
     pidgin
     skype
     pavucontrol
@@ -181,27 +170,19 @@ rec {
       extraPkgs = [ haskell-latest-profiling ]
         ++ lib.optionals services.xserver.enable devlibs_x11;
     })
-    (devenv {
-      name = "dev-lts221";
-      extraPkgs = [ haskell-lts221 ]
-        ++ lib.optionals services.xserver.enable devlibs_x11;
-    })
     unetbootin
     dmidecode
     xscreensaver
     wireshark
-    mlton
     ruby
     bvi
     i7z
     encfs
     imagemagick
-    cvc4
     firefox-langpack
   ];
 
   nixpkgs.config = {
-    virtualbox.enableExtensionPack = true;
     allowBroken = true;
     allowUnfree = true;
     firefox = {
