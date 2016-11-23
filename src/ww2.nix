@@ -140,6 +140,10 @@ rec {
     ./certs/kasperskylabshqca.cer.pem
   ];
 
+  programs.ssh = {
+    extraConfig = "KexAlgorithms +diffie-hellman-group1-sha1";
+  };
+
   environment.systemPackages = with pkgs ; [
     unclutter
     xorg.xdpyinfo
