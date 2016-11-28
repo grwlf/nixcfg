@@ -65,6 +65,7 @@ in pkgs.writeText "myprofile.sh" ''
   gf()      { ${git}/bin/git fetch github || ${git}/bin/git fetch origin ; }
   alias ga='${gitbin} add'
   alias gai='${gitbin} add -i'
+  alias gap='${gitbin} add -p'
   alias gb='${gitbin} branch'
   alias gc='${gitbin} commit'
   alias gco='${gitbin} checkout'
