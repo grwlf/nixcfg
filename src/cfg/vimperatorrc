@@ -1,5 +1,5 @@
 set editor="urxvt -e vim '+set ft=mail'"
-set defsearch="duckduckgo"
+set defsearch="google"
 set urlseparator=
 set focuscontent
 
@@ -9,6 +9,8 @@ map j <Down>
 map k <Up>
 map <C-d> <PageDown>
 map <C-u> <PageUp>
+map + <C-+>
+map \- <C-->
 
 "Russian language keyboard mappings (UTF-8){{{
 map ё `
