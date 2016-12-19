@@ -79,6 +79,12 @@ rec {
           ProxyPassReverse / http://127.0.0.1:8080/
         '';
       }
+
+      {
+        hostName = "vocal.sthdwp.com";
+        globalRedirect = "http://sthdwp.com:8081/";
+      }
+
       {
         hostName = "archerydays.ru";
         extraConfig = ''
