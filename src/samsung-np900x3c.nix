@@ -271,6 +271,7 @@ rec {
 
     gnuplot
     cutegram
+    jmtpfs
   ];
 
   nixpkgs.config = {
