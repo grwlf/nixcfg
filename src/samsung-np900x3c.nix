@@ -179,8 +179,7 @@ rec {
 
   programs.ssh.startAgent = true;
 
-  virtualisation.virtualbox.host.enable = false;
-
+  virtualisation.virtualbox.host.enable = true;
 
   services.journald = {
     extraConfig = ''
