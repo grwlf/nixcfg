@@ -11,6 +11,24 @@ TGT="$CWD/nk"
 # Working directory to place resulting expressions
 WD="$CWD/.unstack-work"
 
+cat <<EOF
+The unstack.sh script is going to create Nix expressions for the
+project
+
+    $TGT
+
+Nix Expressions will appear in the directory
+
+    $WD
+
+Top-level expression will be called 'all.nix'
+
+Hit Enter to continue, Ctrl+C to cancel
+EOF
+
+read
+
+
 
 mkdir "$WD"
 cd "$WD"
