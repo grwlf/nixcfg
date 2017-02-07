@@ -185,6 +185,7 @@ rec {
     encfs
     imagemagick
     firefox-langpack
+    tdesktop
   ];
 
   nixpkgs.config = {

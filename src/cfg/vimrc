@@ -3,9 +3,6 @@ filetype indent on
 filetype plugin on
 set nocompatible
 
-colorscheme default
-" colorscheme zellner
-
 fun VAM()
 	let c = get(g:, 'vim_addon_manager', {})
 	let g:vim_addon_manager = c
@@ -26,6 +23,7 @@ fun VAM()
 				\ , "github:grwlf/vim-addon-urweb"
 				\ , "github:embear/vim-localvimrc"
 				\ , "github:bronson/vim-trailing-whitespace"
+				\ , "github:flazz/vim-colorschemes.git"
 				\ , "bufexplorer.zip"
 				\ , "Supertab"
 				\ , "surround"
@@ -35,6 +33,11 @@ fun VAM()
 				\], {'auto_install' : 1})
 endfun
 call VAM()
+
+colorscheme Tomorrow-Night
+" colorscheme default
+" colorscheme zellner
+
 
 runtime macros/matchit.vim
 
@@ -57,7 +60,7 @@ set incsearch
 set ignorecase
 set formatoptions+=roj
 set cinoptions+=g0,(4
-set nohlsearch
+set hlsearch
 set mouse=nirv
 set laststatus=2
 set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
@@ -124,8 +127,8 @@ inoremap <Leader><Leader> <Leader>
 inoremap <Esc><Esc> <Esc>
 
 " Save
-nnoremap <F2> <ESC>:w!<CR>
-inoremap <F2> <ESC>:w!<CR>
+nnoremap <F2> <ESC>:noh<CR>:w!<CR>
+inoremap <F2> <ESC>:noh<CR>:w!<CR>
 
 " Reformat
 nnoremap <F3> gqap
@@ -172,6 +175,9 @@ noremap <Tab> <C-w>w
 map gr gT
 map tn :tabnew<CR>
 map th :tabnew $HOME<CR>
+
+" Clear hlsearch
+nnoremap <CR> :nohlsearch<CR><CR>
 
 " Clipboard helpers
 if has("x11")

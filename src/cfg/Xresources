@@ -2,18 +2,21 @@ URxvt*geometry: 103x32
 URxvt*meta8: false
 URxvt*transparent: false
 URxvt*fadeColor: #ffffff
-URxvt*shading: 96
+!URxvt*shading: 96
 !URxvt*blurRadius: 8
 !URxvt*perl-ext: default,-searchable-scrollback
 URxvt*scrollBar: false
-URxvt*foreground: black
+!URxvt*foreground: black
 URxvt*internalBorder: 0
 !URxvt*color0: #222222
 !URxvt*color12: #5C5CFF
 !URxvt*background: #ffffdf
 !URxvt*background: #FFF0FF
 !URxvt*background: #F0FAE8
-URxvt*background: #FbFbFb
+!URxvt*background: #FbFbFb
+URxvt*cursorUnderline: True
+URxvt*foreground: grey
+URxvt*background: #262626
 URxvt*font:-*-terminus-medium-*-normal-*-20-*-*-*-*-*-*-u
 URxvt*boldFont:-*-terminus-bold-*-normal-*-20-*-*-*-*-*-*-u
 URxvt*loginShell: true

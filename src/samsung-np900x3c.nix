@@ -179,7 +179,10 @@ rec {
 
   programs.ssh.startAgent = true;
 
-  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox = {
+    host.enable = true;
+    guest.enable = true;
+  };
 
   services.journald = {
     extraConfig = ''
@@ -213,6 +216,14 @@ rec {
     enable = true;
   };
 
+  services.udev = {
+    extraRules = ''
+      # Android Debug Bridge identifiers
+      SUBSYSTEM=="usb", ATTR{idVendor}=="05c6", MODE="0666", GROUP="users"
+      SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="users"
+      SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="users"
+    '';
+  };
 
   # security = {
   #   pam = {
@@ -268,8 +279,7 @@ rec {
     ffmpeg
     electrum
 
-    gnuplot
-    cutegram
+    tdesktop
     jmtpfs
   ];
 
@@ -285,6 +295,7 @@ rec {
       jre = false;
       enableAdobeFlash = true;
     };
+    virtualbox.enableExtensionPack = true;
   };
 
 }
