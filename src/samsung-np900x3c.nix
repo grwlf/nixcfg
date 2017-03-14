@@ -86,7 +86,7 @@ rec {
 
   fileSystems = [
     { mountPoint = "/";
-      device = "/dev/disk/by-label/ROOT";
+      device = "/dev/disk/by-label/ROOT2";
       options = ["defaults" "relatime" "discard"];
     }
     { mountPoint = "/home";
@@ -182,6 +182,10 @@ rec {
   virtualisation.virtualbox = {
     host.enable = true;
     guest.enable = true;
+  };
+
+  virtualisation.docker = {
+    enable = true;
   };
 
   services.journald = {

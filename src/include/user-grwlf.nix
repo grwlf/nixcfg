@@ -9,7 +9,7 @@
     grwlf = {
       uid = 1000;
       group = "users";
-      extraGroups = ["wheel" "audio" "vboxusers"]
+      extraGroups = ["wheel" "audio" "vboxusers" "docker"]
         ++ pkgs.lib.optional hasnm "networkmanager"
         ;
       home = "/home/grwlf";
