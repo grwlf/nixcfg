@@ -129,6 +129,10 @@ rec {
     dataDir = "/var/lib/syncthing-${me}";
   };
 
+  virtualisation.docker = {
+    enable = true;
+  };
+
   hardware = {
     pulseaudio.enable = true;
   };

@@ -171,6 +171,8 @@ nnoremap <Leader>f :cope<CR>
 " Tab key cycles through windows
 noremap <Tab> <C-w>w
 
+" noremap <C-p> <C-i>
+
 " Tabs
 map gr gT
 map tn :tabnew<CR>

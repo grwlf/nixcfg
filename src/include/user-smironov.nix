@@ -9,7 +9,7 @@
     smironov = {
       uid = 1000;
       group = "users";
-      extraGroups = ["wheel" "audio"]
+      extraGroups = ["wheel" "audio" "docker"]
         ++ pkgs.lib.optional hasnm "networkmanager"
         ++ pkgs.lib.optional hasvb "vboxusers";
       home = "/home/smironov";
