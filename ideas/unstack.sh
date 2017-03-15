@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell --show-trace -i bash -p stack findutils haskell.packages.lts-6_17.ghc cabal2nix
+#! nix-shell --show-trace -i bash -p haskell.packages.lts-6_17.hpack stack findutils haskell.packages.lts-6_17.ghc cabal2nix
 
 
 CWD=`pwd`
@@ -22,14 +22,17 @@ Nix Expressions will appear in the directory
     $WD
 
 Top-level expression will be called 'all.nix'
+To build the expression one typically should execute
 
-Hit Enter to continue, Ctrl+C to cancel
+    nix-build .unstack-work/all.nix -A <toplevel-stack-project>
+
+Hit Enter to continue, Ctrl+C to cancel. Options may be changed by modifying
+the script's header.
 EOF
 
 read
 
-
-
+# rm -rf "$WD"
 mkdir "$WD"
 cd "$WD"
 
@@ -70,11 +73,21 @@ case $COMPILER in
     *) CABAL2NIX_COMPILER="" ;;
 esac
 
+# Expressions for dependency packages
 for pkg in `find . -maxdepth 1 -mindepth 1 -type d`  ; do
     cabal2nix $CABAL2NIX_COMPILER --no-check --no-haddock $pkg > $pkg.nix
 done
 
+# Buildin project .cabal files
+find $TGT -name package.yaml | while read y ; do
+    ( cd `dirname $y` && hpack ; )
+done
 
+# Expressions for packages from the current project
+for pkg in `find $TGT -name '*cabal'` ; do
+    echo BUILDING NIX FOR $pkg
+    cabal2nix $CABAL2NIX_COMPILER --no-check --no-haddock `dirname $pkg` > `basename $pkg .cabal`.nix
+done
 
 #
 # 3. Building master expression all.nix
@@ -111,18 +124,18 @@ all = rec {
 
 EOF
 
-pkgs=`cd "$WD" ; find . -maxdepth 1 -mindepth 1 -type d`
+pkgs=`cd "$WD" ; find . -maxdepth 1 -mindepth 1 -type f -name '*nix'`
 
 for pkg in $pkgs  ; do
-    spkg=`echo $pkg | sed 's@^\./@@' | sed 's@[-.0-9]*$@@' | sed 's@[.]@_@g' `
+    spkg=`echo $pkg | sed 's@.nix$@@' | sed 's@^\./@@' | sed 's@[-.0-9]*$@@' | sed 's@[.]@_@g' `
     if test "$spkg" = "base" ; then
         continue
     fi
-    if cat GHCLIST | grep -q -w "$spkg" ; then
+    if echo "$STOPLIST" | grep -q -w "$spkg" ; then
         echo "Skipping "$spkg" due to entry in STOPLIST" >&2
         continue
     fi
-    echo "        $spkg = callPackage $pkg.nix {};"
+    echo "        $spkg = callPackage $pkg {};"
 done
 
 cat <<"EOF"
