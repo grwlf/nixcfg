@@ -1,0 +1,52 @@
+URxvt*geometry: 103x32
+URxvt*meta8: false
+URxvt*transparent: false
+URxvt*fadeColor: #ffffff
+URxvt*shading: 96
+!URxvt*blurRadius: 8
+!URxvt*perl-ext: default,-searchable-scrollback
+URxvt*scrollBar: false
+URxvt*foreground: black
+URxvt*internalBorder: 0
+!URxvt*color0: #222222
+!URxvt*color12: #5C5CFF
+!URxvt*background: #ffffdf
+!URxvt*background: #FFF0FF
+!URxvt*background: #F0FAE8
+URxvt*background: #FbFbFb
+URxvt*font:-*-terminus-medium-*-normal-*-20-*-*-*-*-*-*-u
+URxvt*boldFont:-*-terminus-bold-*-normal-*-20-*-*-*-*-*-*-u
+URxvt*loginShell: true
+URxvt.perl-ext-common:  default,fullscreen
+URxvt*keysym.F11:       perl:fullscreen:switch
+URxvt*keysym.Escape: \033\033
+!URxvt*keysym.Meta-ц: \033w
+!URxvt*keysym.Meta-й: \033q
+URxvt.url-launcher:     firefox
+URxvt.matcher.button:   1
+URxvt.iconFile:         /home/grwlf/.urxvt-icon.png
+Urxvt*insecure: true
+
+! Dark/light theme
+! See http://superuser.com/questions/565337/urxvt-settings-reload-without-restarting-terminal
+URxvt.keysym.C-0: command:\033]4;12;#72729F9FCFCF\007\033]4;1;#CCCC00000000\007\033]4;15;#EEEEEEEEECEC\007\033]4;14;#3434E2E2E2E2\007\033]4;5;#757550507B7B\007\033]4;3;#C4C4A0A00000\007\033]4;7;#D3D3D7D7CFCF\007\033]4;4;#34346565A4A4\007\033]4;10;#8A8AE2E23434\007\033]4;13;#ADAD7F7FA8A8\007\033]4;8;#555557575353\007\033]11;#FFFFFFFFFFFF\007\033]4;9;#EFEF29292929\007\033]4;2;#4E4E9A9A0606\007\033]4;0;#2E2E34343636\007\033]4;11;#FCFCE9E94F4F\007\033]10;#000000000000\007\033]4;6;#060698209A9A\007
+URxvt.keysym.C-9: command:\033]4;12;#9090FF\007\033]4;1;#AA0000\007\033]4;15;#FFFFFF\007\033]4;14;#55FFFF\007\033]4;5;#AA00AA\007\033]4;3;#AA5500\007\033]4;7;#AAAAAA\007\033]4;10;#55FF55\007\033]4;13;#FF55FF\007\033]4;4;#0000AD\007\033]4;8;#555555\007\033]11;#000000\007\033]4;9;#FF5555\007\033]4;2;#00AA00\007\033]\007\033]4;0;#000000\007\033]4;11;#FFFF55\007\033]10;#00FF00\007\033]5;0;#00FF00\007\033]4;6;#00AAAA\007
+
+
+XTerm*utf8: 1
+XTerm*loginShell: true
+XTerm*background: white
+XTerm*foreground: black
+XTerm*font:-*-terminus-medium-*-normal-*-20-*-*-*-*-*-*-u
+XTerm*boldFont:-*-terminus-bold-*-normal-*-20-*-*-*-*-*-*-u
+XTerm*scrollBar: False
+XTerm*saveLines: 1000
+XTerm*eightBitInput: True
+XTerm*metaSendsEscape: True
+!XTerm*VT100.eightBitInput: True
+!XTerm*VT100.eightBitOutput: True
+XTerm*VT100.translations: #override \n\
+	<Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0) \n\
+	<Btn2Up>: insert-selection(SELECT, CLIPBOARD, CUT_BUFFER0) \n\
+
+XPdf*fontList: -*-fixed-medium-r-*-*-*-u:
