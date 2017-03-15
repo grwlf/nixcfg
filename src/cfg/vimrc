@@ -34,8 +34,12 @@ fun VAM()
 endfun
 call VAM()
 
-colorscheme Tomorrow-Night
-" colorscheme default
+if (hostname() == "ww2")
+	colorscheme default
+else
+	colorscheme Tomorrow-Night
+endif
+
 " colorscheme zellner
 
 
