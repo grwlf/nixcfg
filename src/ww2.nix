@@ -115,6 +115,11 @@ rec {
       user = me;
       extraArguments = "-N -D${proxyport} vps";
     }
+    {
+      name = "vps-back";
+      user = me;
+      extraArguments = "-N -R ${proxyport}:127.0.0.1:22 vps";
+    }
   ];
 
   services.locate = {
