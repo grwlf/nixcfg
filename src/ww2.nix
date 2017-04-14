@@ -7,6 +7,7 @@ let
 
   me = "smironov";
   proxyport = "4343";
+  localssh=22;
 
 in
 rec {
@@ -64,9 +65,10 @@ rec {
 
   services.openssh = {
     enable = true;
-    ports = [22 2222];
+    ports = [localssh 2222];
     permitRootLogin = "yes";
     gatewayPorts = "yes";
+    forwardX11 = true;
   };
 
   services.postgresql = {
@@ -118,7 +120,7 @@ rec {
     {
       name = "vps-back";
       user = me;
-      extraArguments = "-N -R ${proxyport}:127.0.0.1:22 vps";
+      extraArguments = "-N -R ${proxyport}:127.0.0.1:${toString localssh} vps";
     }
   ];
 
@@ -136,6 +138,7 @@ rec {
 
   virtualisation.docker = {
     enable = true;
+    extraOptions = "--insecure-registry ft-repo.avp.ru:5000";
   };
 
   hardware = {
