@@ -53,5 +53,7 @@
     mercurial
     plowshare
     pv
+    xorg.xhost
+    xorg.xkbcomp
   ];
 }

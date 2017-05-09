@@ -179,10 +179,10 @@ rec {
 
   programs.ssh.startAgent = true;
 
-  virtualisation.virtualbox = {
-    host.enable = true;
-    guest.enable = true;
-  };
+  # virtualisation.virtualbox = {
+  #   host.enable = true;
+  #   guest.enable = true;
+  # };
 
   virtualisation.docker = {
     enable = true;
@@ -264,11 +264,11 @@ rec {
     smplayer
     mplayer
 
-    (devenv {
-      name = "dev";
-      extraPkgs = [ haskell-latest ]
-        ++ lib.optionals services.xserver.enable devlibs_x11;
-    })
+    # (devenv {
+    #   name = "dev";
+    #   extraPkgs = [ haskell-latest ]
+    #     ++ lib.optionals services.xserver.enable devlibs_x11;
+    # })
 
     imagemagickBig
     geeqie
