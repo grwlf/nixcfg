@@ -162,7 +162,6 @@ in pkgs.writeText "myprofile.sh" ''
   ghci() { my_ghc_cmd ghci "$@"; }
 
   encfs() { `which encfs` -i 60 "$@" ; }
-  firefox() { `which firefox` -UILocale ru ; }
 
   ${if extra != null then extra else ""}
 

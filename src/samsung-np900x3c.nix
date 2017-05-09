@@ -21,7 +21,7 @@ rec {
       ./include/postfix_relay.nix
       ./include/templatecfg.nix
       ./include/xfce-overrides.nix
-      # ./include/firefox-with-localization.nix
+      ./include/firefox-with-localization.nix
       # ./include/syncthing.nix
       ./include/wheel.nix
       ./include/ntpd.nix
@@ -273,8 +273,6 @@ rec {
     imagemagickBig
     geeqie
     gimp_2_8
-    # firefox-langpack
-    # firefox-bin
     firefox
     encfs
     plowshare
