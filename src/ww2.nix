@@ -182,11 +182,11 @@ rec {
     pavucontrol
     networkmanagerapplet
     cups
-    (devenv {
-      name = "dev";
-      extraPkgs = [ haskell-latest-profiling ]
-        ++ lib.optionals services.xserver.enable devlibs_x11;
-    })
+    # (devenv {
+    #   name = "dev";
+    #   extraPkgs = [ haskell-latest-profiling ]
+    #     ++ lib.optionals services.xserver.enable devlibs_x11;
+    # })
     unetbootin
     dmidecode
     xscreensaver
@@ -196,7 +196,7 @@ rec {
     i7z
     encfs
     imagemagick
-    firefox-langpack
+    firefox
     tdesktop
   ];
 
@@ -204,8 +204,8 @@ rec {
     allowBroken = true;
     allowUnfree = true;
     firefox = {
-      jre = true;
-      enableAdobeFlash = true;
+      # jre = true;
+      # enableAdobeFlash = true;
     };
   };
 
