@@ -179,10 +179,10 @@ rec {
 
   programs.ssh.startAgent = true;
 
-  # virtualisation.virtualbox = {
-  #   host.enable = true;
-  #   guest.enable = true;
-  # };
+  virtualisation.virtualbox = {
+    host.enable = true;
+    guest.enable = true;
+  };
 
   virtualisation.docker = {
     enable = true;
