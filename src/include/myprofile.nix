@@ -41,6 +41,7 @@
       q() 		  { exit ; }
       s() 		  { ${screen}/bin/screen ; }
       e() 		  { thunar . 2>/dev/null & }
+      lt() 		  { ls -lhrt "$@"; }
 
       log() 		{ ${vimHugeX}/bin/vim /var/log/messages + ; }
       logx() 		{ ${vimHugeX}/bin/vim /var/log/X.0.log + ; }
@@ -138,14 +139,6 @@
           ${screen}/bin/screen -D -r "$PID" -X title "$@"
         else
           echo "Failed to get PID. Do you have GNU/Screen running?" >&2
-        fi
-      }
-
-      make() {
-        if test -f "Makefile.dev" ; then
-          ${gnumake}/bin/make -f Makefile.dev "$@"
-        else
-          ${gnumake}/bin/make "$@"
         fi
       }
 
