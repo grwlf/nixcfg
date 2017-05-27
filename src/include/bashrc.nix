@@ -1,18 +1,14 @@
 { config, pkgs, ... } :
-let
-
-  myprofile = import ./myprofile.nix {inherit pkgs; };
-
-in
 
 {
   environment = rec {
 
     extraInit = ''
-      source ${myprofile}
+      if test -f /etc/myprofile ; then
+        . /etc/myprofile
+      fi
     '';
   };
-
 
   programs = {
 

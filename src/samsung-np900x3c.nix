@@ -25,6 +25,7 @@ rec {
       # ./include/syncthing.nix
       ./include/wheel.nix
       ./include/ntpd.nix
+      ./include/myprofile.nix
     ];
 
   # boot.kernelPackages = pkgs.linuxPackages_3_14;

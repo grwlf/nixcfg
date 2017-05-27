@@ -26,6 +26,7 @@ rec {
       ./include/firefox-with-localization.nix
       ./include/wheel.nix
       ./include/ntpd.nix
+      ./include/myprofile.nix
     ];
 
   boot.blacklistedKernelModules = [
