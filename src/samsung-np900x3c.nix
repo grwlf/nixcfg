@@ -21,11 +21,12 @@ rec {
       ./include/postfix_relay.nix
       ./include/templatecfg.nix
       ./include/xfce-overrides.nix
-      ./include/firefox-with-localization.nix
+      # ./include/firefox-with-localization.nix
       # ./include/syncthing.nix
       ./include/wheel.nix
       ./include/ntpd.nix
       ./include/myprofile.nix
+      ./include/overrides.nix
     ];
 
   # boot.kernelPackages = pkgs.linuxPackages_3_14;
@@ -241,7 +242,8 @@ rec {
     xorg.xdpyinfo
     xorg.xinput
     rxvt_unicode
-    vimHugeX
+    # vimHugeX
+    myvim
     glxinfo
     xcompmgr
     zathura
