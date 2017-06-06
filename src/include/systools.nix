@@ -47,6 +47,7 @@
     mc
     htop
     gitAndTools.gitFull
+    git-lfs
     ctags
     subversion
     tig
