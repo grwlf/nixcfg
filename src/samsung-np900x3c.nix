@@ -187,7 +187,7 @@ rec {
   };
 
   virtualisation.docker = {
-    enable = true;
+    enable = false;
   };
 
   services.journald = {

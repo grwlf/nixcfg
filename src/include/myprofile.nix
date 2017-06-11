@@ -34,7 +34,7 @@
 
       cal()     { `which cal` -m "$@" ; }
       df()      { `which df` -h "$@" ; }
-      du()      { `which du` -h "$@" ; }
+      duh()     { `which du` -hsx * .[^.]* "$@" | sort -h ; }
       man()     { LANG=C ${man}/bin/man "$@" ; }
       feh()     { ${feh}/bin/feh -. "$@" ; }
 
