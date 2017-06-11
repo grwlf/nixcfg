@@ -10,9 +10,11 @@
 
       gitbin = "${git}/bin/git";
 
+      vimbin = "${myvim}/bin/vim-with-plugins";
+
     in
     pkgs.writeText "myprofile.sh" ''
-      export EDITOR=${vimHugeX}/bin/vim
+      export EDITOR=${vimbin}
       export VERSION_CONTROL=numbered
       export SVN_EDITOR=$EDITOR
       export GIT_EDITOR=$EDITOR
@@ -43,15 +45,15 @@
       e() 		  { thunar . 2>/dev/null & }
       lt() 		  { ls -lhrt "$@"; }
 
-      log() 		{ ${vimHugeX}/bin/vim /var/log/messages + ; }
-      logx() 		{ ${vimHugeX}/bin/vim /var/log/X.0.log + ; }
+      log() 		{ ${vimbin} /var/log/messages + ; }
+      logx() 		{ ${vimbin} /var/log/X.0.log + ; }
 
       cdt() 		{ cd $HOME/tmp ; }
       cdd()     { cd $HOME/dwnl; }
       gitk() 		{ LANG=C ${git}/bin/gitk "$@" & }
       gitka() 		{ LANG=C ${git}/bin/gitk --all "$@" & }
       mcd() 		{ mkdir "$1" && cd "$1" ; }
-      vimless() { ${vimHugeX}/bin/vim -R "$@" - ; }
+      vimless() { ${vimbin} -R "$@" - ; }
       pfind() 	{ ${findutils}/bin/find -iname "*$1*" ; }
       d() 	    { if test -z "$1" ; then
                     load-env-dev
@@ -122,10 +124,10 @@
       # Custom aliases
       #
 
-      vim()     {
+      vim() {
         case "$1" in
-          "") ${vimHugeX}/bin/vim . ;;
-          *) ${vimHugeX}/bin/vim "$@" ;;
+          "") ${vimbin} .    ;;
+           *) ${vimbin} "$@" ;;
         esac
       }
 
