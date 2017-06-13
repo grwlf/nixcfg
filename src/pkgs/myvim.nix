@@ -126,7 +126,7 @@ vim_configurable.customize {
     au FileType sh set expandtab shiftwidth=2 tabstop=2 textwidth=0
     au FileType haskell set expandtab shiftwidth=2 tabstop=2
     au FileType cabal set expandtab
-    au FileType python set expandtab shiftwidth=2 tabstop=2 cinoptions=g0,(2 softtabstop=2
+    au FileType python set expandtab shiftwidth=2 tabstop=2 cinoptions=g0,(2 softtabstop=2 nosmartindent
     au FileType *asciidoc set expandtab shiftwidth=2 tabstop=2
     au FileType *asciidoc set comments+=fb:*
     au FileType *asciidoc set comments+=fb:.
