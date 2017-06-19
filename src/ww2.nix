@@ -155,6 +155,17 @@ rec {
     ./certs/kasperskylabshqca.cer.pem
   ];
 
+  services.udev = {
+    extraRules = ''
+      # Android Debug Bridge identifiers
+      SUBSYSTEM=="usb", ATTR{idVendor}=="05c6", MODE="0666", GROUP="users"
+      SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="users"
+      SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="users"
+
+      KERNEL=="tun", GROUP="users", MODE="0660", OPTIONS+="static_node=net/tun"
+    '';
+  };
+
   programs.ssh = {
     extraConfig = "KexAlgorithms +diffie-hellman-group1-sha1";
   };
