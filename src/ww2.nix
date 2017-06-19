@@ -7,6 +7,7 @@ let
 
   me = "smironov";
   proxyport = "4343";
+  backproxyport = "4344";
   localssh=22;
 
 in
@@ -121,7 +122,7 @@ rec {
     {
       name = "vps-back";
       user = me;
-      extraArguments = "-N -R ${proxyport}:127.0.0.1:${toString localssh} vps";
+      extraArguments = "-N -R ${backproxyport}:127.0.0.1:${toString localssh} vps";
     }
   ];
 
