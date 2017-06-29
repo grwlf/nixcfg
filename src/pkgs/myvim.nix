@@ -70,8 +70,8 @@ vim_configurable.customize {
 
     runtime macros/matchit.vim
 
-    let mapleader = "`"
-    let maplocalleader = "`"
+    let mapleader = "~"
+    let maplocalleader = "~"
 
     set guioptions-=m
     set guioptions-=T
@@ -198,7 +198,8 @@ vim_configurable.customize {
     nnoremap <Leader>f :cope<CR>
 
     " Tab key cycles through windows
-    noremap <Tab> <C-w>w
+    " noremap <Tab> <C-w>w
+    noremap ` <C-w>w
 
     " noremap <C-p> <C-i>
 
