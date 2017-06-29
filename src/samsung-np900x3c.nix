@@ -286,6 +286,7 @@ rec {
 
     tdesktop
     jmtpfs
+    evince
   ];
 
   nixpkgs.config = {
