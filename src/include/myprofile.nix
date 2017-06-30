@@ -12,6 +12,8 @@
 
       vimbin = "${myvim}/bin/vim-with-plugins";
 
+      aplay = "${alsaUtils}/bin/aplay";
+
     in
     pkgs.writeText "myprofile.sh" ''
       export EDITOR=${vimbin}
@@ -62,7 +64,7 @@
                   fi
                 }
       manconf() { ${man}/bin/man configuration.nix ; }
-      beep()    { aplay ~/proj/dotfiles/beep.wav ; }
+      ding()    { ${aplay} ${../data/ding.wav} 2>/dev/null; }
 
       #
       # GIT Aliases

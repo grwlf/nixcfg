@@ -30,7 +30,6 @@
     acpid
     upower
     smartmontools
-    figlet
     manpages
     hdparm
     tree
@@ -43,6 +42,17 @@
     socat
     lsof
     minicom
+    bc
+
+    # Fun
+    cowsay
+    toilet
+    figlet
+    jp2a
+    fortune
+    figlet
+    ddate
+    espeak
 
     mc
     htop
