@@ -216,6 +216,7 @@ rec {
     i3lock
     geeqie
     cabal2nix
+    gitRepo
   ];
 
   nixpkgs.config = {
