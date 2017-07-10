@@ -66,5 +66,6 @@
     pv
     xorg.xhost
     xorg.xkbcomp
+    xsel
   ];
 }

@@ -28,6 +28,7 @@ rec {
       ./include/wheel.nix
       ./include/ntpd.nix
       ./include/myprofile.nix
+      ./include/overrides.nix
     ];
 
   boot.blacklistedKernelModules = [
@@ -175,7 +176,6 @@ rec {
     xorg.xdpyinfo
     xorg.xinput
     rxvt_unicode
-    vimHugeX
     glxinfo
     feh
     xcompmgr
@@ -211,6 +211,11 @@ rec {
     imagemagick
     firefox
     tdesktop
+    vimHugeX
+    # myvim
+    i3lock
+    geeqie
+    cabal2nix
   ];
 
   nixpkgs.config = {
