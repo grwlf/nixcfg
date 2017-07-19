@@ -76,6 +76,7 @@
       alias gap='${gitbin} add -p'
       alias gb='${gitbin} branch'
       alias gc='${gitbin} commit'
+      alias gca='${gitbin} commit --amend --no-edit'
       alias gco='${gitbin} checkout'
       alias gcp='${gitbin} cherry-pick'
       alias gd='${gitbin} diff'
