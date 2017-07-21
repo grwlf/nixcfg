@@ -67,5 +67,6 @@
     xorg.xhost
     xorg.xkbcomp
     xsel
+    pdftk
   ];
 }
