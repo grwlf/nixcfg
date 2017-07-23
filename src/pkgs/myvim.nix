@@ -50,6 +50,9 @@ vim_configurable.customize {
       commentary
       vim-trailing-whitespace
       vim-colorschemes
+      changeColorScheme-vim
+      syntastic
+      vim-hdevtools
     ];
     # manually loadable by calling `:packadd $plugin-name`
     # opt = [ phpCompletion elm-vim ];
@@ -59,11 +62,12 @@ vim_configurable.customize {
 
   # add custom .vimrc lines like this:
   vimrcConfig.customRC = ''
-    if (hostname() == "ww2")
-      colorscheme default
-    else
-      colorscheme Tomorrow-Night
-    endif
+    " if (hostname() == "ww2")
+    "  colorscheme default
+    " else
+    " endif
+
+    colorscheme blackboard
 
     " colorscheme zellner
 
