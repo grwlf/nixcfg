@@ -414,6 +414,11 @@ vim_configurable.customize {
         endtry
     endfunction
     map <C-]> :call RT()<CR>
+
+
+    " Cycle colorscheme
+    map <F5> :call NextColorScheme()<CR>:colorscheme<CR>
+    map <F6> :call PreviousColorScheme()<CR>:colorscheme<CR>
   '';
 
   # plugins can also be managed by VAM
