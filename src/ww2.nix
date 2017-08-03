@@ -118,12 +118,12 @@ rec {
     {
       name = "vps";
       user = me;
-      extraArguments = "-N -D${proxyport} vps";
+      extraArguments = "-4 -N -D${proxyport} vps";
     }
     {
       name = "vps-back";
       user = me;
-      extraArguments = "-N -R ${backproxyport}:127.0.0.1:${toString localssh} vps";
+      extraArguments = "-4 -N -R ${backproxyport}:127.0.0.1:${toString localssh} vps";
     }
   ];
 
