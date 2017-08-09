@@ -4,8 +4,8 @@ defutf8 on
 startup_message off
 defscrollback 5000
 altscreen on
-autodetach on
-hardstatus alwayslastline "%{= Kw} %H : %{= Kw}%-w%{= wk}%n %t%{= Kw}%+w"
+autodetach off
+hardstatus alwayslastline "%{= Kw} %H : %{= Kw}%-w%{= wk}%n %t%{= Kw}%+w%-=%0c "
 
 multiuser on
 acldel guest
@@ -29,7 +29,6 @@ bind 4 number 4
 bind 5 number 5
 bind 6 number 6
 bind 7 number 7
-bind k kill
 
 bindkey ^[1 prev
 bindkey ^[2 next
@@ -38,3 +37,5 @@ bindkey ^[й prev
 bindkey ^[w next
 bindkey ^[ц next
 bindkey ^[` other
+bindkey ^k kill
+bindkey ^л kill
