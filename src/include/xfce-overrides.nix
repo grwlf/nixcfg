@@ -12,6 +12,9 @@
     xfce.xfce4_clipman_plugin
     xfce.xfce4_datetime_plugin
     xfce.xfce4_netload_plugin
+    xfce.xfce4_weather_plugin
+    xfce.xfce4_pulseaudio_plugin
+    xfce.xfce4_netload_plugin
 
     xfce.gigolo
     xfce.xfce4taskmanager
