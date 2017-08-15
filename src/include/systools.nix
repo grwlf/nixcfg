@@ -68,5 +68,6 @@
     xorg.xkbcomp
     xsel
     pdftk
+    jq
   ];
 }
