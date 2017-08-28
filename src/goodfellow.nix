@@ -7,17 +7,15 @@
     /etc/nixos/hardware-configuration.nix
     ./include/bashrc.nix
     ./include/systools.nix
+    ./include/subpixel.nix
     ./include/fonts.nix
     ./include/postfix_relay.nix
     ./include/templatecfg.nix
+    ./include/user-grwlf.nix
     ./include/xfce-overrides.nix
     ./include/firefox-with-localization.nix
-    ./include/ntpd.nix
-
-    ./include/subpixel.nix
-    ./include/user-grwlf.nix
-    # ./include/syncthing.nix
     ./include/wheel.nix
+    ./include/ntpd.nix
   ];
 
   hardware.pulseaudio.enable = true;
@@ -141,12 +139,12 @@
     networkmanagerapplet
     imagemagick
     rtorrent
-    firefox-langpack
+    firefox
   ];
 
   nixpkgs.config = {
     allowUnfree = true;
-    chrome.enableRealPlayer = true;
+    chrome.enableRealPlayer = false;
     firefox.enableAdobeFlash = true;
     chrome.jre = true;
   };
