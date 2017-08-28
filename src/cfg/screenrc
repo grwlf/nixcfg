@@ -37,5 +37,5 @@ bindkey ^[й prev
 bindkey ^[w next
 bindkey ^[ц next
 bindkey ^[` other
-bindkey ^k kill
-bindkey ^л kill
+# bindkey ^k kill
+# bindkey ^л kill
