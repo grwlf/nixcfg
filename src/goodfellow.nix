@@ -1,6 +1,13 @@
 ## FIXME: this file is quite old and not supported
 
 {config, pkgs, ...}:
+let
+
+  galtimir = "galtimir";
+  vpsport = "4345";
+  localssh = 2222;
+
+in
 
 {
   require = [
@@ -16,6 +23,8 @@
     ./include/firefox-with-localization.nix
     ./include/wheel.nix
     ./include/ntpd.nix
+    ./include/myprofile.nix
+    ./include/overrides.nix
   ];
 
   hardware.pulseaudio.enable = true;
@@ -31,6 +40,10 @@
     configurationLimit = 10;
     device = "/dev/sda";
   };
+
+  boot.kernelModules = [
+    "fuse"
+  ];
 
   time.timeZone = "Europe/Moscow";
 
@@ -65,11 +78,6 @@
 
   services.nixosManual.showManual = false;
 
-  services.openssh.enable = true;
-  services.openssh.permitRootLogin = "yes";
-  services.openssh.passwordAuthentication = true;
-  services.openssh.ports = [ 22 2222 ];
-
   services.xserver = {
     enable = true;
     layout = "ru,us";
@@ -98,12 +106,36 @@
     videoDrivers = [ "intel" "vesa" ];
   };
 
+  services.openssh = {
+    enable = true;
+    permitRootLogin = "yes";
+    passwordAuthentication = true;
+    ports = [ localssh ];
+    forwardX11 = true;
+    gatewayPorts = "yes";
+  };
+
+  services.autossh.sessions = [
+    {
+      name = "vps-back";
+      user = galtimir;
+      extraArguments = "-4 -N -R ${vpsport}:127.0.0.1:${toString localssh} vps";
+    }
+  ];
+  
+  services.syncthing ={
+    enable = true;
+    package = pkgs.syncthing012;
+    user = galtimir;
+    dataDir = "/var/lib/syncthing-${galtimir}";
+  };
+
   users.extraUsers = {
     galtimir = {
       uid = 1001;
       group = "users";
       extraGroups = ["wheel" "networkmanager"];
-      home = "/home/galtimir";
+      home = "/home/${galtimir}";
       useDefaultShell = true;
     };
   };
@@ -111,7 +143,7 @@
   environment.systemPackages = with pkgs ; [
     # X11 apps
     rxvt_unicode
-    vimHugeX
+    myvim
     glxinfo
     feh
     xcompmgr
@@ -145,7 +177,7 @@
   nixpkgs.config = {
     allowUnfree = true;
     chrome.enableRealPlayer = false;
-    firefox.enableAdobeFlash = true;
+    firefox.enableAdobeFlash = false;
     chrome.jre = true;
   };
 }
