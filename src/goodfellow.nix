@@ -118,7 +118,7 @@ in
   services.autossh.sessions = [
     {
       name = "vps-back";
-      user = galtimir;
+      user = "grwlf";
       extraArguments = "-4 -N -R ${vpsport}:127.0.0.1:${toString localssh} vps";
     }
   ];
