@@ -20,7 +20,6 @@ in
     ./include/templatecfg.nix
     ./include/user-grwlf.nix
     ./include/xfce-overrides.nix
-    ./include/firefox-with-localization.nix
     ./include/wheel.nix
     ./include/ntpd.nix
     ./include/myprofile.nix
@@ -122,7 +121,7 @@ in
       extraArguments = "-4 -N -R ${vpsport}:127.0.0.1:${toString localssh} vps";
     }
   ];
-  
+
   services.syncthing ={
     enable = true;
     package = pkgs.syncthing012;

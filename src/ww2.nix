@@ -24,7 +24,6 @@ rec {
       ./include/postfix_relay.nix
       ./include/templatecfg.nix
       ./include/xfce-overrides.nix
-      ./include/firefox-with-localization.nix
       ./include/wheel.nix
       ./include/ntpd.nix
       ./include/myprofile.nix

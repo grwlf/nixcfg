@@ -17,7 +17,6 @@ rec {
     ./include/postfix_relay.nix
     ./include/templatecfg.nix
     ./include/user-grwlf.nix
-    # ./include/syncthing.nix
     ./include/wheel.nix
     ./include/ntpd.nix
   ];

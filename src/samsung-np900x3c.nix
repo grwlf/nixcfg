@@ -11,7 +11,6 @@ in
 rec {
   require = [
       /etc/nixos/hardware-configuration.nix
-      ./include/devenv.nix
       ./include/subpixel.nix
       ./include/haskell.nix
       ./include/bashrc.nix
@@ -21,41 +20,22 @@ rec {
       ./include/postfix_relay.nix
       ./include/templatecfg.nix
       ./include/xfce-overrides.nix
-      # ./include/firefox-with-localization.nix
-      # ./include/syncthing.nix
       ./include/wheel.nix
       ./include/ntpd.nix
       ./include/myprofile.nix
       ./include/overrides.nix
+      ./include/containers.nix
     ];
-
-  # boot.kernelPackages = pkgs.linuxPackages_3_14;
 
   boot.blacklistedKernelModules = [
     "fbcon"
-
-    # Debug audio
-    # "snd_hda_codec_hdmi"
-    # "snd_hda_codec_realtek"
-    # "snd_hda_codec_generic"
-    # "snd_hda_intel"
-    # "snd_hda_controller"
-    # "snd_hda_codec"
-    # "snd_hda_core"
-    # "snd_hwdep"
-    # "snd_pcm_oss"
-    # "snd_mixer_oss"
-    # "snd_pcm"
-    # "snd_timer"
-    # "snd"
-    # "soundcore"
-    ];
+  ];
 
   boot.kernelParams = [
     # Use better scheduler for SSD drive
     "elevator=noop"
     "intel_pstate=disable"
-    ];
+  ];
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
@@ -231,18 +211,11 @@ rec {
     '';
   };
 
-  # security = {
-  #   pam = {
-  #     enableEncfs = true;
-  #   };
-  # };
-
   environment.systemPackages = with pkgs ; [
     unclutter
     xorg.xdpyinfo
     xorg.xinput
     rxvt_unicode
-    # vimHugeX
     myvim
     glxinfo
     xcompmgr
@@ -267,12 +240,6 @@ rec {
     smplayer
     mplayer
 
-    # (devenv {
-    #   name = "dev";
-    #   extraPkgs = [ haskell-latest ]
-    #     ++ lib.optionals services.xserver.enable devlibs_x11;
-    # })
-
     imagemagickBig
     geeqie
     gimp_2_8
@@ -283,10 +250,12 @@ rec {
     google-drive-ocamlfuse
     ffmpeg
     electrum
+    go-ethereum
 
     tdesktop
     jmtpfs
     evince
+    cabal2nix
   ];
 
   nixpkgs.config = {

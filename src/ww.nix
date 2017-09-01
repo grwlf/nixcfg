@@ -17,7 +17,6 @@ rec {
       ./include/templatecfg.nix
       ./include/workusers.nix
       ./include/xfce-overrides.nix
-      ./include/firefox-with-localization.nix
       ./include/wheel.nix
     ];
 
