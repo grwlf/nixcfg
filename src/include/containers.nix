@@ -53,5 +53,16 @@ in {
 
   };
 
+  containers.crypto-bcc = {
+    config = {config, pkgs, ... }: (template 3) // {
+
+      environment.systemPackages = with pkgs ; [
+        electron-cash
+      ];
+
+    };
+
+  };
+
 }
 
