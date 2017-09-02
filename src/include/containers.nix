@@ -28,7 +28,6 @@ let
         ports = [ port ];
         listenAddresses = [ { addr = "127.0.0.1" ; port = port ; } ];
       };
-
   };
 
 in {
@@ -50,7 +49,6 @@ in {
       ];
 
     };
-
   };
 
   containers.crypto-bcc = {
@@ -61,8 +59,22 @@ in {
       ];
 
     };
-
   };
+
+  environment.extraInit = ''
+    cgeth() {
+      sudo nixos-container start crypto-geth
+      ssh -Y -l banker -p 22201 127.0.0.1
+    }
+    cbcc() {
+      sudo nixos-container start crypto-bcc
+      ssh -Y -l banker -p 22203 127.0.0.1
+    }
+    cbtc() {
+      sudo nixos-container start crypto-btc
+      ssh -Y -l banker -p 22202 127.0.0.1
+    }
+  '';
 
 }
 
