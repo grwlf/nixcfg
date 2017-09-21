@@ -79,6 +79,7 @@ vim_configurable.customize {
     " endif
 
     colorscheme blackboard
+    hi Comment guifg=grey35 ctermfg=30
 
     " colorscheme zellner
 
