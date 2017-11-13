@@ -1,0 +1,36 @@
+set nosmoothscroll
+set typelinkhints
+
+let searchlimit = 30
+let scrollstep = 70
+let barposition = "bottom"
+
+let locale = "uk"
+let hintcharacters = "abc123"
+
+command g tabnew google
+
+let searchalias g = "google"
+let searchalias d = "duckduckgo"
+
+let blacklists = [ "https://mail.google.com/*", "*://mail.google.com/*", "@https://mail.google.com/mail/*"]
+
+map R reloadTabUncached
+map U :restore<Space>
+map u :restore<Space><Tab><CR>
+
+unmap h j k l
+
+map <C-u> rootFrame
+map <A-q> previousTab
+map <A-w> nextTab
+
+map <C-d> scrollPageDown
+map <C-u> scrollPageUp
+imap <C-w> deleteWord
+
+
+echo(link) -> {{
+  alert(link.href);
+}}
+map <C-f> createScriptHint(echo)
