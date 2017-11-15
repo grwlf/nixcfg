@@ -36,8 +36,21 @@ map <C-d> scrollPageDown
 map <C-в> scrollPageDown
 map <C-u> scrollPageUp
 map <C-г> scrollPageUp
+
+map <A-i> goToInput
+map <A-ш> goToInput
+
+imap <A-f> forwardWord
+imap <A-а> forwardWord
+
+imap <A-b> backwardWord
+imap <A-и> backwardWord
+
 imap <C-w> deleteWord
 imap <C-ц> deleteWord
+
+imap <A-d> deleteForwardWord
+imap <A-в> deleteForwardWord
 
 map о j
 map л k
