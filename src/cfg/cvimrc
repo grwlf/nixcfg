@@ -15,22 +15,34 @@ let searchalias d = "duckduckgo"
 
 let blacklists = [ "https://mail.google.com/*", "*://mail.google.com/*", "@https://mail.google.com/mail/*"]
 
-map R reloadTabUncached
-map U :restore<Space>
-map u :restore<Space><Tab><CR>
+unmap <C-w>
 
-unmap h j k l
+map <C-a>c :tabnew<Space>http://google.com<CR>
+
+map R reloadTabUncached
+map К reloadTabUncached
+map u :restore<Space>
+map г :restore<Space>
+map d closeTab
+map в closeTab
 
 map <C-u> rootFrame
 map <A-q> previousTab
+map <A-к> previousTab
 map <A-w> nextTab
+map <A-ц> nextTab
 
 map <C-d> scrollPageDown
+map <C-в> scrollPageDown
 map <C-u> scrollPageUp
+map <C-г> scrollPageUp
 imap <C-w> deleteWord
-
+imap <C-ц> deleteWord
 
 echo(link) -> {{
   alert(link.href);
 }}
 map <C-f> createScriptHint(echo)
+
+let configpath = '/home/smironov/.cvimrc'
+set localconfig

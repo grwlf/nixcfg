@@ -209,6 +209,7 @@ rec {
     encfs
     imagemagick
     firefox
+    chromium
     tdesktop
     vimHugeX
     # myvim
@@ -221,10 +222,6 @@ rec {
   nixpkgs.config = {
     allowBroken = true;
     allowUnfree = true;
-    firefox = {
-      # jre = true;
-      # enableAdobeFlash = true;
-    };
   };
 
 }
