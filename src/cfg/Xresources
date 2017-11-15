@@ -14,7 +14,7 @@ URxvt*internalBorder: 0
 !URxvt*background: #FFF0FF
 !URxvt*background: #F0FAE8
 !URxvt*background: #FbFbFb
-URxvt*cursorUnderline: True
+URxvt*cursorUnderline: False
 URxvt*foreground: grey
 URxvt*background: #262626
 URxvt*font:-*-terminus-medium-*-normal-*-20-*-*-*-*-*-*-u
