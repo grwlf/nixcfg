@@ -6,7 +6,7 @@ let scrollstep = 70
 let barposition = "bottom"
 
 let locale = "uk"
-let hintcharacters = "abc123"
+let hintcharacters = "123890"
 
 command g tabnew google
 
@@ -39,10 +39,17 @@ map <C-г> scrollPageUp
 imap <C-w> deleteWord
 imap <C-ц> deleteWord
 
+map о j
+map л k
+map д l
+map р h
+
 echo(link) -> {{
   alert(link.href);
 }}
 map <C-f> createScriptHint(echo)
 
-let configpath = '/home/smironov/.cvimrc'
+" FIXME: figure out how to abstract on the user name
+let configpath = '/home/grwlf/proj/nixcfg/src/cfg/cvimrc'
 set localconfig
+
