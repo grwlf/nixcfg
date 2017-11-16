@@ -39,14 +39,21 @@ let
     };
   };
 
+  grepper = vimUtils.buildVimPluginFrom2Nix {
+    name = "grepper-1.4";
+    src = fetchgit {
+      url = "https://github.com/mhinz/vim-grepper";
+      rev = "b146028f70594390bd18e16789d1af29eac55aad";
+      sha256 = "0wdxsghadmg6zl608j6j1icihdc62czbsx5lmsq0j1b2rqzb5xj2";
+    };
+  };
+
 
 in
 vim_configurable.customize {
   name = "vim-with-plugins";
 
-  # store your plugins in Vim packages
   vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
-    # loaded on launch
     start = [
       cyrvim
       bufexplorer
@@ -64,14 +71,10 @@ vim_configurable.customize {
       syntastic
       vim-hdevtools
       lastplace
+      grepper
     ];
-    # manually loadable by calling `:packadd $plugin-name`
-    # opt = [ phpCompletion elm-vim ];
-    # To automatically load a plugin when opening a filetype, add vimrc lines like:
-    # autocmd FileType php :packadd phpCompletion
   };
 
-  # add custom .vimrc lines like this:
   vimrcConfig.customRC = ''
     " if (hostname() == "ww2")
     "  colorscheme default
@@ -432,34 +435,5 @@ vim_configurable.customize {
     map <F5> :call NextColorScheme()<CR>:colorscheme<CR>
     map <F6> :call PreviousColorScheme()<CR>:colorscheme<CR>
   '';
-
-  # plugins can also be managed by VAM
-  # vimrcConfig.vam.knownPlugins = pkgs.vimPlugins + [plg1]; # optional
-  # vimrcConfig.vam.pluginDictionaries = [
-  #   # load always
-  #   # { name = "youcompleteme"; }
-  #   # { name = "youcompleteme"; }
-  #   {
-  #     names = [
-  #       "youcompleteme" "surround" "vim-airline"
-  #       "nerdtree"
-  #       "vim-trailing-whitespace"
-  #       "vim-localvimrc"
-  #     ];
-  #   }
-
-  #   # only load when opening a .php file
-  #   # { name = "phpCompletion"; ft_regex = "^php\$"; }
-  #   # { name = "phpCompletion"; filename_regex = "^.php\$"; }
-
-  #   # provide plugin which can be loaded manually:
-  #   # { name = "phpCompletion"; tag = "lazy"; }
-
-  #   # full documentation at github.com/MarcWeber/vim-addon-manager
-  # ];
-
-  # there is a pathogen implementation as well, but its startup is slower and [VAM] has more feature
-  # vimrcConfig.pathogen.knownPlugins = vimPlugins; # optional
-  # vimrcConfig.pathogen.pluginNames = ["vim-addon-nix"];
 }
 
