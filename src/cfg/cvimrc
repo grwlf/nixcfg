@@ -3,7 +3,7 @@ set typelinkhints
 
 let searchlimit = 30
 let scrollstep = 70
-let barposition = "bottom"
+let barposition = "top"
 
 let locale = "uk"
 let hintcharacters = "123890"
@@ -51,6 +51,9 @@ imap <C-ц> deleteWord
 
 imap <A-d> deleteForwardWord
 imap <A-в> deleteForwardWord
+
+map <A-d> :open<Space>
+map <A-в> :open<Space>
 
 map о j
 map л k
