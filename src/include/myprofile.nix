@@ -42,7 +42,7 @@
       man()     { LANG=C ${man}/bin/man "$@" ; }
       feh()     { ${feh}/bin/feh -. "$@" ; }
 
-      q() 		  { exit ; }
+      q()       { if test -n "$DISPLAY" ; then ${wmctrl}/bin/wmctrl -c :ACTIVE: ; fi ; exit ; }
       s() 		  { ${screen}/bin/screen ; }
       e() 		  { thunar . 2>/dev/null & }
       lt() 		  { ls -lhrt "$@"; }
@@ -57,12 +57,7 @@
       mcd() 		{ mkdir "$1" && cd "$1" ; }
       vimless() { ${vimbin} -R "$@" - ; }
       pfind() 	{ ${findutils}/bin/find -iname "*$1*" ; }
-      d() 	    { if test -z "$1" ; then
-                    load-env-dev
-                  else
-                    load-env-dev-$1
-                  fi
-                }
+
       manconf() { ${man}/bin/man configuration.nix ; }
       ding()    { ${aplay} ${../data/ding.wav} 2>/dev/null; }
 
