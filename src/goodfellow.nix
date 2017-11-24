@@ -22,7 +22,6 @@ in
     ./include/xfce-overrides.nix
     ./include/wheel.nix
     ./include/ntpd.nix
-    ./include/myprofile.nix
     ./include/overrides.nix
   ];
 

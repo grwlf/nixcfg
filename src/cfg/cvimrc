@@ -68,7 +68,6 @@ echo(link) -> {{
 }}
 map <C-f> createScriptHint(echo)
 
-" FIXME: figure out how to abstract on the user name
-let configpath = '/home/grwlf/proj/nixcfg/src/cfg/cvimrc'
+let configpath = '/etc/cvimrc'
 set localconfig
 

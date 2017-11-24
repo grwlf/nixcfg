@@ -18,6 +18,7 @@ rec {
       ./include/subpixel.nix
       ./include/haskell.nix
       ./include/bashrc.nix
+      ./include/cvimrc.nix
       ./include/systools.nix
       ./include/fonts.nix
       ./include/user-smironov.nix
@@ -26,7 +27,6 @@ rec {
       ./include/xfce-overrides.nix
       ./include/wheel.nix
       ./include/ntpd.nix
-      ./include/myprofile.nix
       ./include/overrides.nix
     ];
 
