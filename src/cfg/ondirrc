@@ -1,0 +1,17 @@
+# vim:syntax=sh
+
+enter ~/proj/ks
+	export GIT_AUTHOR_NAME='Sergey Mironov'
+	export GIT_AUTHOR_EMAIL='Sergey.Mironov@kaspersky.com'
+	export GIT_COMMITTER_NAME='Sergey Mironov'
+	export GIT_COMMITTER_EMAIL='Sergey.Mironov@kaspersky.com'
+	echo 'Switched to git user/email settings for "work".'
+	gc() { git commit "$@"; }
+
+leave ~/proj/ks
+	unset GIT_AUTHOR_NAME
+	unset GIT_AUTHOR_EMAIL
+	unset GIT_COMMITTER_NAME
+	unset GIT_COMMITTER_EMAIL
+	echo 'Switched back to global git user/email settings.'
+	gc() { git commit --date="`date -R -d 08:00`" "$@"; }
