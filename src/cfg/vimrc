@@ -156,16 +156,6 @@ nnoremap Y y$
 " Quick quit
 map q :quit<CR>
 
-" Paste 1-line visual selection into the command line
-function! SmartColon() range
-	if (a:firstline == a:lastline)
-		call feedkeys("gvy:\<Space>\<C-r>\"\<C-b>",'n')
-	else
-		call feedkeys(":")
-	endif
-endfunction
-vnoremap : :call SmartColon()<CR>
-
 " Easy paste
 nnoremap <Leader>i :set paste<CR>i
 
