@@ -57,7 +57,7 @@ vim_configurable.customize {
     start = [
       cyrvim
       bufexplorer
-      youcompleteme
+      # youcompleteme
       surround
       vim-airline
       vim-airline-themes
