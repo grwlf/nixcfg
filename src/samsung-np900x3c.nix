@@ -227,7 +227,7 @@ rec {
     wine
     # libreoffice
     pidgin
-    skype
+    skypeforlinux
     networkmanagerapplet
     pavucontrol
     qbittorrent
