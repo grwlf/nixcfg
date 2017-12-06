@@ -28,6 +28,10 @@ let
         ports = [ port ];
         listenAddresses = [ { addr = "127.0.0.1" ; port = port ; } ];
       };
+
+    environment.systemPackages = with pkgs ; [
+      vi
+    ];
   };
 
 in {
