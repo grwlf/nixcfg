@@ -10,8 +10,6 @@ in
 rec {
   imports = [
     /etc/nixos/hardware-configuration.nix
-    ./include/devenv.nix
-    ./include/haskell.nix
     ./include/bashrc.nix
     ./include/systools.nix
     ./include/postfix_relay.nix
@@ -19,6 +17,7 @@ rec {
     ./include/user-grwlf.nix
     ./include/wheel.nix
     ./include/ntpd.nix
+    ./include/overrides.nix
   ];
 
   boot.loader.grub.enable = true;
@@ -141,11 +140,7 @@ rec {
   };
 
   environment.systemPackages = with pkgs ; [
-    vimHugeX
-    (devenv {
-      name = "dev";
-      extraPkgs = [ haskell-latest ];
-    })
+    myvim
     postgresql
     imagemagick
     mlton
