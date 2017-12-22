@@ -68,10 +68,11 @@ vim_configurable.customize {
       vim-trailing-whitespace
       vim-colorschemes
       changeColorScheme-vim
-      syntastic
+      # syntastic
       vim-hdevtools
       lastplace
       grepper
+      supertab
     ];
   };
 
