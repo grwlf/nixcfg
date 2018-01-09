@@ -44,6 +44,8 @@
     minicom
     bc
     telnet
+    pdftk
+    mkpasswd
 
     # Fun
     cowsay

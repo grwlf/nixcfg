@@ -54,8 +54,9 @@ rec {
     opengl.driSupport32Bit = true;
     enableAllFirmware = true;
     # firmware = [ "/root/firmware" ];
-    bluetooth.enable = false;
+    bluetooth.enable = true;
     pulseaudio.enable = true;
+    pulseaudio.package = pkgs.pulseaudioFull;
   };
 
   time.timeZone = "Europe/Moscow";
@@ -94,7 +95,7 @@ rec {
 
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql92;
+    # package = pkgs.postgresql92;
     initialScript =  pkgs.writeText "postgreinit.sql" ''
       create role grwlf superuser login createdb createrole replication;
     '';
@@ -225,7 +226,7 @@ rec {
     xlsfonts
     djvulibre
     wine
-    # libreoffice
+    libreoffice
     pidgin
     skypeforlinux
     networkmanagerapplet
@@ -234,6 +235,8 @@ rec {
     cups
     mlton
     i7z
+    pdftk
+    tuxguitar
 
     vlc
     sox
@@ -243,7 +246,7 @@ rec {
     imagemagickBig
     geeqie
     gimp_2_8
-    firefox
+    chromium
     encfs
     plowshare
     lsof
@@ -256,6 +259,7 @@ rec {
     jmtpfs
     evince
     cabal2nix
+    youtube-dl
   ];
 
   nixpkgs.config = {

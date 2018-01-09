@@ -11,6 +11,7 @@
       ttf_bitstream_vera
       dejavu_fonts
       terminus_font
+      terminus_font_ttf
       bakoma_ttf
       bakoma_ttf
       ubuntu_font_family
