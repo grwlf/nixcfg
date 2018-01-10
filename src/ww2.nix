@@ -75,7 +75,7 @@ rec {
 
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql92;
+    # package = pkgs.postgresql92;
 
     initialScript = pkgs.writeText "postgreinit.sql" ''
       create role smironov superuser login createdb createrole replication;
@@ -190,15 +190,10 @@ rec {
     vlc
     libreoffice
     pidgin
-    skype
+    # skypeforlinux
     pavucontrol
     networkmanagerapplet
     cups
-    # (devenv {
-    #   name = "dev";
-    #   extraPkgs = [ haskell-latest-profiling ]
-    #     ++ lib.optionals services.xserver.enable devlibs_x11;
-    # })
     unetbootin
     dmidecode
     xscreensaver
@@ -208,15 +203,17 @@ rec {
     i7z
     encfs
     imagemagick
-    firefox
     chromium
     tdesktop
-    vimHugeX
-    # myvim
+    myvim
     i3lock
     geeqie
     cabal2nix
     gitRepo
+    ffmpeg
+    sox
+    graphviz
+    youtube-dl
   ];
 
   nixpkgs.config = {
