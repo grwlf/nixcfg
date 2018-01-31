@@ -3,7 +3,7 @@ let
 
   mykey = import <passwords/pubkey>;
 
-  template = index : {
+  template = index : programs : {
     users.users = {
       banker = {
         home = "/home/banker";
@@ -29,40 +29,23 @@ let
         listenAddresses = [ { addr = "127.0.0.1" ; port = port ; } ];
       };
 
-    environment.systemPackages = with pkgs ; [
-      vi
-    ];
+    environment.systemPackages = (with pkgs ; [
+        nvi
+    ]) ++ programs;
   };
 
 in {
 
   containers.crypto-geth = {
-    config = { config, pkgs, ... }: (template 1) // {
-
-      environment.systemPackages = with pkgs ; [
-        go-ethereum
-      ];
-    };
+    config = { config, pkgs, ... }: template 1 (with pkgs; [go-ethereum]);
   };
 
   containers.crypto-btc = {
-    config = {config, pkgs, ... }: (template 2) // {
-
-      environment.systemPackages = with pkgs ; [
-        electrum # bitcoin wallet
-      ];
-
-    };
+    config = {config, pkgs, ... }: template 2 (with pkgs; [electrum]);
   };
 
   containers.crypto-bcc = {
-    config = {config, pkgs, ... }: (template 3) // {
-
-      environment.systemPackages = with pkgs ; [
-        electron-cash
-      ];
-
-    };
+    config = {config, pkgs, ... }: template 3 (with pkgs; [electron-cash]);
   };
 
   environment.extraInit = ''
