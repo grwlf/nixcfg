@@ -3,37 +3,57 @@
 ME=mkbr.sh
 die() { echo $ME: $@ >&2 ; exit 1; }
 
-echo $@ | grep -qwE -e '-h|--help' && {
-  echo "$ME <commits> - Cherry pick the commits specified to a new branch derived directly from the master" >&2
-  return 1
-}
-
-echo $@ | grep -qwE -e '-f|--force' && {
-  FORCE=y
-}
-
-args=`echo "$@" | grep -v -e '-.*'`
+FORCE=n
+args=""
+bname=""
+while test -n "$1" ; do
+  case "$1" in
+    -h|--help)
+      echo "$ME [-f] branch-name [commits] - Cherry pick the commits specified to a new branch derived directly from the master" >&2
+      exit 1
+      ;;
+    -f|--force)
+      FORCE=y
+      ;;
+    *)
+      if test -z "$bname" ; then
+        bname="$1"
+      else
+        if test -n "$args" ; then
+          args="$args $1";
+        else
+          args="$1"
+        fi
+      fi
+      ;;
+  esac
+  shift
+done
 
 set -e
 
+if test -z "$bname" ; then
+  die "Invalid branch name, see -h|--help"
+fi
+
+# basebranch=`git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD)`
+basebranch=origin/master
+if test -z "$basebranch" ; then
+  die "Remote-tracing branch is not set"
+fi
+
 if test -z "$args" ; then
   # cmts=`git rev-parse HEAD`
-  crev=`git merge-base HEAD origin/master`
+  crev=`git merge-base HEAD $basebranch`
   cmts=`git log --reverse --oneline $crev..HEAD | awk '{print $1}'`
 else
   cmts=`git rev-parse "$args"`
 fi
 
-cwd=`pwd`
-cd $NIX_DEV_ROOT/nixpkgs
-
-echo -n "Enter name for the git branch: "
-read bname
-
 (
 set -x
 cb=`git branch --list | grep '*' | awk '{print $2}'`
-base=`git merge-base "$cb" origin/master`
+base=`git merge-base "$cb" $basebranch`
 { git branch $bname $base || {
     if test "$FORCE" = "y" ; then
       git branch -D "$bname"
@@ -54,5 +74,3 @@ if [ "$?" != "0" ] ; then {
   } >&2
   return 1
 fi
-
-cd $cwd
