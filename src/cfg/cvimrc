@@ -62,6 +62,7 @@ map р h
 map а f
 map А F
 map щ o
+map . /
 
 echo(link) -> {{
   alert(link.href);
