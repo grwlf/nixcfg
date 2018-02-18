@@ -171,6 +171,7 @@ in
     rtorrent
     firefox
     pavucontrol
+    tdesktop
   ];
 
   nixpkgs.config = {
