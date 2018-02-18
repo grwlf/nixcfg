@@ -158,7 +158,7 @@ in
     djvulibre
     ghostscript
     djview4
-    skype
+    skypeforlinux
     tightvnc
     wine
     vlc
@@ -170,6 +170,7 @@ in
     imagemagick
     rtorrent
     firefox
+    pavucontrol
   ];
 
   nixpkgs.config = {
