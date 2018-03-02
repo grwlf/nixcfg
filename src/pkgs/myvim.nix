@@ -85,6 +85,7 @@ vim_configurable.customize {
     colorscheme blackboard
     hi Comment guifg=grey35 ctermfg=30
 
+
     " colorscheme zellner
 
 
@@ -148,6 +149,7 @@ vim_configurable.customize {
     au FileType chaskell set expandtab shiftwidth=2 tabstop=2
     au FileType cabal set expandtab
     au FileType python set expandtab textwidth=0 shiftwidth=2 tabstop=2 cinoptions=g0,(2 softtabstop=2 nosmartindent
+    au FileType python syn region Comment start=/"""/ end=/"""/
     au FileType *asciidoc set expandtab shiftwidth=2 tabstop=2
     au FileType *asciidoc set comments+=fb:*
     au FileType *asciidoc set comments+=fb:.
