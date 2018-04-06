@@ -193,7 +193,7 @@ rec {
   };
 
   services.syncthing ={
-    package = pkgs.syncthing012;
+    package = pkgs.syncthing;
     enable = true;
     user = me;
     dataDir = "/var/lib/syncthing-${me}";
