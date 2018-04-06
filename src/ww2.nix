@@ -132,7 +132,7 @@ rec {
 
   services.syncthing ={
     enable = true;
-    package = pkgs.syncthing012;
+    # package = pkgs.syncthing012;
     user = me;
     all_proxy = "socks5://127.0.0.1:${proxyport}";
     dataDir = "/var/lib/syncthing-${me}";
