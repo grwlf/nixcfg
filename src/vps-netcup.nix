@@ -51,7 +51,7 @@ rec {
 
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql92;
+    # package = pkgs.postgresql92;
   };
 
   services.xserver.enable = false;
@@ -115,7 +115,7 @@ rec {
           mode tcp
           option tcplog
           server ssh 127.0.0.1:${toString my_ssh_port}
-          timeout server 2h
+          timeout tunnel 600s
 
       frontend ssl
           bind 0.0.0.0:443 ssl crt ${../ideas/stunnel-test/stunnel.pem} no-sslv3
@@ -134,7 +134,7 @@ rec {
 
   services.syncthing ={
     enable = true;
-    package = pkgs.syncthing012;
+    package = pkgs.syncthing;
     user = "syncthing";
     dataDir = "/var/lib/syncthing";
   };
