@@ -64,8 +64,10 @@
       man()     { LANG=C ${man}/bin/man "$@" ; }
       feh()     { ${feh}/bin/feh -. "$@" ; }
 
-      q()       { if test -n "$DISPLAY" ; then ${wmctrl}/bin/wmctrl -c :ACTIVE: ; fi ; exit ; }
-      s() 		  { ${screen}/bin/screen ; }
+      #q()       { if test -n "$DISPLAY" ; then ${wmctrl}/bin/wmctrl -c :ACTIVE: ; fi ; exit ; }
+      q()       { exit ; }
+      #s() 		  { ${screen}/bin/screen ; }
+      s() 		  { ${tmux}/bin/tmux ; }
       e() 		  { thunar . 2>/dev/null & }
       lt() 		  { ls -lhrt "$@"; }
 
@@ -74,6 +76,7 @@
 
       cdt() 		{ cd $HOME/tmp ; }
       cdd()     { cd $HOME/dwnl; }
+      cdnix()   { cd $HOME/proj/nixcfg ; }
       gitk() 		{ LANG=C ${git}/bin/gitk "$@" & }
       gitka() 		{ LANG=C ${git}/bin/gitk --all "$@" & }
       mcd() 		{ mkdir "$1" && cd "$1" ; }
@@ -155,14 +158,14 @@
       wn() { ${wmctrl}/bin/wmctrl -r :ACTIVE: -T "$@";  }
 
       # Set screen window name
-      sn() {
-        PID=$(echo $STY | awk -F"." '{ print $1}')
-        if test -n "$PID" ; then
-          ${screen}/bin/screen -D -r "$PID" -X title "$@"
-        else
-          echo "Failed to get PID. Do you have GNU/Screen running?" >&2
-        fi
-      }
+      # sn() {
+      #   PID=$(echo $STY | awk -F"." '{ print $1}')
+      #   if test -n "$PID" ; then
+      #     ${screen}/bin/screen -D -r "$PID" -X title "$@"
+      #   else
+      #     echo "Failed to get PID. Do you have GNU/Screen running?" >&2
+      #   fi
+      # }
 
       my_ghc_cmd() {(
         cmd=$1
