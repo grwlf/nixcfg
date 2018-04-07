@@ -67,7 +67,12 @@
       #q()       { if test -n "$DISPLAY" ; then ${wmctrl}/bin/wmctrl -c :ACTIVE: ; fi ; exit ; }
       q()       { exit ; }
       #s() 		  { ${screen}/bin/screen ; }
-      s() 		  { ${tmux}/bin/tmux ; }
+      s() 		  {
+                  case `pwd` in
+                    *proj/*) ${tmux}/bin/tmux new -s `pwd | xargs basename` ;;
+                    *) ${tmux}/bin/tmux ;;
+                  esac
+                }
       e() 		  { thunar . 2>/dev/null & }
       lt() 		  { ls -lhrt "$@"; }
 
@@ -78,7 +83,7 @@
       cdd()     { cd $HOME/dwnl; }
       cdnix()   { cd $HOME/proj/nixcfg ; }
       gitk() 		{ LANG=C ${git}/bin/gitk "$@" & }
-      gitka() 		{ LANG=C ${git}/bin/gitk --all "$@" & }
+      gitka() 	{ LANG=C ${git}/bin/gitk --all "$@" & }
       mcd() 		{ mkdir "$1" && cd "$1" ; }
       vimless() { ${vimbin} -R "$@" - ; }
       pfind() 	{ ${findutils}/bin/find -iname "*$1*" ; }

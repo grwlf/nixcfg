@@ -337,7 +337,7 @@ vim_configurable.customize {
     function! VimOpenTerm(d)
       let oldcwd = getcwd()
       exec "cd " . a:d
-      exec '!screen'
+      exec '!tmux new-window'
       exec "cd " . oldcwd
     endfunction
 
