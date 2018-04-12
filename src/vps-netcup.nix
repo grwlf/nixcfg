@@ -33,6 +33,7 @@ rec {
   networking.hostName = "vps";
   networking.wireless.enable = false;
   networking.firewall.enable = false;
+  networking.enableIPv6 = false;
 
   # Select internationalisation properties.
   # i18n = {
@@ -138,6 +139,20 @@ rec {
     user = "syncthing";
     dataDir = "/var/lib/syncthing";
   };
+
+  # services.ejabberd = {
+  #   enable = true;
+  #   imagemagick = true;
+  #   configFile = writeFile "ejabberd.yaml" ''
+  #     acl:
+  #       admin:
+  #         user:
+  #           - "admin1": "example.org"
+  #     access:
+  #       configure:
+  #         admin: allow
+  #   '';
+  # };
 
   environment.systemPackages = with pkgs ; [
     myvim
