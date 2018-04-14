@@ -50,7 +50,7 @@ let maplocalleader = "`"
 
 set guioptions-=m
 set guioptions-=T
-set scrolloff=10
+set scrolloff=0
 set tabstop=4
 set nobackup
 set shiftwidth=4
