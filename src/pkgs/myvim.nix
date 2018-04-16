@@ -96,7 +96,7 @@ vim_configurable.customize {
 
     set guioptions-=m
     set guioptions-=T
-    set scrolloff=10
+    set scrolloff=0
     set tabstop=4
     set nobackup
     set shiftwidth=4
@@ -438,6 +438,9 @@ vim_configurable.customize {
     " Cycle colorscheme
     map <F5> :call NextColorScheme()<CR>:colorscheme<CR>
     map <F6> :call PreviousColorScheme()<CR>:colorscheme<CR>
+
+    " Mouse
+    nmap <RightMouse> <C-o>
   '';
 }
 
