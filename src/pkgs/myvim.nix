@@ -625,6 +625,7 @@ vim_configurable.customize {
     let g:SuperTabDefaultCompletionType = "context"
     let g:SuperTabContextDefaultCompletionType = "<c-n>"
     let g:SuperTabCompleteCase = "match"
+    let g:SuperTabLongestEnhanced = 1
 
     " Surround
     xmap s S
