@@ -9,6 +9,8 @@
 
       myvim = pkgs.callPackage ../pkgs/myvim.nix {};
 
+      myprofile = pkgs.callPackage ../pkgs/myprofile.nix {};
+
     };
 
   };

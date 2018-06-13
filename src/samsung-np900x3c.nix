@@ -218,6 +218,7 @@ rec {
     xorg.xinput
     rxvt_unicode
     myvim
+    myprofile
     glxinfo
     xcompmgr
     zathura
