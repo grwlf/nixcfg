@@ -17,8 +17,9 @@ URxvt*internalBorder: 0
 URxvt*cursorUnderline: False
 URxvt*foreground: grey
 URxvt*background: #262626
-URxvt*font:-*-terminus-medium-*-normal-*-20-*-*-*-*-*-*-1
-URxvt*boldFont:-*-terminus-bold-*-normal-*-20-*-*-*-*-*-*-1
+URxvt*font:xft:Monospace:size=13
+/* URxvt*font:-*-terminus-medium-*-normal-*-20-*-*-*-*-*-*-1 */
+/* URxvt*boldFont:-*-terminus-bold-*-normal-*-20-*-*-*-*-*-*-1 */
 URxvt*loginShell: true
 URxvt.perl-ext-common:  default,fullscreen
 URxvt*keysym.F11:       perl:fullscreen:switch
