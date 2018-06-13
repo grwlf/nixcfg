@@ -238,6 +238,8 @@ rec {
     i7z
     pdftk
     tuxguitar
+    unetbootin
+    zbar
 
     vlc
     sox

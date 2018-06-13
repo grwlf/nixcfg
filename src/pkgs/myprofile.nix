@@ -7,7 +7,7 @@ let
 
   gitbin = "${git}/bin/git";
 
-  vimbin = "${myvim}/bin/vim-with-plugins";
+  vimbin = "${myvim}/bin/vim";
 
   aplay = "${alsaUtils}/bin/aplay";
 
@@ -127,12 +127,12 @@ pkgs.writeText "myprofile.sh" ''
   # Custom aliases
   #
 
-  vim() {
-    case "$1" in
-      "") ${vimbin} .    ;;
-       *) ${vimbin} "$@" ;;
-    esac
-  }
+  # vim() {
+  #   case "$1" in
+  #     "") ${vimbin} .    ;;
+  #      *) ${vimbin} "$@" ;;
+  #   esac
+  # }
 
   # Set window name
   wn() { ${wmctrl}/bin/wmctrl -r :ACTIVE: -T "$@";  }

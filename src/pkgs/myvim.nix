@@ -51,7 +51,7 @@ let
 
 in
 vim_configurable.customize {
-  name = "vim-with-plugins";
+  name = "vim";
 
   vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
     start = [

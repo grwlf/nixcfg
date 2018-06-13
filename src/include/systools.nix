@@ -17,7 +17,7 @@
     cacert
     w3m
     wget
-    screen
+    tmux
     fuse
     mpg321
     catdoc
@@ -46,6 +46,7 @@
     telnet
     pdftk
     mkpasswd
+    sshfs-fuse
 
     # Fun
     cowsay
