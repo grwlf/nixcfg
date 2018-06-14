@@ -100,32 +100,6 @@ pkgs.writeText "myprofile.sh" ''
   alias gsu='${gitbin} submodule update'
 
   #
-  # NIX aliases
-  #
-
-  nix_dev() { (
-    N=$1; shift ;
-    NIXPKGS_CONFIG=$NIX_DEV_ROOT/ideas/nixpkgs-config.nix \
-      nix-shell '<nixpkgs>' -A "$N" "$@" ;
-  ) }
-
-  nix_env() { (
-    NIXPKGS_CONFIG=$NIX_DEV_ROOT/ideas/nixpkgs-config.nix \
-      nix-env -f '<nixpkgs>' "$@"
-  ) }
-
-  nix_unpack() { (
-    NIXPKGS_CONFIG=$NIX_DEV_ROOT/ideas/nixpkgs-config.nix \
-      nix-build '<nixpkgs>' -A $1.src --no-out-link | \
-        grep /nix/store | xargs ${atool}/bin/aunpack
-  ) }
-
-  alias ne="nix_env"
-  alias nu="nix_unpack"
-  alias nd="nix_dev"
-
-
-  #
   # Custom aliases
   #
 
