@@ -5,6 +5,8 @@ let
 
   git = gitAndTools.gitFull;
 
+  myvim = import ./myvim.nix { inherit pkgs; };
+
   gitbin = "${git}/bin/git";
 
   vimbin = "${myvim}/bin/vim";

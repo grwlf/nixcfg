@@ -2,6 +2,20 @@
 with pkgs;
 let
 
+  cacert = stdenv.mkDerivation rec {
+    name = "ca-certificates-ex";
+    syscrt = /etc/ssl/certs/ca-certificates.crt;
+    buildCommand =  ''
+      mkdir -pv $out/etc/ssl/certs/
+      cat ${syscrt} > $out/etc/ssl/certs/ca-bundle.crt
+    '';
+  }; 
+
+  fetchgit = pkgs.callPackage ./fetchgit.nix {
+    git = gitMinimal;
+    cacert = cacert;
+  };
+
   lastplace = vimUtils.buildVimPluginFrom2Nix {
     name = "lastplace";
     src = fetchurl {
@@ -50,6 +64,7 @@ let
 
 
 in
+
 vim_configurable.customize {
   name = "vim";
 
@@ -443,4 +458,3 @@ vim_configurable.customize {
     nmap <RightMouse> <C-o>
   '';
 }
-
