@@ -1,8 +1,5 @@
 [core]
 	askpass = ""
-; 	gitproxy = "git-vps-proxy"
-[http]
-	proxy = socks5://localhost:4343
 [user]
 	email = grrwlf@gmail.com
 	name = Sergey Mironov
@@ -10,8 +7,5 @@
 	default = simple
 [color]
 	ui = auto
-[review "gerrit.avp.ru"]
-	username = smironov
-[review "thegerrit.avp.ru"]
-	username = smironov
-
+[credential]
+	helper = cache --timeout 30000

@@ -1,6 +1,3 @@
-# the system.  Help is available in the configuration.nix(5) man page
-# or the NixOS manual available on virtual console 8 (Alt+F8).
-
 { config, pkgs, ... }:
 let
 
@@ -173,12 +170,16 @@ rec {
     '';
   };
 
-  programs.ssh.startAgent = true;
-
-  virtualisation.virtualbox = {
-    host.enable = true;
-    guest.enable = true;
+  programs.ssh = {
+    startAgent = true;
+    askPassword = "";
+    forwardX11 = true;
   };
+
+  # virtualisation.virtualbox = {
+  #   host.enable = true;
+  #   guest.enable = true;
+  # };
 
   virtualisation.docker = {
     enable = false;
@@ -242,7 +243,7 @@ rec {
     wine
     libreoffice
     pidgin
-    skypeforlinux
+    #skypeforlinux tarball gone
     networkmanagerapplet
     pavucontrol
     qbittorrent
