@@ -41,9 +41,7 @@ pkgs.writeText "myprofile.sh" ''
   man()     { LANG=C ${man}/bin/man "$@" ; }
   feh()     { ${feh}/bin/feh -. "$@" ; }
 
-  #q()       { if test -n "$DISPLAY" ; then ${wmctrl}/bin/wmctrl -c :ACTIVE: ; fi ; exit ; }
   q()       { exit ; }
-  #s() 		  { ${screen}/bin/screen ; }
   s() 		  {
               case `pwd` in
                 *proj/*) ${tmux}/bin/tmux new -s `pwd | xargs basename` ;;
@@ -61,12 +59,16 @@ pkgs.writeText "myprofile.sh" ''
   cdnix()   { cd $HOME/proj/nixcfg ; }
   gitk() 		{ LANG=C ${git}/bin/gitk "$@" & }
   gitka() 	{ LANG=C ${git}/bin/gitk --all "$@" & }
+  tiga()    { LANG=C ${tig}/bin/tig --all "$@" ; }
   mcd() 		{ mkdir "$1" && cd "$1" ; }
   vimless() { ${vimbin} -R "$@" - ; }
   pfind() 	{ ${findutils}/bin/find -iname "*$1*" ; }
 
   manconf() { ${man}/bin/man configuration.nix ; }
   ding()    { ${aplay} ${../data/ding.wav} 2>/dev/null; }
+  vim()     { ${vimbin} -c 'NERDTree' "$@" ; }
+  wn()      { ${wmctrl}/bin/wmctrl -r :ACTIVE: -T "$@";  }
+  encfs()   { `which encfs` -i 60 "$@" ; }
 
   #
   # GIT Aliases
@@ -103,15 +105,12 @@ pkgs.writeText "myprofile.sh" ''
   # Custom aliases
   #
 
-  vim() {
-    case "$1" in
-      "") ${vimbin} .    ;;
-       *) ${vimbin} "$@" ;;
-    esac
-  }
-
-  # Set window name
-  wn() { ${wmctrl}/bin/wmctrl -r :ACTIVE: -T "$@";  }
+  # vim() {
+  #  case "$1" in
+  #    "") ${vimbin} .    ;;
+  #     *) ${vimbin} "$@" ;;
+  #  esac
+  # }
 
   # Set screen window name
   # sn() {
@@ -123,21 +122,5 @@ pkgs.writeText "myprofile.sh" ''
   #   fi
   # }
 
-  my_ghc_cmd() {(
-    cmd=$1
-    shift
-    export LANG=en_US.UTF8
-    if [ -d .cabal-sandbox ] ; then
-      echo "Using cabal sandbox configs" .cabal-sandbox/*-packages.conf.d >&2
-      exec "$cmd" -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d "$@"
-    else
-      exec "$cmd" "$@"
-    fi
-  )}
-
-  ghc() { my_ghc_cmd ghc "$@"; }
-  ghci() { my_ghc_cmd ghci "$@"; }
-
-  encfs() { `which encfs` -i 60 "$@" ; }
 
 ''
