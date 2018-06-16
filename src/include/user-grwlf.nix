@@ -14,6 +14,7 @@
         ;
       home = "/home/grwlf";
       useDefaultShell = true;
+      passwordHash = "$6$9dn4y26D$H36bBsHtk/3okozUbJW2oA3BFtZGwMBd4UrR3nxst1sKIYj.xgg4qryBVDVt3zT0wtigM28eeeJxW5V96Ft7n.";
     };
 
   };

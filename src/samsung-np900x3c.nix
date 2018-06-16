@@ -9,8 +9,11 @@ let
 in
 
 rec {
+  imports =
+    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    ];
+
   require = [
-      /etc/nixos/hardware-configuration.nix
       ./include/subpixel.nix
       ./include/haskell.nix
       ./include/bashrc.nix
@@ -27,6 +30,31 @@ rec {
       ./include/containers.nix
     ];
 
+  boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "xhci_pci" "usb_storage" "sd_mod" ];
+  boot.kernelModules = [ "kvm-intel" "fuse" ];
+  boot.extraModulePackages = [ ];
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-label/BOOK";  # Was a typo in `mkfs.ext2` command
+      fsType = "ext2";
+    };
+
+  fileSystems."/" =
+    { device = "/dev/disk/by-label/ROOT";
+      fsType = "ext4";
+      options = ["defaults" "relatime" "discard"];
+    };
+
+  fileSystems."/home" =
+    { device = "/dev/disk/by-label/HOME";
+      fsType = "ext4";
+      options = ["defaults" "relatime" "discard"];
+    };
+
+  swapDevices = [ ];
+
+  nix.maxJobs = pkgs.lib.mkDefault 4;
+
   boot.blacklistedKernelModules = [
     "fbcon"
   ];
@@ -40,10 +68,6 @@ rec {
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda";
-
-  boot.kernelModules = [
-    "fuse"
-  ];
 
   i18n = {
     defaultLocale = "ru_RU.UTF-8";
@@ -66,17 +90,6 @@ rec {
 
     networkmanager.enable = true;
   };
-
-  fileSystems = [
-    { mountPoint = "/";
-      device = "/dev/disk/by-label/ROOT2";
-      options = ["defaults" "relatime" "discard"];
-    }
-    { mountPoint = "/home";
-      device = "/dev/disk/by-label/HOME";
-      options = ["defaults" "relatime" "discard"];
-    }
-  ];
 
   powerManagement = {
     enable = true;

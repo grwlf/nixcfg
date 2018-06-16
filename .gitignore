@@ -10,4 +10,4 @@ result-*
 /doc/manual.pdf
 /pass/*
 .version-suffix
-pass
+pass*
