@@ -230,7 +230,13 @@ rec {
     unclutter
     xorg.xdpyinfo
     xorg.xinput
-    rxvt_unicode
+    #rxvt_unicode
+    (rxvt_unicode-with-plugins.override {
+      plugins = [
+        urxvt_perl
+        urxvt_theme_switch
+      ];
+    })
     myvim
     myprofile
     glxinfo
