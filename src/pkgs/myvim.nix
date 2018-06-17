@@ -9,7 +9,7 @@ let
       mkdir -pv $out/etc/ssl/certs/
       cat ${syscrt} > $out/etc/ssl/certs/ca-bundle.crt
     '';
-  }; 
+  };
 
   fetchgit = pkgs.callPackage ./fetchgit.nix {
     git = gitMinimal;
@@ -314,6 +314,8 @@ vim_configurable.customize {
     nmap <Esc>ц :tabnext<CR>
     imap <Esc>w <C-o>:tabnext<CR>
     imap <Esc>ц <C-o>:tabnext<CR>
+    imap <Esc>x <C-o>x
+    imap <Esc>ч <C-o>x
     nmap <C-a>c :tabnew<CR>
 
     " Wrap encodings on F8
