@@ -36,3 +36,13 @@ host ww
 	ForwardX11         yes
 	ForwardX11Trusted  yes
 
+host dv
+	ProxyCommand nc 46.38.250.132 22222
+	User grwlf
+	ForwardX11         yes
+	ForwardX11Trusted  yes
+
+Host tkmai
+	User smironov
+	HostName turclubmai.ru
+
