@@ -88,6 +88,7 @@ vim_configurable.customize {
       lastplace
       grepper
       supertab
+      ctrlp
     ];
   };
 
@@ -332,15 +333,55 @@ vim_configurable.customize {
     endf
     nmap <F8> :call ChangeFileencoding()<CR>
 
-    " Figlet
-    command! -nargs=+ Figlet :r! figlet <args> | sed 's/[ \t]*$//'
+    " Screen
+    nnoremap s :call VimOpenTerm(expand("%:h"))<CR>
+    nnoremap S :call VimOpenTermWindow(expand("%:p:h"))<CR>
+
+
+    " Airline
+    let g:airline_theme="badwolf"
+
+    " Alternate
+    let g:alternateExtensions_ur = "urs"
+    let g:alternateExtensions_urs = "ur"
+
+    " BufferExplorer
+    nnoremap <Leader>e <Esc>:BufExplorer<CR>
+    inoremap <Leader>e <Esc>:BufExplorer<CR>
+    noremap <Space> <Esc>:BufExplorer<CR>
+
+    " Commentary
+    map <C-C> gc
+    nmap <C-C> gccj
+
+    " CtrlP
+    let g:ctrlp_max_files = 0
+    au BufEnter * vmap <C-p> "a:CtrlP<CR><C-\>ra
+
+    " Cycle colorscheme
+    map <F5> :call NextColorScheme()<CR>:colorscheme<CR>
+    map <F6> :call PreviousColorScheme()<CR>:colorscheme<CR>
 
     " Cyrvim
     let g:cyrvim_map_esc = 1
     let g:cyrvim_map_cmd = 1
     let g:cyrvim_map_cmd_esc = 1
 
+    " EasyGrep
+    let g:EasyGrepRecursive = 1
+    let g:EasyGrepMode = 2
+
+    " Figlet
+    command! -nargs=+ Figlet :r! figlet <args> | sed 's/[ \t]*$//'
+
+    " Local vimrc
+    let g:localvimrc_name = ['.lvimrc', '.vimrc_local.vim', 'localrc.vim']
+    let g:localvimrc_event = [ "BufWinEnter" ]
+    let g:localvimrc_ask = 0
+    let g:localvimrc_sandbox = 0
+
     " NERDTree settings
+    " {{{ NERD
     let g:NERDChristmasTree=1
     let g:NERDTreeChDirMode=2
     let g:NERDTreeMinimalUI=1
@@ -370,29 +411,7 @@ vim_configurable.customize {
     function! NERDTreeOpenTermWindow(node)
       call VimOpenTermWindow(a:node.path.getDir().str())
     endfunctio
-
-    " Screen
-    nnoremap s :call VimOpenTerm(expand("%:h"))<CR>
-    nnoremap S :call VimOpenTermWindow(expand("%:p:h"))<CR>
-
-
-    " Airline
-    let g:airline_theme="badwolf"
-
-    " BufferExplorer
-    nnoremap <Leader>e <Esc>:BufExplorer<CR>
-    inoremap <Leader>e <Esc>:BufExplorer<CR>
-    noremap <Space> <Esc>:BufExplorer<CR>
-
-    " EasyGrep
-    let g:EasyGrepRecursive = 1
-    let g:EasyGrepMode = 2
-
-    " Local vimrc
-    let g:localvimrc_name = ['.lvimrc', '.vimrc_local.vim', 'localrc.vim']
-    let g:localvimrc_event = [ "BufWinEnter" ]
-    let g:localvimrc_ask = 0
-    let g:localvimrc_sandbox = 0
+    " }}}
 
     " SuperTab
     let g:SuperTabDefaultCompletionType = "context"
@@ -400,14 +419,6 @@ vim_configurable.customize {
 
     " Surround
     xmap s S
-
-    " Commentary
-    map <C-C> gc
-    nmap <C-C> gccj
-
-    " Alternate
-    let g:alternateExtensions_ur = "urs"
-    let g:alternateExtensions_urs = "ur"
 
     " Window resizing
     nnoremap <silent> + :exe "resize " . (max([winheight(0) * 3/2, 2]))<CR>
@@ -450,11 +461,6 @@ vim_configurable.customize {
         endtry
     endfunction
     map <C-]> :call RT()<CR>
-
-
-    " Cycle colorscheme
-    map <F5> :call NextColorScheme()<CR>:colorscheme<CR>
-    map <F6> :call PreviousColorScheme()<CR>:colorscheme<CR>
 
     " Mouse
     nmap <RightMouse> <C-o>
