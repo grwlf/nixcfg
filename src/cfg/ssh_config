@@ -37,8 +37,9 @@ host ww
 	ForwardX11Trusted  yes
 
 host dv
-	ProxyCommand nc 46.38.250.132 22222
 	User grwlf
+	HostName 46.38.250.132
+	Port  22222
 	ForwardX11         yes
 	ForwardX11Trusted  yes
 
