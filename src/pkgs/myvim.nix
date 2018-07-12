@@ -190,9 +190,13 @@ vim_configurable.customize {
       \   exe "normal g`\"" |
       \ endif
 
-    " General bindings
+    " Escape bindings
+    " Convert double Escape sent by terminals back to single Escape
+    " TODO: find a way not to use <Esc>letter as <A-letter> alternative
     inoremap <Leader><Leader> <Leader>
     inoremap <Esc><Esc> <Esc>
+    inoremap <F1> <Esc>
+    nnoremap <F1> <Esc>
 
     " Save
     nnoremap <F2> <ESC>:noh<CR>:w!<CR>
@@ -208,9 +212,6 @@ vim_configurable.customize {
 
     " Fast command line
     nnoremap ! :!
-
-    " Help on word
-    map <F1> :exec ":help " . expand('<cword>')<CR>
 
     " Display lines scrolling
     nnoremap j gj
