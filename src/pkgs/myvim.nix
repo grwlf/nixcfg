@@ -166,6 +166,7 @@ vim_configurable.customize {
     au FileType cabal set expandtab
     au FileType python set expandtab textwidth=0 shiftwidth=2 tabstop=2 cinoptions=g0,(2 softtabstop=2 nosmartindent
     au FileType python syn region Comment start=/"""/ end=/"""/
+    au FileType python let &omnifunc=""
     au FileType *asciidoc set expandtab shiftwidth=2 tabstop=2
     au FileType *asciidoc set comments+=fb:*
     au FileType *asciidoc set comments+=fb:.
@@ -417,6 +418,7 @@ vim_configurable.customize {
     " SuperTab
     let g:SuperTabDefaultCompletionType = "context"
     let g:SuperTabContextDefaultCompletionType = "<c-n>"
+    let g:SuperTabCompleteCase = "match"
 
     " Surround
     xmap s S
