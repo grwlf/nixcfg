@@ -30,8 +30,8 @@
     acpid
     upower
     smartmontools
-    manpages
     hdparm
+    manpages
     tree
     curlFull
     usbutils

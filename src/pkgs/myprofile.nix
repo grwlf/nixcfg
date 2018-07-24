@@ -66,7 +66,12 @@ pkgs.writeText "myprofile.sh" ''
 
   manconf() { ${man}/bin/man configuration.nix ; }
   ding()    { ${aplay} ${../data/ding.wav} 2>/dev/null; }
-  vim()     { ${vimbin} -c 'NERDTree' "$@" ; }
+  vim()     { if test -d "$1"; then
+                cd "$1" ; shift ; ${vimbin} -c 'NERDTree' "$@"
+              else
+                ${vimbin} "$@"
+              fi
+            }
   wn()      { ${wmctrl}/bin/wmctrl -r :ACTIVE: -T "$@";  }
   encfs()   { `which encfs` -i 60 "$@" ; }
 
