@@ -48,7 +48,7 @@ rec {
       options = ["defaults" "relatime" "discard"];
     };
 
-  swapDevices = [ ];
+  swapDevices = [ { device = "/dev/disk/by-label/SWAP"; } ];
 
   nix.maxJobs = pkgs.lib.mkDefault 4;
 

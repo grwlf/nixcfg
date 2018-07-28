@@ -38,14 +38,14 @@
           patches = [ ../pkgs/xfce4-xkb.patch ];
         });
 
-        thunar-build = pkgs.lib.overrideDerivation pkgs.xfce.thunar-build (a:{
+        thunar-bare = pkgs.lib.overrideDerivation pkgs.xfce.thunar-bare (a:{
           name = a.name + "-patched";
           prePatch = ''
             cp -pv ${pkgs.callPackage ../pkgs/thunar_uca.nix {}} plugins/thunar-uca/uca.xml.in
           '';
         });
 
-        thunar = pkgs.xfce.thunar.override { inherit thunar-build; };
+        thunar = pkgs.xfce.thunar.override { inherit thunar-bare; };
       };
     };
   };
