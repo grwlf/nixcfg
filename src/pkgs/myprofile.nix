@@ -67,7 +67,7 @@ pkgs.writeText "myprofile.sh" ''
   manconf() { ${man}/bin/man configuration.nix ; }
   ding()    { ${aplay} ${../data/ding.wav} 2>/dev/null; }
   vim()     { if test -d "$1"; then
-                cd "$1" ; shift ; ${vimbin} -c 'NERDTree' "$@"
+                dir="$1" ; shift ; ${vimbin} -c "NERDTreeToggle $1" "$@"
               else
                 ${vimbin} "$@"
               fi
