@@ -48,8 +48,8 @@ let
     name = "nerdtree";
     src = fetchgit {
       url = "https://github.com/grwlf/nerdtree";
-      rev = "7bbace5bbb3cd234ebfa30061b35c29350105053";
-      sha256 = "0i201jrszb12adkbv9djd41fc0ri2xp5qv1vqc2gqmrl7vvagjh8";
+      rev = "d8399f7683a8de4310de47a11a39e90499ecb843";
+      sha256 = "017lmh393aybq74hg5j4iq8k8ar8xdfx904yj78w6l3yab9g0qlf";
     };
   };
 
@@ -376,6 +376,14 @@ vim_configurable.customize {
     " Figlet
     command! -nargs=+ Figlet :r! figlet <args> | sed 's/[ \t]*$//'
 
+    " Grepper
+    let g:grepper = {
+        \ 'tools':     ['git', 'ag', 'grep'],
+        \ 'open':      1,
+        \ 'jump':      0,
+        \ }
+    command! -nargs=* G :Grepper -query <q-args>
+
     " Local vimrc
     let g:localvimrc_name = ['.lvimrc', '.vimrc_local.vim', 'localrc.vim']
     let g:localvimrc_event = [ "BufWinEnter" ]
@@ -388,6 +396,7 @@ vim_configurable.customize {
     let g:NERDTreeChDirMode=2
     let g:NERDTreeMinimalUI=1
     let g:NERDTreeWinSize=35
+    let g:NERDTreeWinPos='left'
     let g:NERDTreeIgnore=['\.o', '\.ko', '^cscope', '\.hi']
     let g:NERDTreeCasadeOpenSingleChildDir=1
     let g:NERDTreeMapQuit='h'
@@ -406,13 +415,24 @@ vim_configurable.customize {
       exec '!STY="" urxvt -cd ' . a:d . ' &'
     endfunction
 
-    function! NERDTreeOpenTerm(node)
+    function! NERDTree_s(node)
       call VimOpenTerm(a:node.path.getDir().str())
     endfunction
 
-    function! NERDTreeOpenTermWindow(node)
+    function! NERDTree_S(node)
       call VimOpenTermWindow(a:node.path.getDir().str())
-    endfunctio
+    endfunction
+
+    function! NERDTree_C_P(node)
+      exec "CtrlP " . a:node.path.getDir().str()
+    endfunction
+
+    function! NERDTree_G(node)
+      let oldcwd = getcwd()
+      exec "cd " . a:node.path.getDir().str()
+      exec "Grepper"
+      exec "augroup ungrep | au! FileType qf cd " . oldcwd . " | augroup END"
+    endfunction
     " }}}
 
     " SuperTab
@@ -426,15 +446,6 @@ vim_configurable.customize {
     " Window resizing
     nnoremap <silent> + :exe "resize " . (max([winheight(0) * 3/2, 2]))<CR>
     nnoremap <silent> - :exe "resize " . (max([winheight(0) * 2/3, 1]))<CR>
-
-    " G[rep] (requires tpope's vim-fugitive plugin)
-    function! GitGrepInDir(args)
-      let cwd = getcwd()
-      exec "Ggrep '" . a:args . "' '" . cwd . "'"
-      echo  "Ggrep '" . a:args . "' '" . cwd . "'"
-    endfunction
-    command! -nargs=+ G :call GitGrepInDir("<args>")
-    autocmd QuickFixCmdPost *grep* cwindow
 
     " let g:hscoptions = "wA𝐒𝐓𝐓𝐌CIT𝔻"
     " :au BufReadPost * if b:current_syntax == "haskell"
