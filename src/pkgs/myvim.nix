@@ -424,6 +424,7 @@ vim_configurable.customize {
     endfunction
 
     function! NERDTree_C_P(node)
+      exec "wincmd w"
       exec "CtrlP " . a:node.path.getDir().str()
     endfunction
 
