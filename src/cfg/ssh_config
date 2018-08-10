@@ -47,3 +47,8 @@ Host tkmai
 	User smironov
 	HostName turclubmai.ru
 
+Host tkmai2
+	ProxyCommand ssh vps nc turclubmai.ru 22
+	User smironov
+	HostName turclubmai.ru
+
