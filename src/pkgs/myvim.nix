@@ -143,6 +143,7 @@ vim_configurable.customize {
     set completeopt=longest,menu
     set smartindent
     set number
+    set wildignore=*/.git/*,*/.hg/*,*/.svn/*
 
     " Softwrapping
     " set columns=80
@@ -361,8 +362,8 @@ vim_configurable.customize {
     au BufEnter * vmap <C-p> "a:CtrlP<CR><C-\>ra
 
     " Cycle colorscheme
-    map <F5> :call NextColorScheme()<CR>:colorscheme<CR>
-    map <F6> :call PreviousColorScheme()<CR>:colorscheme<CR>
+    " map <F5> :call NextColorScheme()<CR>:colorscheme<CR>
+    " map <F6> :call PreviousColorScheme()<CR>:colorscheme<CR>
 
     " Cyrvim
     let g:cyrvim_map_esc = 1
@@ -382,7 +383,7 @@ vim_configurable.customize {
         \ 'open':      1,
         \ 'jump':      0,
         \ }
-    command! -nargs=* G :Grepper -query <q-args>
+    command! -nargs=* G :Grepper -noqf -query <q-args>
 
     " Local vimrc
     let g:localvimrc_name = ['.lvimrc', '.vimrc_local.vim', 'localrc.vim']
@@ -399,7 +400,8 @@ vim_configurable.customize {
     let g:NERDTreeWinPos='left'
     let g:NERDTreeIgnore=['\.o', '\.ko', '^cscope', '\.hi']
     let g:NERDTreeCasadeOpenSingleChildDir=1
-    let g:NERDTreeMapQuit='h'
+    let g:NERDTreeQuitOnOpen=0
+    let g:NERDTreeMapQuit='<Plug>h'
     noremap <F4> <ESC>:NERDTreeFind<CR>
     command -nargs=0 NF :NERDTreeFind
 
@@ -431,7 +433,8 @@ vim_configurable.customize {
     function! NERDTree_G(node)
       let oldcwd = getcwd()
       exec "cd " . a:node.path.getDir().str()
-      exec "Grepper"
+      exec "wincmd w"
+      exec "Grepper -noqf"
       exec "augroup ungrep | au! FileType qf cd " . oldcwd . " | augroup END"
     endfunction
     " }}}
