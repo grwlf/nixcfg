@@ -43,10 +43,14 @@ pkgs.writeText "myprofile.sh" ''
 
   q()       { exit ; }
   s() 		  {
-              case `pwd` in
-                *proj/*) ${tmux}/bin/tmux new -s `pwd | xargs basename` ;;
-                *) ${tmux}/bin/tmux ;;
-              esac
+              if test -z "$TMUX" ; then
+                case `pwd` in
+                  *proj/*) ${tmux}/bin/tmux new -s `pwd | xargs basename` "$@" ;;
+                  *) ${tmux}/bin/tmux "$@" ;;
+                esac
+              else
+                ${tmux}/bin/tmux new-window "$@"
+              fi
             }
   e() 		  { thunar . 2>/dev/null & }
   lt() 		  { ls -lhrt "$@"; }
