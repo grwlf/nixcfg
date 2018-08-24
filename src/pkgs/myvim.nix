@@ -62,6 +62,16 @@ let
     };
   };
 
+  fzf-pure = vimUtils.buildVimPluginFrom2Nix {
+    name = "fzf-pure";
+    src = pkgs.stdenv.mkDerivation {
+      name="fzf-pure";
+      buildCommand = ''
+        mkdir -pv $out
+        cp -r ${pkgs.fzf.out}/share/vim-plugins/*/* $out/
+      '';
+    };
+  };
 
 in
 
@@ -88,7 +98,9 @@ vim_configurable.customize {
       lastplace
       grepper
       supertab
-      ctrlp
+      # ctrlp
+      fzf-pure
+      fzf-vim
     ];
   };
 
@@ -214,6 +226,9 @@ vim_configurable.customize {
 
     " Fast command line
     nnoremap ! :!
+
+    " Fzf
+    " set runtimepath+=${fzf.out}/share/vim-plugins/fzf-0.17.3
 
     " Display lines scrolling
     nnoremap j gj
