@@ -69,6 +69,8 @@ let
       buildCommand = ''
         mkdir -pv $out
         cp -r ${pkgs.fzf.out}/share/vim-plugins/*/* $out/
+        chmod +w -R $out
+        sed -i "s@base_dir = expand(.*)@base_dir = '${pkgs.fzf}'@g" $out/plugin/fzf.vim
       '';
     };
   };
@@ -100,6 +102,7 @@ vim_configurable.customize {
       supertab
       # ctrlp
       fzf-pure
+      # fzfWrapper
       fzf-vim
     ];
   };
@@ -228,7 +231,8 @@ vim_configurable.customize {
     nnoremap ! :!
 
     " Fzf
-    " set runtimepath+=${fzf.out}/share/vim-plugins/fzf-0.17.3
+    nnoremap <C-p> :Files<CR>
+    vnoremap <C-p> "ay:call fzf#vim#files(fnamemodify(getcwd(),':p'),{'options':'--query ' .  shellescape('<C-r>a')})<CR>
 
     " Display lines scrolling
     nnoremap j gj
@@ -355,7 +359,6 @@ vim_configurable.customize {
     nnoremap s :call VimOpenTerm(expand("%:h"))<CR>
     nnoremap S :call VimOpenTermWindow(expand("%:p:h"))<CR>
 
-
     " Airline
     let g:airline_theme="badwolf"
 
@@ -371,10 +374,6 @@ vim_configurable.customize {
     " Commentary
     map <C-C> gc
     nmap <C-C> gccj
-
-    " CtrlP
-    let g:ctrlp_max_files = 0
-    au BufEnter * vmap <C-p> "a:CtrlP<CR><C-\>ra
 
     " Cycle colorscheme
     " map <F5> :call NextColorScheme()<CR>:colorscheme<CR>
@@ -442,7 +441,7 @@ vim_configurable.customize {
 
     function! NERDTree_C_P(node)
       exec "wincmd w"
-      exec "CtrlP " . a:node.path.getDir().str()
+      call fzf#vim#files(fnamemodify(a:node.path.getDir().str(),':p'))
     endfunction
 
     function! NERDTree_G(node)
