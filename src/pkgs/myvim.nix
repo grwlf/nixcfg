@@ -125,6 +125,8 @@ vim_configurable.customize {
     let mapleader = "~"
     let maplocalleader = "~"
 
+    let g:ident_spaces = 2
+
     set guioptions-=m
     set guioptions-=T
     set scrolloff=0
@@ -174,30 +176,22 @@ vim_configurable.customize {
     au BufEnter *grm set filetype=ur
 
     au BufEnter nixos-config set filetype=nix
-    au FileType nix set expandtab shiftwidth=2 tabstop=2
     au FileType nix set commentstring=#\ %s
-    au FileType sh set expandtab shiftwidth=2 tabstop=2 textwidth=0
-    au FileType haskell set expandtab shiftwidth=2 tabstop=2
-    au FileType chaskell set expandtab shiftwidth=2 tabstop=2
+    au FileType sh set textwidth=0
     au FileType cabal set expandtab
-    au FileType python set expandtab textwidth=0 shiftwidth=2 tabstop=2 cinoptions=g0,(2 softtabstop=2 nosmartindent
+    au BufWinEnter * execute "set expandtab textwidth=0 shiftwidth=".g:ident_spaces." tabstop=".g:ident_spaces." cinoptions=g0,(".g:ident_spaces." softtabstop=".g:ident_spaces." nosmartindent"
     au FileType python syn region Comment start=/"""/ end=/"""/
     au FileType python let &omnifunc=""
-    au FileType *asciidoc set expandtab shiftwidth=2 tabstop=2
     au FileType *asciidoc set comments+=fb:*
     au FileType *asciidoc set comments+=fb:.
 
-    au FileType *markdown set expandtab shiftwidth=2 tabstop=2
+    au FileType *markdown let g:ident_spaces=2
     au FileType *markdown set comments+=fb:*
     au FileType *markdown set comments+=fb:-
     au FileType *markdown set comments+=fb:#.
-
     au FileType ur set commentstring=(*%s*)
-    au FileType ur set expandtab shiftwidth=2 tabstop=2
-
-    au FileType c set expandtab shiftwidth=2 tabstop=2
+    au FileType ur let g:ident_spaces=2
     au FileType c set commentstring=//\ %s
-    au FileType cpp set expandtab shiftwidth=2 tabstop=2
 
     " When editing a file, always jump to the last known cursor position.
     " Don't do it when the position is invalid or when inside an event handler
@@ -401,9 +395,10 @@ vim_configurable.customize {
 
     " Local vimrc
     let g:localvimrc_name = ['.lvimrc', '.vimrc_local.vim', 'localrc.vim']
-    let g:localvimrc_event = [ "BufWinEnter" ]
+    let g:localvimrc_event = [ "BufEnter" ]
     let g:localvimrc_ask = 0
     let g:localvimrc_sandbox = 0
+    let g:localvimrc_debug = 0
 
     " NERDTree settings
     " {{{ NERD
