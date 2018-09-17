@@ -117,13 +117,6 @@ pkgs.writeText "myprofile.sh" ''
   # Custom aliases
   #
 
-  # vim() {
-  #  case "$1" in
-  #    "") ${vimbin} .    ;;
-  #     *) ${vimbin} "$@" ;;
-  #  esac
-  # }
-
   # Set screen window name
   # sn() {
   #   PID=$(echo $STY | awk -F"." '{ print $1}')

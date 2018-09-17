@@ -62,6 +62,15 @@ let
     };
   };
 
+  alternate-lite = vimUtils.buildVimPluginFrom2Nix {
+    name = "alternate-lite-1.4";
+    src = fetchgit {
+      url = "https://github.com/LucHermitte/alternate-lite";
+      rev = "6a3b186eca596fba4349b40ae051eb744b386888";
+      sha256 = "1nv7zafs56pminjbq7kqcyymxa0zmf5kmd0x0f5bz303j1k7kn50";
+    };
+  };
+
   fzf-pure = vimUtils.buildVimPluginFrom2Nix {
     name = "fzf-pure";
     src = pkgs.stdenv.mkDerivation {
@@ -104,6 +113,7 @@ vim_configurable.customize {
       fzf-pure
       # fzfWrapper
       fzf-vim
+      # alternate-lite
     ];
   };
 
@@ -306,12 +316,15 @@ vim_configurable.customize {
     command! -nargs=+ QFmap :call QFmap(<f-args>)
 
     QFmap o <cr>
-    QFmap J :cnext<cr>:copen<cr>
-    QFmap K :cprevious<cr>:copen<cr>
+    " QFmap J :cnext<cr>:copen<cr>
+    " QFmap K :cprevious<cr>:copen<cr>
     QFmap <C-o> :cold<cr>
     QFmap <C-i> :cnew<cr>
     QFmap <Leader>f <C-w>q
     QFmap q :q<cr>
+
+    nmap <C-j> :lnext<CR>
+    nmap <C-k> :lprev<CR>
 
     " Readline-style bindings
     " FIXME: Works ok for console version of vim only. They actually maps
@@ -357,8 +370,21 @@ vim_configurable.customize {
     let g:airline_theme="badwolf"
 
     " Alternate
-    let g:alternateExtensions_ur = "urs"
-    let g:alternateExtensions_urs = "ur"
+    " let g:alternateExtensions_ur = "urs"
+    " let g:alternateExtensions_urs = "ur"
+    function! Mosh_Flip_Ext()
+      " Switch editing between .c* and .h* files (and more).
+      " Since .h file can be in a different dir, call find.
+      if match(expand("%"),'\.cc') > 0
+        let s:flipname = substitute(expand("%:t"),'\.cc','.h',"")
+      elseif match(expand("%"),'\.c') > 0
+        let s:flipname = substitute(expand("%:t"),'\.c\(.*\)','.h\1',"")
+      elseif match(expand("%"),"\\.h") > 0
+        let s:flipname = substitute(expand("%:t"),'\.h\(.*\)','.c\1',"")
+      endif
+      call fzf#vim#files(fnamemodify(getcwd(),':p'),{'options':'--query /' .  s:flipname })
+    endfun
+    command! -nargs=0 A :call Mosh_Flip_Ext()
 
     " BufferExplorer
     nnoremap <Leader>e <Esc>:BufExplorer<CR>
@@ -387,9 +413,12 @@ vim_configurable.customize {
 
     " Grepper
     let g:grepper = {
-        \ 'tools':     ['git', 'ag', 'grep'],
+        \ 'tools':     ['sgit', 'git', 'ag', 'grep'],
         \ 'open':      1,
         \ 'jump':      0,
+        \ 'sgit':      { 'grepprg':    'git grep --recurse-submodules -nI',
+        \                'grepformat': '%f:%l:%m',
+        \                'escape':     '\^$.*[]' },
         \ }
     command! -nargs=* G :Grepper -noqf -query <q-args>
 
