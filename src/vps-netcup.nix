@@ -140,10 +140,33 @@ rec {
     dataDir = "/var/lib/syncthing";
   };
 
+  services.openvpn.servers = {
+    myserver = {
+      config = ''
+        port 1194
+        proto udp
+        dev tap
+        keepalive 10 120
+        comp-lzo
+        client-to-client
+
+        ca   /root/openvpn/ca.crt
+        key  /root/openvpn/hub777.key # This file should be kept secret.
+        cert /root/openvpn/hub777.crt
+        dh   /root/openvpn/dh.pem
+
+        server 192.168.146.0 255.255.255.0
+
+        user nobody
+        group nogroup
+      '';
+    };
+  };
+
   # services.ejabberd = {
   #   enable = true;
   #   imagemagick = true;
-  #   configFile = writeFile "ejabberd.yaml" ''
+  
   #     acl:
   #       admin:
   #         user:
