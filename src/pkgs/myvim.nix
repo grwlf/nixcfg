@@ -418,7 +418,8 @@ vim_configurable.customize {
         \ 'jump':      0,
         \ 'sgit':      { 'grepprg':    'git grep --recurse-submodules -nI',
         \                'grepformat': '%f:%l:%m',
-        \                'escape':     '\^$.*[]' },
+        \                'escape':     '\^$.*[]'
+        \              },
         \ }
     command! -nargs=* G :Grepper -noqf -query <q-args>
 
@@ -468,12 +469,21 @@ vim_configurable.customize {
       call fzf#vim#files(fnamemodify(a:node.path.getDir().str(),':p'))
     endfunction
 
+    let g:nerd_oldcwd = ""
+    function! NERDTree_G_term()
+      if g:nerd_oldcwd != ""
+        exec "cd " . g:nerd_oldcwd
+        let g:nerd_oldcwd = ""
+      endif
+    endfunction
+    exec "augroup ungrep | au! FileType qf call NERDTree_G_term() | augroup END"
+
     function! NERDTree_G(node)
-      let oldcwd = getcwd()
-      exec "cd " . a:node.path.getDir().str()
+      let g:nerd_oldcwd = getcwd()
+      let newcwd = a:node.path.getDir().str()
+      exec "cd " . newcwd
       exec "wincmd w"
       exec "Grepper -noqf"
-      exec "augroup ungrep | au! FileType qf cd " . oldcwd . " | augroup END"
     endfunction
     " }}}
 
