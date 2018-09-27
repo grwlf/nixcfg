@@ -86,6 +86,7 @@ rec {
     hostName = "greyblade";
 
     networkmanager.enable = true;
+    firewall.enable = false;
   };
 
   powerManagement = {
@@ -168,6 +169,22 @@ rec {
       Option "SuspendTime" "0"
       Option "OffTime" "0"
     '';
+  };
+
+  services.openvpn.servers = {
+    hub777_client = {
+      config = ''
+        client
+        dev tap
+        proto udp
+        nobind
+        ca   /root/openvpn/ca.crt
+        cert /root/openvpn/grwlf.crt
+        key  /root/openvpn/grwlf.key
+        comp-lzo
+        remote 46.38.250.132 1194
+      '';
+    };
   };
 
   programs.ssh = {
