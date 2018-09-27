@@ -1,1 +1,3 @@
 bind main C !git checkout %(commit)
+set main-view-id = yes
+
