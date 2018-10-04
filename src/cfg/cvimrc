@@ -28,7 +28,7 @@ map в closeTab
 
 map <C-u> rootFrame
 map <A-q> previousTab
-map <A-к> previousTab
+map <A-й> previousTab
 map <A-w> nextTab
 map <A-ц> nextTab
 
