@@ -135,12 +135,17 @@ vim_configurable.customize {
     let mapleader = "~"
     let maplocalleader = "~"
 
-    let g:ident_spaces = 2
+    function! Ident(ident_spaces)
+      let &expandtab=1
+      let &shiftwidth=a:ident_spaces
+      let &tabstop=a:ident_spaces
+      let &cinoptions="'g0,(".a:ident_spaces
+      let &softtabstop=a:ident_spaces
+    endfunction
 
     set guioptions-=m
     set guioptions-=T
     set scrolloff=0
-    set tabstop=4
     set nobackup
     set shiftwidth=4
     set noshowmatch
@@ -152,7 +157,6 @@ vim_configurable.customize {
     set incsearch
     set ignorecase
     set formatoptions+=roj
-    set cinoptions+=g0,(4
     set hlsearch
     set mouse=nirv
     set laststatus=2
@@ -162,7 +166,7 @@ vim_configurable.customize {
     set fileencodings=utf8,cp1251
     set t_Co=256
     set modeline
-    set textwidth=80
+    set textwidth=0
     set timeoutlen=500
     set directory=/tmp,/var/tmp,.
     set hidden
@@ -171,6 +175,7 @@ vim_configurable.customize {
     set smartindent
     set number
     set wildignore=*/.git/*,*/.hg/*,*/.svn/*
+    call Ident(2)
 
     " Softwrapping
     " set columns=80
@@ -184,24 +189,20 @@ vim_configurable.customize {
     au BufEnter .vimperatorrc set filetype=vim
     au BufEnter *urs set filetype=ur
     au BufEnter *grm set filetype=ur
-
     au BufEnter nixos-config set filetype=nix
+
     au FileType nix set commentstring=#\ %s
-    au FileType sh set textwidth=0
-    au FileType cabal set expandtab
-    au BufWinEnter * execute "set expandtab textwidth=0 shiftwidth=".g:ident_spaces." tabstop=".g:ident_spaces." cinoptions=g0,(".g:ident_spaces." softtabstop=".g:ident_spaces." nosmartindent"
     au FileType python syn region Comment start=/"""/ end=/"""/
     au FileType python let &omnifunc=""
-    au FileType *asciidoc set comments+=fb:*
-    au FileType *asciidoc set comments+=fb:.
-
-    au FileType *markdown let g:ident_spaces=2
-    au FileType *markdown set comments+=fb:*
-    au FileType *markdown set comments+=fb:-
-    au FileType *markdown set comments+=fb:#.
+    au FileType asciidoc set comments+=fb:*
+    au FileType asciidoc set comments+=fb:.
+    au FileType markdown set textwidth=80
+    au FileType markdown set comments+=fb:*
+    au FileType markdown set comments+=fb:-
+    au FileType markdown set comments+=fb:#.
     au FileType ur set commentstring=(*%s*)
-    au FileType ur let g:ident_spaces=2
     au FileType c set commentstring=//\ %s
+
 
     " When editing a file, always jump to the last known cursor position.
     " Don't do it when the position is invalid or when inside an event handler
@@ -425,7 +426,7 @@ vim_configurable.customize {
 
     " Local vimrc
     let g:localvimrc_name = ['.lvimrc', '.vimrc_local.vim', 'localrc.vim']
-    let g:localvimrc_event = [ "BufEnter" ]
+    let g:localvimrc_event = [ "BufWinEnter" ]
     let g:localvimrc_ask = 0
     let g:localvimrc_sandbox = 0
     let g:localvimrc_debug = 0
