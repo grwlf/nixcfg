@@ -316,16 +316,29 @@ vim_configurable.customize {
     endfunction
     command! -nargs=+ QFmap :call QFmap(<f-args>)
 
+    function! QFToggle()
+      let found=0
+      for winnr in range(1, winnr('$'))
+        if getwinvar(winnr, '&syntax') == 'qf'
+          let found=1
+        endif
+      endfor
+      if found==1
+        exe "lclose"
+      else
+        exe "lopen"
+      endif
+    endfunction
+
     QFmap o <cr>
-    " QFmap J :cnext<cr>:copen<cr>
-    " QFmap K :cprevious<cr>:copen<cr>
-    QFmap <C-o> :cold<cr>
-    QFmap <C-i> :cnew<cr>
-    QFmap <Leader>f <C-w>q
+    QFmap <C-o> :lolder<cr>
+    QFmap <C-i> :lnewer<cr>
     QFmap q :q<cr>
 
     nmap <C-j> :lnext<CR>
     nmap <C-k> :lprev<CR>
+    nmap <C-l> :call QFToggle()<CR>
+    nnoremap <Esc>l :call QFToggle()<CR>
 
     " Readline-style bindings
     " FIXME: Works ok for console version of vim only. They actually maps
@@ -371,8 +384,6 @@ vim_configurable.customize {
     let g:airline_theme="badwolf"
 
     " Alternate
-    " let g:alternateExtensions_ur = "urs"
-    " let g:alternateExtensions_urs = "ur"
     function! Mosh_Flip_Ext()
       " Switch editing between .c* and .h* files (and more).
       " Since .h file can be in a different dir, call find.
@@ -512,7 +523,7 @@ vim_configurable.customize {
         let cw = expand('<cword>')
         try
             if cw != g:rt_cw
-                execute 'tag ' . cw
+                execute 'ltag ' . cw
                 call search(cw,'c',line('.'))
             else
                 try
