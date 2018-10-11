@@ -7,8 +7,6 @@ let
 
   myvim = import ./myvim.nix { inherit pkgs; };
 
-  gitbin = "${git}/bin/git";
-
   vimbin = "${myvim}/bin/vim";
 
   aplay = "${alsaUtils}/bin/aplay";
@@ -85,33 +83,36 @@ pkgs.writeText "myprofile.sh" ''
   # GIT Aliases
   #
 
-  gf()      { ${git}/bin/git fetch github || ${git}/bin/git fetch origin ; }
-  alias ga='${gitbin} add'
-  alias gai='${gitbin} add -i'
-  alias gap='${gitbin} add -p'
-  alias gb='${gitbin} branch'
-  alias gc='${gitbin} commit'
-  alias gca='${gitbin} commit --amend --no-edit'
-  alias gco='${gitbin} checkout'
-  alias gcp='${gitbin} cherry-pick'
-  alias gd='${gitbin} diff'
-  alias gg='${gitbin} grep'
-  alias gl='${gitbin} log'
-  alias gm='${gitbin} merge'
-  alias gp='${gitbin} push'
-  alias gpff='${gitbin} pull --ff'
-  alias gpr='${gitbin} pull --rebase'
-  alias gr='${gitbin} reset'
-  alias grh='${gitbin} reset --hard'
-  alias gri='${gitbin} rebase -i'
-  alias grm='${gitbin} remote'
-  alias grma='${gitbin} remote add'
-  alias grv='${gitbin} remote -v'
-  alias gs='${gitbin} status'
-  alias gsta='${gitbin} stash pop'
-  alias gstl='${gitbin} stash list'
-  alias gsts='${gitbin} stash save'
-  alias gsu='${gitbin} submodule update'
+  gf()      { git fetch github || ${git}/bin/git fetch origin ; }
+  alias ga='git add'
+  alias gai='git add -i'
+  alias gap='git add -p'
+  alias gb='git branch'
+  alias gc='git commit'
+  alias gca='git commit --amend --no-edit'
+  alias gco='git checkout'
+  alias gcp='git cherry-pick'
+  alias gd='git diff'
+  alias gg='git grep'
+  alias gl='git log'
+  alias gm='git merge'
+  alias gp='git push'
+  alias gpff='git pull --ff'
+  alias gpr='git pull --rebase'
+  alias gr='git reset'
+  alias grh='git reset --hard'
+  alias gri='git rebase -i'
+  alias grm='git remote'
+  alias grma='git remote add'
+  alias grv='git remote -v'
+  alias gs='git status'
+  alias gsta='git stash pop'
+  alias gstl='git stash list'
+  alias gsts='git stash save'
+  alias gsu='git submodule update'
+  alias gsui='git submodule update --init'
+  alias gsuir='git submodule update --init --recursive'
+  alias gss='git submodule status'
 
   #
   # Custom aliases
