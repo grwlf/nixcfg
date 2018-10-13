@@ -340,7 +340,7 @@ vim_configurable.customize {
     nmap <C-l> :call QFToggle()<CR>
     nnoremap <Esc>l :call QFToggle()<CR>
 
-    " Readline-style bindings
+    " Readline-style insert-mode bindings
     " FIXME: Works ok for console version of vim only. They actually maps
     " <Esc><key>. That causes problems in normal mode.
     imap <Esc>f <C-o>e<C-o>a
@@ -348,6 +348,8 @@ vim_configurable.customize {
     imap <Esc>b <C-o>b
     cmap <Esc>b <S-Left>
     imap <Esc>d <C-o>ved
+    imap <Esc>e <C-o>A
+    cmap <Esc>e <C-o>A
 
     " Screen - like bindings
     nmap <Esc>q :tabprev<CR>
