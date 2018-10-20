@@ -1,54 +1,55 @@
 Host vps
-	HostName 46.38.250.132
-	ForwardX11 yes
-	ForwardX11Trusted  yes
-	Port 2222
+    HostName 46.38.250.132
+    ForwardX11 yes
+    ForwardX11Trusted  yes
+    Port 2222
+    LocalForward 8385 127.0.0.1:8384
 
 Host pok
     User        ierton
     HostName    pokemon.local
-	Port 		22
-	ForwardX11         yes
-	ForwardX11Trusted  yes
+    Port 		22
+    ForwardX11         yes
+    ForwardX11Trusted  yes
 
 Host goodfellow
-	User root
+    User root
     HostName    ierton.ru
-	Port 2222
-	ForwardX11         yes
-	ForwardX11Trusted  yes
+    Port 2222
+    ForwardX11         yes
+    ForwardX11Trusted  yes
 
 Host mama
-	User galtimir
+    User galtimir
     HostName    ierton.ru
-	Port 2222
-	ForwardX11         yes
-	ForwardX11Trusted  yes
+    Port 2222
+    ForwardX11         yes
+    ForwardX11Trusted  yes
 
 Host phone
-	User user
-	HostName RM696.local
+    User user
+    HostName RM696.local
 
 host ww
-	User grwlf
-	HostName 91.224.132.27
-	Port 2222
-	ForwardX11         yes
-	ForwardX11Trusted  yes
+    User grwlf
+    HostName 91.224.132.27
+    Port 2222
+    ForwardX11         yes
+    ForwardX11Trusted  yes
 
 host dv
-	User grwlf
-	HostName 46.38.250.132
-	Port  22222
-	ForwardX11         yes
-	ForwardX11Trusted  yes
+    User grwlf
+    HostName 46.38.250.132
+    Port  22222
+    ForwardX11         yes
+    ForwardX11Trusted  yes
 
 Host tkmai
-	User smironov
-	HostName turclubmai.ru
+    User smironov
+    HostName turclubmai.ru
 
 Host tkmai2
-	ProxyCommand ssh vps nc turclubmai.ru 22
-	User smironov
-	HostName turclubmai.ru
+    ProxyCommand ssh vps nc turclubmai.ru 22
+    User smironov
+    HostName turclubmai.ru
 

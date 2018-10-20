@@ -48,8 +48,8 @@ let
     name = "nerdtree";
     src = fetchgit {
       url = "https://github.com/grwlf/nerdtree";
-      rev = "d8399f7683a8de4310de47a11a39e90499ecb843";
-      sha256 = "017lmh393aybq74hg5j4iq8k8ar8xdfx904yj78w6l3yab9g0qlf";
+      rev = "eefee40b10308384c1496c02ccd10dd2a5f1abd9";
+      sha256 = "0bkwvnkwfrww7sgp2d8jb52vxg9jqa6kk7plw5rzl6cg2538b8xi";
     };
   };
 
@@ -495,8 +495,8 @@ vim_configurable.customize {
     function! NERDTree_G(node)
       let g:nerd_oldcwd = getcwd()
       let newcwd = a:node.path.getDir().str()
-      exec "cd " . newcwd
       exec "wincmd w"
+      exec "cd " . newcwd
       exec "Grepper -noqf"
     endfunction
     " }}}

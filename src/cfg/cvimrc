@@ -1,5 +1,6 @@
 set nosmoothscroll
 set typelinkhints
+set noautofocus
 
 let searchlimit = 30
 let scrollstep = 70
@@ -17,8 +18,10 @@ let blacklists = [ "https://mail.google.com/*", "*://mail.google.com/*", "@https
 
 unmap <C-w>
 
-map <C-a>c :tabnew<Space>http://google.com<CR>
+map <C-a>c :tabnew<Space>http://duckduckgo.com<CR>
+map <C-ф>с :tabnew<Space>http://duckduckgo.com<CR>
 map O :open!<Space>
+map Щ :open!<Space>
 
 map R reloadTabUncached
 map К reloadTabUncached
@@ -65,6 +68,10 @@ map А F
 map щ o
 map Щ O
 map . /
+map П G
+map пп gg
+map т n
+map Т N
 
 echo(link) -> {{
   alert(link.href);

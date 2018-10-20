@@ -59,9 +59,9 @@ pkgs.writeText "myprofile.sh" ''
   cdt() 		{ cd $HOME/tmp ; }
   cdd()     { cd $HOME/dwnl; }
   cdnix()   { cd $HOME/proj/nixcfg ; }
-  gitk() 		{ LANG=C ${git}/bin/gitk "$@" & }
-  gitka() 	{ LANG=C ${git}/bin/gitk --all "$@" & }
-  tiga()    { LANG=C ${tig}/bin/tig --all "$@" ; }
+  gitk() 		{ ${git}/bin/gitk "$@" & }
+  gitka() 	{ ${git}/bin/gitk --all "$@" & }
+  tiga()    { ${tig}/bin/tig --all "$@" ; }
   mcd() 		{ mkdir "$1" && cd "$1" ; }
   vimless() { ${vimbin} -R "$@" - ; }
   pfind() 	{ ${findutils}/bin/find -iname "*$1*" ; }
