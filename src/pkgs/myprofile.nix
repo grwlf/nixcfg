@@ -59,9 +59,9 @@ pkgs.writeText "myprofile.sh" ''
   cdt() 		{ cd $HOME/tmp ; }
   cdd()     { cd $HOME/dwnl; }
   cdnix()   { cd $HOME/proj/nixcfg ; }
-  gitk() 		{ ${git}/bin/gitk "$@" & }
-  gitka() 	{ ${git}/bin/gitk --all "$@" & }
-  tiga()    { ${tig}/bin/tig --all "$@" ; }
+  gitk() 		{ gitk "$@" & }
+  gitka() 	{ gitk --all "$@" & }
+  tiga()    { tig --all "$@" ; }
   mcd() 		{ mkdir "$1" && cd "$1" ; }
   vimless() { ${vimbin} -R "$@" - ; }
   pfind() 	{ ${findutils}/bin/find -iname "*$1*" ; }
@@ -95,6 +95,7 @@ pkgs.writeText "myprofile.sh" ''
   alias gd='git diff'
   alias gg='git grep'
   alias gl='git log'
+  alias glc='git log --reverse --color | cat ; git commit -F -'
   alias gm='git merge'
   alias gp='git push'
   alias gpff='git pull --ff'
