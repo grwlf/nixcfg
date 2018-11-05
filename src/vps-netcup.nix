@@ -155,7 +155,7 @@ rec {
         cert /root/openvpn/hub777.crt
         dh   /root/openvpn/dh.pem
 
-        server 192.168.146.0 255.255.255.0
+        server 10.0.0.0 255.255.255.0
 
         user nobody
         group nogroup
