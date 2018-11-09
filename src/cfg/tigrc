@@ -1,3 +1,4 @@
 bind main C !git checkout %(commit)
+bind main <F2> view-refs
 set main-view-id = yes
 
