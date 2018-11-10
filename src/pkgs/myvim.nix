@@ -401,6 +401,7 @@ vim_configurable.customize {
     command! -nargs=0 A :call Mosh_Flip_Ext()
 
     " BufferExplorer
+    let g:bufExplorerShowTabBuffer = 1
     nnoremap <Leader>e <Esc>:BufExplorer<CR>
     inoremap <Leader>e <Esc>:BufExplorer<CR>
     noremap <Space> <Esc>:BufExplorer<CR>
@@ -525,6 +526,7 @@ vim_configurable.customize {
         let cw = expand('<cword>')
         try
             if cw != g:rt_cw
+                execute 'tabnew'
                 execute 'ltag ' . cw
                 call search(cw,'c',line('.'))
             else
