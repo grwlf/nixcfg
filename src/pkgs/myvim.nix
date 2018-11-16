@@ -522,11 +522,13 @@ vim_configurable.customize {
 
     " Cyclic tag navigation
     let g:rt_cw = ""
-    function! RT()
+    function! RT(tab)
         let cw = expand('<cword>')
         try
+            if a:tab == 1
+              execute 'tabnew'
+            endif
             if cw != g:rt_cw
-                execute 'tabnew'
                 execute 'ltag ' . cw
                 call search(cw,'c',line('.'))
             else
@@ -542,7 +544,8 @@ vim_configurable.customize {
             echo "no tags on " . cw
         endtry
     endfunction
-    map <C-]> :call RT()<CR>
+    map <C-]> :call RT(0)<CR>
+    map <C-\> :call RT(1)<CR>
 
     " Mouse
     nmap <RightMouse> <C-o>
