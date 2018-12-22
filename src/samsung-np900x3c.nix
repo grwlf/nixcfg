@@ -243,6 +243,10 @@ rec {
     '';
   };
 
+  services.ipfs = {
+    enable = true;
+  };
+
   environment.systemPackages = with pkgs ; [
     unclutter
     xorg.xdpyinfo
@@ -285,7 +289,7 @@ rec {
 
     imagemagickBig
     geeqie
-    gimp_2_8
+    gimp
     chromium
     encfs
     plowshare
