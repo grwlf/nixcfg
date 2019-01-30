@@ -439,7 +439,7 @@ vim_configurable.customize {
     command! -nargs=* G :Grepper -noqf -query <q-args>
 
     " Local vimrc
-    let g:localvimrc_name = ['.lvimrc', '.vimrc_local.vim', 'localrc.vim']
+    let g:localvimrc_name = ['.lvimrc', '.vimrc_local.vim', 'localrc.vim', 'lvimrc.vim']
     let g:localvimrc_event = [ "BufWinEnter" ]
     let g:localvimrc_ask = 0
     let g:localvimrc_sandbox = 0
