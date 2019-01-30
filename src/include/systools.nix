@@ -47,6 +47,7 @@
     pdftk
     mkpasswd
     sshfs-fuse
+    fzf
 
     # Fun
     cowsay
