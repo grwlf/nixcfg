@@ -3,8 +3,6 @@
 with pkgs;
 let
 
-  git = gitAndTools.gitFull;
-
   myvim = import ./myvim.nix { inherit pkgs; };
 
   vimbin = "${myvim}/bin/vim";
@@ -59,8 +57,8 @@ pkgs.writeText "myprofile.sh" ''
   cdt() 		{ cd $HOME/tmp ; }
   cdd()     { cd $HOME/dwnl; }
   cdnix()   { cd $HOME/proj/nixcfg ; }
-  gitk() 		{ gitk "$@" & }
-  gitka() 	{ gitk --all "$@" & }
+  gitk() 		{ `which gitk` "$@" & }
+  gitka() 	{ `which gitk` --all "$@" & }
   tiga()    { tig --all "$@" ; }
   mcd() 		{ mkdir "$1" && cd "$1" ; }
   vimless() { ${vimbin} -R "$@" - ; }
@@ -78,12 +76,16 @@ pkgs.writeText "myprofile.sh" ''
             }
   wn()      { ${wmctrl}/bin/wmctrl -r :ACTIVE: -T "$@";  }
   encfs()   { `which encfs` -i 60 "$@" ; }
+  p()       { nix-shell -p pkgs.python3Packages.ipython \
+                           pkgs.python3Packages.pandas \
+                           pkgs.python3Packages.matplotlib \
+                     --run ipython ; }
 
   #
   # GIT Aliases
   #
 
-  gf()      { git fetch github || ${git}/bin/git fetch origin ; }
+  gf() { git fetch github || git fetch origin ; }
   alias ga='git add'
   alias gai='git add -i'
   alias gap='git add -p'
