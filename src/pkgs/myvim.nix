@@ -221,8 +221,8 @@ vim_configurable.customize {
     nnoremap <F1> <Esc>
 
     " Save
-    nnoremap <F2> <ESC>:noh<CR>:w!<CR>
-    inoremap <F2> <ESC>:noh<CR>:w!<CR>
+    nnoremap <F2> <ESC>:noh<CR>:w!<CR>:lclose<CR>
+    inoremap <F2> <ESC>:noh<CR>:w!<CR>:lclose<CR>
 
     " Reformat
     nnoremap <F3> gqap
@@ -544,8 +544,19 @@ vim_configurable.customize {
             echo "no tags on " . cw
         endtry
     endfunction
-    map <C-]> :call RT(0)<CR>
-    map <C-\> :call RT(1)<CR>
+    " map <C-]> :call RT(0)<CR>
+    " map <C-\> :call RT(1)<CR>
+
+    function! _run_ltag(tab)
+      if a:tab == 1
+        execute 'tabnew'
+      endif
+      let cw = expand('<cword>')
+      execute 'ltag ' . cw
+      execute 'lopen'
+    endfunction
+    map <C-]> :call _run_ltag(0)<CR>
+    map <C-/> :call _run_ltag(1)<CR>
 
     " Mouse
     nmap <RightMouse> <C-o>
