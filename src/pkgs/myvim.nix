@@ -11,6 +11,7 @@ let
     '';
   };
 
+  inherit (pkgs) fetchgitLocal;
   fetchgit = pkgs.callPackage ./fetchgit.nix {
     git = gitMinimal;
     cacert = cacert;
@@ -48,8 +49,8 @@ let
     name = "nerdtree";
     src = fetchgit {
       url = "https://github.com/grwlf/nerdtree";
-      rev = "eefee40b10308384c1496c02ccd10dd2a5f1abd9";
-      sha256 = "0bkwvnkwfrww7sgp2d8jb52vxg9jqa6kk7plw5rzl6cg2538b8xi";
+      rev = "95621b8fb4a2f101e3bebec54d15cc31a2b389ad";
+      sha256 = "1r3m95kb7n91vyfmyjsbjz9y78lr1h0wyr2hnxy7gwa7c2hpv7cv";
     };
   };
 
@@ -62,12 +63,12 @@ let
     };
   };
 
-  alternate-lite = vimUtils.buildVimPluginFrom2Nix {
-    name = "alternate-lite-1.4";
+  vimbufsync = vimUtils.buildVimPluginFrom2Nix {
+    name = "vimbufsync";
     src = fetchgit {
-      url = "https://github.com/LucHermitte/alternate-lite";
-      rev = "6a3b186eca596fba4349b40ae051eb744b386888";
-      sha256 = "1nv7zafs56pminjbq7kqcyymxa0zmf5kmd0x0f5bz303j1k7kn50";
+      url = "https://github.com/let-def/vimbufsync";
+      rev = "15de54fec24efa8a78f1ea8231fa53a9a969ce04";
+      sha256 = "1zk0ccifdznd9j9cmigm9jlwflr641mx7v0vr8mhfjz27wbajdap";
     };
   };
 
@@ -202,7 +203,6 @@ vim_configurable.customize {
     au FileType markdown set comments+=fb:#.
     au FileType ur set commentstring=(*%s*)
     au FileType c set commentstring=//\ %s
-
 
     " When editing a file, always jump to the last known cursor position.
     " Don't do it when the position is invalid or when inside an event handler
