@@ -14,7 +14,7 @@ let
   inherit (pkgs) fetchgitLocal;
   fetchgit = pkgs.callPackage ./fetchgit.nix {
     git = gitMinimal;
-    cacert = cacert;
+    # cacert = cacert;
   };
 
   lastplace = vimUtils.buildVimPluginFrom2Nix {
