@@ -80,6 +80,11 @@ rec {
     pulseaudio.package = pkgs.pulseaudioFull;
   };
 
+  security.pki.certificateFiles = [
+    ./certs/4BC6DC14D97010C41A26E058AD851F81C842415A.cer
+    ./certs/8CAE88BBFD404A7A53630864F9033606E1DC45E2.cer
+  ];
+
   time.timeZone = "Europe/Moscow";
 
   networking = {
