@@ -72,6 +72,18 @@ let
     };
   };
 
+  coquille = vimUtils.buildVimPluginFrom2Nix {
+    name = "coquille-8.4";
+    # src = /home/grwlf/proj/coquille;
+    src = fetchgit {
+      url = "https://github.com/grwlf/coquille";
+      rev = "eb06e85";
+      sha256 = "0sj3wg47znm81ffplr9ywbppis3nklrk1a9f2bbi9h0rj5ns4w9w";
+    };
+    dependencies = [ "vimbufsync" ];
+  };
+
+
   fzf-pure = vimUtils.buildVimPluginFrom2Nix {
     name = "fzf-pure";
     src = pkgs.stdenv.mkDerivation {
@@ -114,7 +126,8 @@ vim_configurable.customize {
       fzf-pure
       # fzfWrapper
       fzf-vim
-      # alternate-lite
+      vimbufsync
+      coquille
     ];
   };
 
