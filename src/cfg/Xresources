@@ -24,6 +24,7 @@ URxvt*loginShell: true
 URxvt.perl-ext-common:  default,fullscreen
 URxvt*keysym.F11:       perl:fullscreen:switch
 URxvt*keysym.Escape: \033\033
+URxvt.keysym.Control-Return: \033\015
 !URxvt*keysym.Meta-ц: \033w
 !URxvt*keysym.Meta-й: \033q
 URxvt.url-launcher:     firefox
