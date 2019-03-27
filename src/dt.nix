@@ -181,7 +181,6 @@ rec {
       ];
     })
     myvim
-    myprofile
     glxinfo
     xcompmgr
     zathura
@@ -226,6 +225,8 @@ rec {
     evince
     cabal2nix
     youtube-dl
+
+    nvidia-docker
   ];
 
   nixpkgs.config = {
