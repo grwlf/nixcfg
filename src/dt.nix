@@ -127,6 +127,7 @@ rec {
 
   virtualisation.docker = {
     enable = true;
+    enableNvidia = true;
   };
 
   services.journald = {
@@ -225,8 +226,6 @@ rec {
     evince
     cabal2nix
     youtube-dl
-
-    nvidia-docker
   ];
 
   nixpkgs.config = {
