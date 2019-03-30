@@ -3,6 +3,8 @@ let
 
   me = "grwlf";
 
+  ports = import pkgs/ports.nix;
+
 in
 
 rec {
@@ -83,7 +85,7 @@ rec {
 
   services.openssh = {
     enable = true;
-    ports = [22 2222];
+    ports = [22 ports.darktower_sshd_port];
     permitRootLogin = "yes";
     extraConfig = ''
       ClientAliveInterval 20
@@ -125,6 +127,10 @@ rec {
     forwardX11 = true;
   };
 
+  # programs.mosh = {
+  #   enable = true;
+  # };
+
   virtualisation.docker = {
     enable = true;
     enableNvidia = true;
@@ -139,10 +145,14 @@ rec {
   services.autossh = {
     sessions = [
       {
-        name="vps";
+        name="dt2vps";
         user=me;
-        monitoringPort = 20000;
-        extraArguments="-N -D4343 vps";
+        extraArguments="-N -D${toString ports.darktower_socks_port} -o 'ServerAliveInterval 30' -o 'ServerAliveCountMax 3' vps";
+      }
+      {
+        name = "vps2dt";
+        user = me;
+        extraArguments = "-4 -N -R ${toString ports.vps_darktower_port}:127.0.0.1:${toString ports.darktower_sshd_port}  -o 'ServerAliveInterval 30' -o 'ServerAliveCountMax 3' vps";
       }
     ];
   };
