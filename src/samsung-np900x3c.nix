@@ -254,9 +254,9 @@ rec {
     '';
   };
 
-  services.ipfs = {
-    enable = true;
-  };
+  # services.ipfs = {
+  #   enable = true;
+  # };
 
   environment.systemPackages = with pkgs ; [
     unclutter
@@ -270,7 +270,6 @@ rec {
       ];
     })
     myvim
-    myprofile
     glxinfo
     xcompmgr
     zathura
