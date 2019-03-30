@@ -3,6 +3,8 @@ let
 
   me = "grwlf";
 
+  ports = import ./pkgs/ports.nix;
+
 in
 
 rec {
@@ -100,7 +102,7 @@ rec {
 
   services.openssh = {
     enable = true;
-    ports = [22 2222];
+    ports = [ports.greyblade_sshd_port];
     permitRootLogin = "yes";
     extraConfig = ''
       ClientAliveInterval 20
@@ -216,10 +218,14 @@ rec {
   services.autossh = {
     sessions = [
       {
-        name="vps";
+        name="greybalde2vps";
         user=me;
-        monitoringPort = 20000;
-        extraArguments="-N -D4343 vps";
+        extraArguments="-N -D${toString ports.greyblade_socks_port} -o 'ServerAliveInterval 30' -o 'ServerAliveCountMax 3' vps";
+      }
+      {
+        name = "vps2greyblade";
+        user = me;
+        extraArguments = "-4 -N -R ${toString ports.vps_greyblade_port}:127.0.0.1:${toString ports.greyblade_sshd_port}  -o 'ServerAliveInterval 30' -o 'ServerAliveCountMax 3' vps";
       }
     ];
   };
@@ -299,7 +305,7 @@ rec {
     encfs
     plowshare
     lsof
-    google-drive-ocamlfuse
+    # google-drive-ocamlfuse
     ffmpeg
     electrum
     go-ethereum

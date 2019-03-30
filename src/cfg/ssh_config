@@ -44,6 +44,10 @@ host dv
     ForwardX11         yes
     ForwardX11Trusted  yes
 
+Host dt
+    User grwlf
+    ProxyCommand ssh vps nc 127.0.0.1 4346 # FIXME: unhardcode port
+
 Host tkmai
     User smironov
     HostName turclubmai.ru
