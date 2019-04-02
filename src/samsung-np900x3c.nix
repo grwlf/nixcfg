@@ -238,7 +238,7 @@ rec {
     package = pkgs.syncthing;
     enable = true;
     user = me;
-    dataDir = "/var/lib/syncthing-${me}";
+    dataDir = "/home/${me}";
   };
 
   services.thermald = {
