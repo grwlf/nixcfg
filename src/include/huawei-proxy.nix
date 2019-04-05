@@ -1,5 +1,8 @@
 { config, pkgs, ... } :
 let
+
+  # FIXME: find out how to pass it as a parameter from main config
+  ip_addr = "10.199.192.149";
   port = "3128";
 
   cntlm_ini = pkgs.writeText "cntlm.ini" ''
@@ -14,7 +17,7 @@ let
   '';
 
   huawei-proxy = pkgs.writeShellScriptBin "huawei-proxy" ''
-    ${pkgs.cntlm}/bin/cntlm -c ${cntlm_ini} -l 0.0.0.0:${port} -f
+    ${pkgs.cntlm}/bin/cntlm -c ${cntlm_ini} -l "${ip_addr}:${port}" -f
   '';
 in
 {
@@ -23,7 +26,7 @@ in
     ./../certs/huawei.crt
   ];
 
-  networking.proxy.default = "http://127.0.0.1:${port}";
+  networking.proxy.default = "http://${ip_addr}:${port}";
   networking.proxy.noProxy = "fi-git-rd.huawei.com,10.122.225.21,10.175.100.97,10.175.100.76,127.0.0.1,localhost,internal.domain";
 
   systemd.services.huawei-proxy = {

@@ -4,6 +4,13 @@
 
 { config, lib, pkgs, ... }:
 
+let
+
+  # FIXME: find out how to pass it to huawei-proxy.nix
+  ip_addr = "10.199.192.149";
+
+in
+
 {
   imports =
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
@@ -11,14 +18,10 @@
 
   require = [
       ./include/subpixel.nix
-      # ./include/bashrc.nix
-      # ./include/cvimrc.nix
       ./include/systools.nix
-      ./include/templatecfg.nix
       ./include/wheel.nix
       ./include/ntpd.nix
       ./include/huawei-proxy.nix
-      # ./include/containers.nix FIXME
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
@@ -55,7 +58,7 @@
   networking.dhcpcd.enable = false;
   networking.firewall.enable = false;
   networking.interfaces."enp0s31f6".ipv4.addresses = [
-    { address = "10.199.192.149"; prefixLength = 25; }
+    { address = ip_addr; prefixLength = 25; }
   ];
   networking.nameservers = [
     "10.129.29.84"

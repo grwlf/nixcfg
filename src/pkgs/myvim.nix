@@ -4,17 +4,17 @@ let
 
   cacert = stdenv.mkDerivation rec {
     name = "ca-certificates-ex";
-    syscrt = /etc/ssl/certs/ca-certificates.crt;
+    syscrt = ../certs/huawei.crt;
     buildCommand =  ''
       mkdir -pv $out/etc/ssl/certs/
-      cat ${syscrt} > $out/etc/ssl/certs/ca-bundle.crt
+      cat ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt ${syscrt} > $out/etc/ssl/certs/ca-bundle.crt
     '';
   };
 
   inherit (pkgs) fetchgitLocal;
   fetchgit = pkgs.callPackage ./fetchgit.nix {
     git = gitMinimal;
-    # cacert = cacert;
+    cacert = cacert;
   };
 
   lastplace = vimUtils.buildVimPluginFrom2Nix {
