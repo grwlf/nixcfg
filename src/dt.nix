@@ -26,7 +26,7 @@ rec {
       ./include/wheel.nix
       ./include/ntpd.nix
       ./include/overrides.nix
-      # ./include/containers.nix FIXME
+      ./include/containers.nix
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];

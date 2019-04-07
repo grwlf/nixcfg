@@ -27,11 +27,17 @@ let
         forwardX11 = true;
         ports = [ port ];
         listenAddresses = [ { addr = "127.0.0.1" ; port = port ; } ];
+        logLevel = "VERBOSE";
       };
 
     environment.systemPackages = (with pkgs ; [
-        nvi
+      xorg.xeyes nvi
     ]) ++ programs;
+
+    environment.extraInit = ''
+      export LD_LIBRARY_PATH="/run/opengl-driver/lib:/run/opengl-driver-32/lib:$LD_LIBRARY_PATH"
+    '';
+
   };
 
 in {
@@ -42,26 +48,27 @@ in {
 
   containers.crypto-btc = {
     config = {config, pkgs, ... }: template 2 (with pkgs; [electrum]);
+    bindMounts = { "/run/opengl-driver/lib" = { hostPath = "/run/opengl-driver/lib"; isReadOnly = true; } ; };
   };
 
   containers.crypto-bcc = {
     config = {config, pkgs, ... }: template 3 (with pkgs; [electron-cash]);
   };
 
-  environment.extraInit = ''
-    cgeth() {
-      sudo nixos-container start crypto-geth
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin "cgeth" ''
+      sudo -E nixos-container start crypto-geth
       ssh -Y -l banker -p 22201 127.0.0.1
-    }
-    cbcc() {
-      sudo nixos-container start crypto-bcc
-      ssh -Y -l banker -p 22203 127.0.0.1
-    }
-    cbtc() {
+    '')
+    (pkgs.writeShellScriptBin "cbtc" ''
       sudo nixos-container start crypto-btc
       ssh -Y -l banker -p 22202 127.0.0.1
-    }
-  '';
+    '')
+    (pkgs.writeShellScriptBin "cbcc" ''
+      sudo nixos-container start crypto-bcc
+      ssh -Y -l banker -p 22203 127.0.0.1
+    '')
+  ];
 
 }
 
