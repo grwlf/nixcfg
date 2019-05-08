@@ -94,6 +94,13 @@ in
       xfce.enable = true;
     };
 
+    windowManager = {
+      awesome.enable = true;
+      awesome.luaModules = [
+          pkgs.luaPackages.vicious
+        ];
+    };
+
     displayManager = {
       lightdm.enable = true;
       lightdm.extraSeatDefaults = "xserver-allow-tcp=true";
@@ -103,6 +110,17 @@ in
       port=177
       '';
       xserverArgs = [ "-listen tcp" ];
+
+      # session = [
+      #   {
+      #     manage = "window";
+      #     name = "custom-awesome";
+      #     start = ''
+      #       ${pkgs.awesome}/bin/awesome &
+      #       waitPID=$!
+      #     '';
+      #   }
+      # ];
     };
 
     serverFlagsSection = ''
@@ -113,6 +131,11 @@ in
     '';
 
     enableTCP = true;
+  };
+
+  services.xrdp = {
+    enable = true;
+    # defaultWindowManager = ". ~/startwm.sh";
   };
 
 
