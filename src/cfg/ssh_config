@@ -47,6 +47,8 @@ host dv
 Host dt
     User grwlf
     ProxyCommand ssh vps nc 127.0.0.1 4346 # FIXME: unhardcode port
+    ForwardX11         yes
+    ForwardX11Trusted  yes
 
 Host tkmai
     User smironov
