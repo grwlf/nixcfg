@@ -90,6 +90,8 @@ rec {
     extraConfig = ''
       ClientAliveInterval 20
     '';
+    gatewayPorts = "yes";
+    forwardX11 = true;
   };
 
   services.printing = {
