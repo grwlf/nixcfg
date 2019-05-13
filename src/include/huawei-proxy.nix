@@ -5,6 +5,9 @@ let
   ip_addr = "10.199.192.149";
   port = "3128";
 
+  # To update the config, run:
+  #    `cntlm -c <current-cntlm.ini> -vf -I  -H  -M http://ya.ru`
+  # And copy new credential hashes to this config.
   cntlm_ini = pkgs.writeText "cntlm.ini" ''
     Username    mwx579795
     Domain      CHINA
@@ -12,7 +15,7 @@ let
     Auth        NTLM
     PassNT      6C1496C329004D317916A384FE853525
     PassLM      7B4AD4F417B80BCC3F3660102E8166D9
-    PassNTLMv2  A363AB844E34D374406B62427D472919    # Only for user 'mWX579795', domain 'CHINA'
+    PassNTLMv2  A363AB844E34D374406B62427D472919
     NoProxy     localhost,127.0.0.*,*.huawei.com,*.fi-git-rd.huawei.com,10.122.225.21,10.175.100.97,10.175.100.76,internal.domain
   '';
 
