@@ -10,8 +10,8 @@ let
     Domain      CHINA
     Proxy       proxyru.huawei.com:8080
     Auth        NTLM
-    PassLM      7B4AD4F417B80BCCD4169DD66E4838D5
-    PassNT      6127180564B5CF450875219084A134BC
+    PassNT      6C1496C329004D317916A384FE853525
+    PassLM      7B4AD4F417B80BCC3F3660102E8166D9
     PassNTLMv2  A363AB844E34D374406B62427D472919    # Only for user 'mWX579795', domain 'CHINA'
     NoProxy     localhost,127.0.0.*,*.huawei.com,*.fi-git-rd.huawei.com,10.122.225.21,10.175.100.97,10.175.100.76,internal.domain
   '';
