@@ -194,6 +194,7 @@ in
     lsof
     evince
     vim
+    nvtop
   ];
 
 
