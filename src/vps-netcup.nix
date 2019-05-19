@@ -35,6 +35,13 @@ rec {
   networking.firewall.enable = false;
   networking.enableIPv6 = false;
 
+  networking.nat = {
+    enable = true;
+    internalInterfaces = [ "tun0" ];
+    internalIPs = [ "192.168.148.0/24" ];
+    externalInterface = "ens3";
+  };
+
   # Select internationalisation properties.
   # i18n = {
   #   consoleFont = "lat9w-16";
