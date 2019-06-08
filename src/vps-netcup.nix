@@ -30,16 +30,31 @@ rec {
     }
   ];
 
-  networking.hostName = "vps";
-  networking.wireless.enable = false;
-  networking.firewall.enable = false;
-  networking.enableIPv6 = false;
+  networking = {
 
-  networking.nat = {
-    enable = true;
-    internalInterfaces = [ "tun0" ];
-    internalIPs = [ "192.168.148.0/24" ];
-    externalInterface = "ens3";
+    hostName = "vps";
+    wireless.enable = false;
+    enableIPv6 = false;
+
+    firewall = {
+      enable = true;
+      allowPing = true;
+      allowedUDPPorts = [
+        1194 # openvpn
+      ];
+      allowedTCPPorts = [
+        80
+        8080
+        443
+      ];
+    };
+
+    nat = {
+      enable = true;
+      internalInterfaces = [ "tun0" ];
+      internalIPs = [ "10.0.0.0/24" ];
+      externalInterface = "ens3";
+    };
   };
 
   # Select internationalisation properties.
@@ -152,7 +167,7 @@ rec {
       config = ''
         port 1194
         proto udp
-        dev tap
+        dev tun
         keepalive 10 120
         comp-lzo
         client-to-client
