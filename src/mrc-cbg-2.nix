@@ -138,6 +138,24 @@ in
     # defaultWindowManager = ". ~/startwm.sh";
   };
 
+  # services.mongodb = {
+  #   enable = true;
+  #   dbpath = "/home/mongodb/";
+  #   bind_ip = "127.0.0.1,172.17.0.1";
+  # };
+
+  # services.udev = {
+  #   extraRules = ''
+  #     # Android Debug Bridge identifiers
+  #     SUBSYSTEM=="usb", ATTR{idVendor}=="05c6", MODE="0666", GROUP="users"
+  #     SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="users"
+  #     SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="users"
+  #   '';
+  # };
+
+  programs.adb = {
+    enable = true;
+  };
 
   users.extraUsers =
     let
@@ -145,7 +163,7 @@ in
         "${name}" = {
           uid = id;
           isNormalUser = true;
-          extraGroups = ["docker"];
+          extraGroups = ["docker" "adbusers"];
           initialPassword = "huawei123";
         };
       };
