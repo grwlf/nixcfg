@@ -128,7 +128,6 @@ vim_configurable.customize {
       fzf-vim
       vimbufsync
       coquille
-
       LanguageClient-neovim
     ];
   };
