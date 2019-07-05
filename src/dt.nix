@@ -25,7 +25,6 @@ rec {
       ./include/xfce-overrides.nix
       ./include/wheel.nix
       ./include/ntpd.nix
-      ./include/overrides.nix
       ./include/containers.nix
     ];
 
@@ -167,7 +166,7 @@ rec {
     enable = true;
     package = pkgs.syncthing;
     user = me;
-    dataDir = "/var/lib/syncthing-${me}";
+    dataDir = "/home/${me}";
   };
 
   services.udev = {
@@ -238,6 +237,8 @@ rec {
     evince
     cabal2nix
     youtube-dl
+    xscreensaver-run
+    xlibs.xeyes
   ];
 
   nixpkgs.config = {
@@ -253,6 +254,18 @@ rec {
       enableAdobeFlash = true;
     };
     virtualbox.enableExtensionPack = false; # FIXME
+
+    packageOverrides = pkgs : {
+      firefox = pkgs.writeShellScriptBin "firefox" ''
+        ${pkgs.firefox}/bin/firefox -UILocale ru "$@"
+      '';
+
+      myvim = pkgs.callPackage ./pkgs/myvim.nix {};
+
+      myprofile = pkgs.callPackage ./pkgs/myprofile.nix {};
+
+      xscreensaver-run = pkgs.callPackage ./pkgs/xscreensaver-run.nix {};
+    };
   };
 
 
@@ -260,7 +273,7 @@ rec {
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "18.09"; # Did you read the comment?
+  system.stateVersion = "19.03"; # Did you read the comment?
 
 }
 
