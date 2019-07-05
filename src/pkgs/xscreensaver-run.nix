@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = "https://github.com/grwlf/xscreensaver-run";
-    rev = "c277a6ca6c49f2609ff693e4b6bd64784bab1d6e";
-    sha256 = "sha256:1im9kyzf7vpz1682mn9c8pvqi8d5x5grr4w8gbgbh4q0cmddq5s8";
+    rev = "b722de024dacf65cf714539cc146fed1c82efab6";
+    sha256 = "sha256:1c5j1qapmfbddf5xr88j19bf8rwayhdsq7iybhb09zgk1443cbra";
   };
 
   nativeBuildInputs = [ ];
