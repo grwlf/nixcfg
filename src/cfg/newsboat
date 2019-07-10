@@ -13,3 +13,12 @@ color article            default   default
 highlight article "^(Title):.*$" blue default
 highlight article "https?://[^ ]+" red default
 highlight article "\\[image\\ [0-9]+\\]" green default
+
+# bindings
+bind-key k  up
+bind-key j  down
+bind-key ^U pageup
+bind-key ^D pagedown
+
+browser chromium
+
