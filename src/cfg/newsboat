@@ -1,6 +1,8 @@
+# Use the following command to run in X:
+# > urxvt -e tmux new-session -AD -s newsboat  newsboat
+#
 # Dark solarized color scheme for newsbeuter, based on
 # Ethan Schoonover's Solarized, with fixes
-
 color background         default   default
 color listnormal         color241   default
 color listnormal_unread  default   default
@@ -19,6 +21,10 @@ bind-key k  up
 bind-key j  down
 bind-key ^U pageup
 bind-key ^D pagedown
+bind-key n  toggle-article-read
+bind-key o  open  feedlist
+bind-key o  open  articlelist
 
 browser chromium
+auto-reload yes
 
