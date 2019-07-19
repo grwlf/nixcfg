@@ -18,6 +18,8 @@ let
       myprofile = callPackage ./myprofile.nix {};
       photofetcher = callPackage ./photofetcher.nix {};
       thunar_uca = callPackage ./thunar_uca.nix {};
+      xscreensaver-run = pkgs.callPackage ./xscreensaver-run.nix {};
+      mylock = callPackage ./mylock.nix {};
     });
   };
 
@@ -29,8 +31,6 @@ let
   });
 
   thunar = pkgs.xfce.thunar.override { inherit thunar-bare; };
-
-  xscreensaver-run = pkgs.callPackage ./xscreensaver-run.nix {};
 
 in
 pkgs.symlinkJoin {
@@ -110,6 +110,7 @@ pkgs.symlinkJoin {
     xsensors
     calibre
     # coq
+    mylock
   ];
 }
 
