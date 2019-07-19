@@ -25,7 +25,6 @@ rec {
       ./include/xfce-overrides.nix
       ./include/wheel.nix
       ./include/ntpd.nix
-      ./include/overrides.nix
       ./include/containers.nix
     ];
 
@@ -259,66 +258,14 @@ rec {
   # };
 
   environment.systemPackages = with pkgs ; [
-    unclutter
-    xorg.xdpyinfo
-    xorg.xinput
-    #rxvt_unicode
-    (rxvt_unicode-with-plugins.override {
-      plugins = [
-        urxvt_perl
-        urxvt_theme_switch
-      ];
-    })
-    myvim
-    glxinfo
-    xcompmgr
-    zathura
-    xlibs.xev
-    xfontsel
-    xlsfonts
-    djvulibre
-    wine
-    libreoffice
-    pidgin
-    #skypeforlinux tarball gone
+    rxvt_unicode
     networkmanagerapplet
     pavucontrol
-    qbittorrent
-    cups
-    mlton
-    i7z
-    pdftk
-    tuxguitar
-    unetbootin
-    zbar
-
-    vlc
-    sox
-    smplayer
-    mplayer
-
-    imagemagickBig
-    geeqie
-    gimp
-    chromium
-    encfs
-    plowshare
-    lsof
-    # google-drive-ocamlfuse
-    ffmpeg
-    electrum
-    go-ethereum
-
-    tdesktop
-    jmtpfs
-    evince
-    cabal2nix
-    youtube-dl
+    glxinfo
   ];
 
   nixpkgs.config = {
     sox.enableLame = true;
-    allowBroken = true;
     allowUnfree = true;
     chrome = {
       jre = true;
