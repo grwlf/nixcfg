@@ -49,8 +49,8 @@ let
     name = "nerdtree";
     src = fetchgit {
       url = "https://github.com/grwlf/nerdtree";
-      rev = "95621b8fb4a2f101e3bebec54d15cc31a2b389ad";
-      sha256 = "1r3m95kb7n91vyfmyjsbjz9y78lr1h0wyr2hnxy7gwa7c2hpv7cv";
+      rev = "5317adddaa044f3ed8242883dfb2eb1c894f9886";
+      sha256 = "sha256:0l34wpp2yl6lwlw7s2zaqmpn7plvza2i2mbd4nj070hjkrdx0p0i";
     };
   };
 
@@ -470,6 +470,7 @@ vim_configurable.customize {
     let g:NERDTreeCasadeOpenSingleChildDir=1
     let g:NERDTreeQuitOnOpen=0
     let g:NERDTreeMapQuit='<Plug>h'
+    let g:NERDTreeMouseMode=3
     noremap <F4> <ESC>:NERDTreeFind<CR>
     command -nargs=0 NF :NERDTreeFind
 
