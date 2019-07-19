@@ -1,14 +1,10 @@
-{ pkgs ? import <nixpkgs> {} } :
+{ pkgs ? import <nixpkgs> {}, myvim } :
 
 with pkgs;
 let
-
-  myvim = import ./myvim.nix { inherit pkgs; };
-
   vimbin = "${myvim}/bin/vim";
 
   aplay = "${alsaUtils}/bin/aplay";
-
 in
 pkgs.writeText "myprofile.sh" ''
   export EDITOR=${vimbin}

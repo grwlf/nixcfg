@@ -17,19 +17,19 @@
     xfce.gigolo
     xfce.xfce4taskmanager
 
-    photofetcher
-    handyscripts
-    videoconvert
+    # photofetcher
+    # handyscripts
+    # videoconvert
   ];
 
   nixpkgs.config = {
     packageOverrides = pkgs : {
 
-      photofetcher = pkgs.callPackage ../pkgs/photofetcher.nix {};
+      # photofetcher = pkgs.callPackage ../pkgs/photofetcher.nix {};
 
-      handyscripts = pkgs.callPackage ../pkgs/handyscripts.nix {};
+      # handyscripts = pkgs.callPackage ../pkgs/handyscripts.nix {};
 
-      videoconvert = pkgs.callPackage ../pkgs/videoconvert.nix {};
+      # videoconvert = pkgs.callPackage ../pkgs/videoconvert.nix {};
 
       xfce = pkgs.xfce // rec {
 
@@ -38,14 +38,14 @@
           patches = [ ../pkgs/xfce4-xkb.patch ];
         });
 
-        thunar-bare = pkgs.lib.overrideDerivation pkgs.xfce.thunar-bare (a:{
-          name = a.name + "-patched";
-          prePatch = ''
-            cp -pv ${pkgs.callPackage ../pkgs/thunar_uca.nix {}} plugins/thunar-uca/uca.xml.in
-          '';
-        });
+        # thunar-bare = pkgs.lib.overrideDerivation pkgs.xfce.thunar-bare (a:{
+        #   name = a.name + "-patched";
+        #   prePatch = ''
+        #     cp -pv ${pkgs.callPackage ../pkgs/thunar_uca.nix {}} plugins/thunar-uca/uca.xml.in
+        #   '';
+        # });
 
-        thunar = pkgs.xfce.thunar.override { inherit thunar-bare; };
+        # thunar = pkgs.xfce.thunar.override { inherit thunar-bare; };
       };
     };
   };

@@ -183,67 +183,15 @@ rec {
   };
 
   environment.systemPackages = with pkgs ; [
-    unclutter
-    xorg.xdpyinfo
-    xorg.xinput
-    (rxvt_unicode-with-plugins.override {
-      plugins = [
-        urxvt_perl
-        urxvt_theme_switch
-      ];
-    })
-    myvim
-    glxinfo
-    xcompmgr
-    zathura
-    xlibs.xev
-    xfontsel
-    xlsfonts
-    djvulibre
-    wine
-    libreoffice
-    pidgin
-    #skypeforlinux tarball gone
+    rxvt_unicode
     networkmanagerapplet
     pavucontrol
-    qbittorrent
-    cups
-    mlton
-    i7z
-    pdftk
-    tuxguitar
-    unetbootin
-    zbar
-
-    vlc
-    sox
-    smplayer
-    mplayer
-
-    imagemagickBig
-    geeqie
-    gimp
-    chromium
-    encfs
-    plowshare
-    lsof
-    google-drive-ocamlfuse
-    ffmpeg
-    electrum
-    go-ethereum
-
-    tdesktop
-    jmtpfs
-    evince
-    cabal2nix
-    youtube-dl
-    xscreensaver-run
-    xlibs.xeyes
+    glxinfo
   ];
 
   nixpkgs.config = {
     sox.enableLame = true;
-    allowBroken = true;
+    # allowBroken = true;
     allowUnfree = true;
     chrome = {
       jre = true;
@@ -254,18 +202,6 @@ rec {
       enableAdobeFlash = true;
     };
     virtualbox.enableExtensionPack = false; # FIXME
-
-    packageOverrides = pkgs : {
-      firefox = pkgs.writeShellScriptBin "firefox" ''
-        ${pkgs.firefox}/bin/firefox -UILocale ru "$@"
-      '';
-
-      myvim = pkgs.callPackage ./pkgs/myvim.nix {};
-
-      myprofile = pkgs.callPackage ./pkgs/myprofile.nix {};
-
-      xscreensaver-run = pkgs.callPackage ./pkgs/xscreensaver-run.nix {};
-    };
   };
 
 

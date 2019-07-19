@@ -32,7 +32,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Photofetcher is a tool which fetches photos from a remote media";
+    description = "Random handy scripts";
     maintainers = with stdenv.lib.maintainers; [ smironov ];
     platforms = with stdenv.lib.platforms; linux;
   };

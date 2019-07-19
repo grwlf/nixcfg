@@ -1,10 +1,6 @@
 { config, pkgs, ... } :
 
 {
-  environment = rec {
-
-  };
-
   programs = {
 
     bash = {
@@ -17,15 +13,15 @@
         PS1="\n\[\033[$PROMPT_COLOR\][\u@\h \w ]\\$\[\033[0m\] "
       '';
 
-      interactiveShellInit = ''
-        if test -f /etc/myprofile ; then
-          . /etc/myprofile
-        fi
-      '';
+      # interactiveShellInit = ''
+      #   if test -f /etc/myprofile ; then
+      #     . /etc/myprofile
+      #   fi
+      # '';
     };
   };
 
-  environment.etc."myprofile".source = pkgs.myprofile;
+  # environment.etc."myprofile".source = pkgs.myprofile;
 
 }
 
