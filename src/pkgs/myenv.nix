@@ -39,9 +39,31 @@ let
 
   thunar = pkgs.xfce.thunar.override { inherit thunar-bare; };
 
+  mySymlinkJoin =
+    args_@{ name
+         , paths
+         , preferLocalBuild ? true
+         , allowSubstitutes ? false
+         , postBuild ? ""
+         , ...
+         }:
+    let
+      args = removeAttrs args_ [ "name" "postBuild" ]
+        // { inherit preferLocalBuild allowSubstitutes; }; # pass the defaults
+    in pkgs.runCommand name args
+      ''
+        mkdir -pv $out
+        for i in $paths; do
+          cp -rs -L -H $i/*/ $out || { echo Wooops >&2; ${pkgs.xorg.lndir}/bin/lndir $i $out ; }
+          chmod -R u+w $out
+        done
+        ${postBuild}
+      '';
+
 in
-pkgs.symlinkJoin {
+mySymlinkJoin {
   name = "myenv";
+  postBuild = "echo Hehe";
   paths = with local.collection; [
     # Nix-generated configs and binaries
     myvim
@@ -50,7 +72,6 @@ pkgs.symlinkJoin {
     # Custom XFCE packages
     thunar
     photofetcher
-    (pkgs.callPackage ./xscreensaver-run.nix {})
     (pkgs.callPackage ./videoconvert.nix {})
 
     unclutter
@@ -92,8 +113,6 @@ pkgs.symlinkJoin {
     lsof
     google-drive-ocamlfuse
     ffmpeg
-    electrum
-    go-ethereum
 
     tdesktop
     jmtpfs
