@@ -56,10 +56,12 @@ let
 
   grepper = vimUtils.buildVimPluginFrom2Nix {
     name = "grepper-1.4";
-    src = fetchgit {
-      url = "https://github.com/mhinz/vim-grepper";
-      rev = "b146028f70594390bd18e16789d1af29eac55aad";
-      sha256 = "0wdxsghadmg6zl608j6j1icihdc62czbsx5lmsq0j1b2rqzb5xj2";
+    # src = /home/grwlf/proj/vim-grepper;
+    src = fetchFromGitHub {
+      owner = "grwlf";
+      repo = "vim-grepper";
+      rev = "231d06df26ff9d5df38d82e63630eb868cd10e64";
+      sha256 = "sha256:17y0pqnd7m900rkhjfq6cncfqhjjnksq1pxxgg42f2r7d0asv5bk";
     };
   };
 
@@ -453,15 +455,32 @@ vim_configurable.customize {
 
     " Grepper
     let g:grepper = {
-        \ 'tools':     ['sgit', 'git', 'ag', 'grep'],
+        \ 'tools':     ['sgit', 'git', 'grep'],
         \ 'open':      1,
         \ 'jump':      0,
         \ 'sgit':      { 'grepprg':    'git grep --recurse-submodules -nI',
         \                'grepformat': '%f:%l:%m',
-        \                'escape':     '\^$.*[]'
+        \                'escape':     '\^$.*[]"; '
         \              },
         \ }
-    command! -nargs=* G :Grepper -noqf -query <q-args>
+    function _run_grepper(args)
+      exec "Grepper -noqf -prompt -query '" . a:args . "'"
+    endfunction
+    function! _get_visual_selection()
+        " Why is this not a built-in Vim script function?!
+        let [line_start, column_start] = getpos("'<")[1:2]
+        let [line_end, column_end] = getpos("'>")[1:2]
+        let lines = getline(line_start, line_end)
+        if len(lines) == 0
+            return ""
+        endif
+        let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+        let lines[0] = lines[0][column_start - 1:]
+        return join(lines, "\n")
+    endfunction
+    command! -nargs=* G :call _run_grepper(<q-args>)
+    nnoremap <C-G> :call _run_grepper(expand('<cword>'))<CR>
+    vnoremap <C-G> :call _run_grepper(_get_visual_selection())<CR>
 
     " Local vimrc
     let g:localvimrc_name = ['.lvimrc', '.vimrc_local.vim', 'localrc.vim', 'lvimrc.vim']
@@ -524,7 +543,7 @@ vim_configurable.customize {
       let newcwd = a:node.path.getDir().str()
       exec "wincmd w"
       exec "cd " . newcwd
-      exec "Grepper -noqf"
+      exec "Grepper -noqf -prompt"
     endfunction
     " }}}
 
@@ -540,54 +559,10 @@ vim_configurable.customize {
     nnoremap <silent> + :exe "resize " . (max([winheight(0) * 3/2, 2]))<CR>
     nnoremap <silent> - :exe "resize " . (max([winheight(0) * 2/3, 1]))<CR>
 
-    " let g:hscoptions = "wA𝐒𝐓𝐓𝐌CIT𝔻"
-    " :au BufReadPost * if b:current_syntax == "haskell"
-    " :au BufReadPost *   highlight Comment ctermfg=Red guifg=Red
-    " :au BufReadPost *   let g:aaa = "AAA"
-    " :au BufReadPost * endif
-
-    " Cyclic tag navigation
-    let g:rt_cw = ""
-    function! RT(tab)
-        let cw = expand('<cword>')
-        try
-            if a:tab == 1
-              execute 'tabnew'
-            endif
-            if cw != g:rt_cw
-                execute 'ltag ' . cw
-                call search(cw,'c',line('.'))
-            else
-                try
-                    execute 'tnext'
-                catch /.*/
-                    execute 'trewind'
-                endtry
-                call search(cw,'c',line('.'))
-            endif
-            let g:rt_cw = cw
-        catch /.*/
-            echo "no tags on " . cw
-        endtry
-    endfunction
-    " map <C-]> :call RT(0)<CR>
-    " map <C-\> :call RT(1)<CR>
-
-    function! _run_ltag(tab)
-      if a:tab == 1
-        execute 'tabnew'
-      endif
-      let cw = expand('<cword>')
-      execute 'ltag ' . cw
-      execute 'lopen'
-    endfunction
-    map <C-]> :call _run_ltag(0)<CR>
-    map <C-/> :call _run_ltag(1)<CR>
-
     " Mouse
     nmap <RightMouse> <C-o>
 
-    " LanguageClient
+    " LanguageClient & tagging
     let g:LanguageClient_serverCommands = {
       \ 'python': ['pyls']
       \ }
@@ -598,6 +573,16 @@ vim_configurable.customize {
     nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
     " nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
     nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<CR>
+    function! _run_ltag(tab)
+      if a:tab == 1
+        execute 'tabnew'
+      endif
+      let cw = expand('<cword>')
+      execute 'ltag ' . cw
+      execute 'lopen'
+    endfunction
+    map <C-]> :call _run_ltag(0)<CR>
+    map <C-/> :call _run_ltag(1)<CR>
 
     " IndentHighlight
     let g:indent_highlight_disabled = 0       " Disables the plugin, default 0
