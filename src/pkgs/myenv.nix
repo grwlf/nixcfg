@@ -111,6 +111,8 @@ pkgs.buildEnv {
     # coq
     mylock
     urxvtb
+
+    easytag
   ];
 }
 

@@ -72,16 +72,20 @@ pkgs.writeText "myprofile.sh" ''
             }
   wn()      { ${wmctrl}/bin/wmctrl -r :ACTIVE: -T "$@";  }
   encfs()   { `which encfs` -i 60 "$@" ; }
+  encpriv() { `which encfs` -i 60  ~/.priv ~/priv "$@" ; }
   p()       { nix-shell -p pkgs.python3Packages.ipython \
                            pkgs.python3Packages.pandas \
                            pkgs.python3Packages.matplotlib \
                      --run ipython ; }
 
+  ydla()    { ${youtube-dl}/bin/youtube-dl --extract-audio --audio-format=vorbis "$@" ; }
+
   #
   # GIT Aliases
   #
 
-  gf() { git fetch github || git fetch origin ; }
+  gf() { git fetch ; }
+  gfp() { git fetch "$1" "pull/$2/head:$3" ; }
   alias ga='git add'
   alias gai='git add -i'
   alias gap='git add -p'
