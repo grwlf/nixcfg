@@ -502,6 +502,7 @@ vim_configurable.customize {
     let g:NERDTreeMapQuit='<Plug>h'
     let g:NERDTreeMouseMode=3
     noremap <F4> <ESC>:NERDTreeFind<CR>
+    autocmd FileType nerdtree noremap <buffer> <F4> :NERDTreeClose<CR>
     command -nargs=0 NF :NERDTreeFind
 
     function! VimOpenTerm(d)
