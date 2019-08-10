@@ -97,6 +97,16 @@ let
     };
   };
 
+  ident-highlight = vimUtils.buildVimPluginFrom2Nix {
+    name = "ident-highlight";
+    src = fetchFromGitHub {
+      owner = "grwlf";
+      repo = "indent-highlight.vim";
+      rev = "07c465c";
+      sha256 = "1vqdbhnpwlsh854d9jr4p6gl0d58bj4vx63gfmbx3zmql1gd9zdx";
+    };
+  };
+
 in
 
 vim_configurable.customize {
@@ -129,6 +139,7 @@ vim_configurable.customize {
       vimbufsync
       coquille
       LanguageClient-neovim
+      ident-highlight
     ];
   };
 
@@ -587,5 +598,10 @@ vim_configurable.customize {
     nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
     " nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
     nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<CR>
+
+    " IndentHighlight
+    let g:indent_highlight_disabled = 0       " Disables the plugin, default 0
+    let g:indent_highlight_bg_color = 233     " Color to be used for highlighting, default 233
+    let g:indent_highlight_start_disabled = 0 " Disable indent-highlight, enable by explicitly toggling, default 1
   '';
 }
