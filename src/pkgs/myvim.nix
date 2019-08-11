@@ -58,10 +58,10 @@ let
     name = "grepper-1.4";
     # src = /home/grwlf/proj/vim-grepper;
     src = fetchFromGitHub {
-      owner = "grwlf";
+      owner = "mhinz";
       repo = "vim-grepper";
-      rev = "231d06df26ff9d5df38d82e63630eb868cd10e64";
-      sha256 = "sha256:17y0pqnd7m900rkhjfq6cncfqhjjnksq1pxxgg42f2r7d0asv5bk";
+      rev = "a73a9dc920bd0b3ba8b298c258bd4d4814d9a162";
+      sha256 = "sha256:15dcrla2z1r5phabfn72b6vbsyji8nsw3g5lif14pkg7ps3py79n";
     };
   };
 
