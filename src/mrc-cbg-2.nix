@@ -12,8 +12,7 @@ let
 in
 
 {
-  imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+  imports = [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
   require = [
@@ -138,21 +137,6 @@ in
     # defaultWindowManager = ". ~/startwm.sh";
   };
 
-  # services.mongodb = {
-  #   enable = true;
-  #   dbpath = "/home/mongodb/";
-  #   bind_ip = "127.0.0.1,172.17.0.1";
-  # };
-
-  # services.udev = {
-  #   extraRules = ''
-  #     # Android Debug Bridge identifiers
-  #     SUBSYSTEM=="usb", ATTR{idVendor}=="05c6", MODE="0666", GROUP="users"
-  #     SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="users"
-  #     SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="users"
-  #   '';
-  # };
-
   programs.adb = {
     enable = true;
   };
@@ -184,6 +168,7 @@ in
     enableNvidia = true;
   };
 
+  # NIXCFG_ROOT should point to the folder where this project is checked-out
   environment.extraInit = ''
     export NIXCFG_ROOT=/home/nixcfg
     export NIX_PATH="nixpkgs=$NIXCFG_ROOT/nixpkgs:nixos=$NIXCFG_ROOT/nixpkgs/nixos:nixos-config=$NIXCFG_ROOT/src/mrc-cbg-2.nix"
@@ -214,26 +199,6 @@ in
     vim
     nvtop
   ];
-
-
-  # Enable touchpad support.
-  # services.xserver.libinput.enable = true;
-
-  # Enable the KDE Desktop Environment.
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.guest = {
-  #   isNormalUser = true;
-  #   uid = 1000;
-  # };
-
-  # This value determines the NixOS release with which your system is to be
-  # compatible, in order to avoid breaking some software such as database
-  # servers. You should change this only after NixOS release notes say you
-  # should.
-  #system.stateVersion = "18.09"; # Did you read the comment?
 
   nixpkgs.config.allowUnfree = true;
 

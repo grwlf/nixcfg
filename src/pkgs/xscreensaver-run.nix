@@ -1,11 +1,17 @@
-{ stdenv, fetchgit, libX11, xscreensaver, makeWrapper}:
+{ stdenv, fetchgit, fetchFromGitHub, libX11, xscreensaver, makeWrapper}:
 
 stdenv.mkDerivation rec {
   name = "xscreensaver-run-${version}";
   version = "1.0.0";
 
-  src = fetchgit {
-    url = "https://github.com/grwlf/xscreensaver-run";
+  # src = fetchgit {
+  #   url = "https://github.com/grwlf/xscreensaver-run";
+  #   rev = "b722de024dacf65cf714539cc146fed1c82efab6";
+  #   sha256 = "sha256:1c5j1qapmfbddf5xr88j19bf8rwayhdsq7iybhb09zgk1443cbra";
+  # };
+  src = fetchFromGitHub {
+    owner = "grwlf";
+    repo = "xscreensaver-run";
     rev = "b722de024dacf65cf714539cc146fed1c82efab6";
     sha256 = "sha256:1c5j1qapmfbddf5xr88j19bf8rwayhdsq7iybhb09zgk1443cbra";
   };
