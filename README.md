@@ -16,7 +16,16 @@ Setting up the environment
 
 ### Installing user profile
 
-```
-$ nix-build src/pkgs/myenv.nix
-$ nix-env -i ./result
-```
+1. Install the profile:
+    ```
+   $ nix-build src/pkgs/myenv.nix
+   $ nix-env -i ./result
+   ```
+2. Link profile's bashrc with user `.bashrc`
+   ```
+   if test -f "$HOME/.nix-profile/etc/myprofile" ; then
+     . "$HOME/.nix-profile/etc/myprofile"
+   fi
+   ```
+
+
