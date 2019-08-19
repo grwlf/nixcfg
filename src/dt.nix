@@ -175,6 +175,9 @@ rec {
       SUBSYSTEM=="usb", ATTR{idVendor}=="05c6", MODE="0666", GROUP="users"
       SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="users"
       SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="users"
+
+      SUBSYSTEM=="usb",ATTRS{idVendor}=="1a6e",GROUP="users"
+      SUBSYSTEM=="usb",ATTRS{idVendor}=="18d1",GROUP="users"
     '';
   };
 
