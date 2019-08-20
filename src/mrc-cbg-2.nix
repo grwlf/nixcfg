@@ -178,6 +178,14 @@ in
     nix-env = "nix-env -f '<nixpkgs>'";
   };
 
+  # Rules for Coral Accelerator
+  services.udev = {
+    extraRules = ''
+      SUBSYSTEM=="usb",ATTRS{idVendor}=="1a6e",GROUP="users"
+      SUBSYSTEM=="usb",ATTRS{idVendor}=="18d1",GROUP="users"
+    '';
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
