@@ -8,7 +8,7 @@ pkgs.buildEnv {
   paths = with localpkgs; [
     # Nix-generated configs and binaries
     myvim
-    (placeTo "/etc/myprofile" myprofile)
+    myprofile
 
     # Custom XFCE packages
     thunar

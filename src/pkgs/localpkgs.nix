@@ -18,7 +18,7 @@ let
         exec ${pkgs.tmux}/bin/tmux -f ${../cfg/tmux.conf} "$@"
       '';
       myvim = callPackage ./myvim.nix {};
-      myprofile = callPackage ./myprofile.nix {};
+      myprofile = placeTo "/etc/myprofile" (callPackage ./myprofile.nix {});
       photofetcher = callPackage ./photofetcher.nix {};
       thunar_uca = callPackage ./thunar_uca.nix {};
       xscreensaver-run = pkgs.callPackage ./xscreensaver-run.nix {};
