@@ -3,13 +3,23 @@ Setting up the environment
 
 ### Installing the system configuration
 
-1. Export the Nix paths via the `NIX_PATH` variable
+1. Export the Nix paths via the `NIX_PATH` variable. Add the following lines to
+   your `~/.bashrc`:
    ```
-   export NIX_DEV_ROOT=$HOME/proj/nixcfg
-   export NIX_PATH="nixpkgs=$NIX_DEV_ROOT/nixpkgs:nixos=$NIX_DEV_ROOT/nixpkgs/nixos:nixos-config=$NIX_DEV_ROOT/src/ww.nix:services=/etc/nixos/services:passwords=$NIX_DEV_ROOT/pass"
+   export NIXCFG_ROOT=\
+   $HOME/proj/nixcfg
+
+   export NIX_PATH=\
+   localpkgs=$NIXCFG_ROOT/src/pkgs/localpkgs.nix:\
+   nixpkgs=$NIXCFG_ROOT/nixpkgs:\
+   nixos=$NIXCFG_ROOT/nixpkgs/nixos:\
+   nixos-config=$NIXCFG_ROOT/src/samsung-np900x3c.nix:\
+   passwords=$NIXCFG_ROOT/passwords
+
+   alias nix-env="nix-env -f '<nixpkgs>'"
    ```
 
-2. Building the profile
+2. Build the profile. Create missing password files if required.
    ```
    $ nixos-rebuild
    ```
@@ -23,8 +33,8 @@ Setting up the environment
    ```
 2. Link profile's bashrc with user `.bashrc`
    ```
-   if test -f "$HOME/.nix-profile/etc/myprofile" ; then
-     . "$HOME/.nix-profile/etc/myprofile"
+   if test -f "/home/$USER/.nix-profile/etc/myprofile" ; then
+     . "/home/$USER/.nix-profile/etc/myprofile"
    fi
    ```
 
