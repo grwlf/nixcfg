@@ -49,8 +49,8 @@ let
     name = "nerdtree";
     src = fetchgit {
       url = "https://github.com/grwlf/nerdtree";
-      rev = "5317adddaa044f3ed8242883dfb2eb1c894f9886";
-      sha256 = "sha256:0l34wpp2yl6lwlw7s2zaqmpn7plvza2i2mbd4nj070hjkrdx0p0i";
+      rev = "e6417f261ce86ce44bcb14c36aaa87e5e900b6d8";
+      sha256 = "sha256:0nf9p12490phvinl8iarfcqw39zz94dhmh23isw51k9d3ay8cpa6";
     };
   };
 
@@ -531,20 +531,45 @@ vim_configurable.customize {
     endfunction
 
     let g:nerd_oldcwd = ""
-    function! NERDTree_G_term()
+    function! NERDTree_cd_term()
       if g:nerd_oldcwd != ""
         exec "cd " . g:nerd_oldcwd
         let g:nerd_oldcwd = ""
       endif
     endfunction
-    exec "augroup ungrep | au! FileType qf call NERDTree_G_term() | augroup END"
+    exec "augroup ungrep | au! FileType qf call NERDTree_cd_term() | augroup END"
 
-    function! NERDTree_G(node)
+    function! _run_grepper_nerd(node)
       let g:nerd_oldcwd = getcwd()
       let newcwd = a:node.path.getDir().str()
       exec "wincmd w"
       exec "cd " . newcwd
       exec "Grepper -noqf -prompt"
+    endfunction
+
+    function! _run_term(node)
+      let oldcwd = getcwd()
+      let newcwd = a:node.path.getDir().str()
+      exec "wincmd w"
+      exec "cd " . newcwd
+      exec "terminal"
+      exec "cd " . oldcwd
+    endfunction
+
+    function! NERDTree_G(node)
+      call _run_grepper_nerd(a:node)
+    endfunction
+
+    function! NERDTree_C_G(node)
+      call _run_grepper_nerd(a:node)
+    endfunction
+
+    function! NERDTree_t(node)
+      call _run_term(a:node)
+    endfunction
+
+    function! NERDTree_C_T(node)
+      call _run_term(a:node)
     endfunction
     " }}}
 
