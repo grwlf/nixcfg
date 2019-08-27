@@ -169,9 +169,17 @@ in
   };
 
   # NIXCFG_ROOT should point to the folder where this project is checked-out
+  # ~/.bash_profile may overwrite it
   environment.extraInit = ''
-    export NIXCFG_ROOT=/home/nixcfg
-    export NIX_PATH="nixpkgs=$NIXCFG_ROOT/nixpkgs:nixos=$NIXCFG_ROOT/nixpkgs/nixos:nixos-config=$NIXCFG_ROOT/src/mrc-cbg-2.nix"
+  export NIXCFG_ROOT=\
+  /home/nixcfg
+
+  export NIX_PATH=\
+  localpkgs=$NIXCFG_ROOT/src/pkgs/localpkgs.nix:\
+  nixpkgs=$NIXCFG_ROOT/nixpkgs:\
+  nixos=$NIXCFG_ROOT/nixpkgs/nixos:\
+  nixos-config=$NIXCFG_ROOT/src/mrc-cbg-2.nix:\
+  passwords=$NIXCFG_ROOT/passwords
   '';
 
   environment.shellAliases = {
