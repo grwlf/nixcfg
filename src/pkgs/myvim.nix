@@ -589,6 +589,8 @@ vim_configurable.customize {
     nmap <RightMouse> <C-o>
 
     " LanguageClient & tagging
+    "let g:LanguageClient_loggingFile = "pyls.log"
+    "let g:LanguageClient_loggingLevel = "DEBUG"
     let g:LanguageClient_serverCommands = {
       \ 'python': ['pyls']
       \ }
