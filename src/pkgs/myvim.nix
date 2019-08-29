@@ -58,10 +58,10 @@ let
     name = "grepper-1.4";
     # src = /home/grwlf/proj/vim-grepper;
     src = fetchFromGitHub {
-      owner = "mhinz";
+      owner = "grwlf";
       repo = "vim-grepper";
-      rev = "a73a9dc920bd0b3ba8b298c258bd4d4814d9a162";
-      sha256 = "sha256:15dcrla2z1r5phabfn72b6vbsyji8nsw3g5lif14pkg7ps3py79n";
+      rev = "dde595334d2fc0e25eaa67ed39c1043820959d85";
+      sha256 = "sha256:1ipvnkj4gcvr6c29qzhd80h6h9kfprp09h7j1lyj2qhzcn259b9v";
     };
   };
 
@@ -514,7 +514,7 @@ vim_configurable.customize {
 
     function! VimOpenTermWindow(d)
       let d =
-      exec '!STY="" urxvt -cd ' . a:d . ' &'
+      exec '!STY="" urxvt -cd ' . fnameescape(a:d) . ' &'
     endfunction
 
     function! NERDTree_s(node)
@@ -530,30 +530,22 @@ vim_configurable.customize {
       call fzf#vim#files(fnamemodify(a:node.path.getDir().str(),':p'))
     endfunction
 
-    let g:nerd_oldcwd = ""
-    function! NERDTree_cd_term()
-      if g:nerd_oldcwd != ""
-        exec "cd " . g:nerd_oldcwd
-        let g:nerd_oldcwd = ""
-      endif
-    endfunction
-    exec "augroup ungrep | au! FileType qf call NERDTree_cd_term() | augroup END"
-
     function! _run_grepper_nerd(node)
-      let g:nerd_oldcwd = getcwd()
+      let oldcwd = getcwd()
       let newcwd = a:node.path.getDir().str()
       exec "wincmd w"
-      exec "cd " . newcwd
+      exec "cd " . fnameescape(newcwd)
       exec "Grepper -noqf -prompt"
+      exec "cd " . fnameescape(oldcwd)
     endfunction
 
     function! _run_term(node)
       let oldcwd = getcwd()
       let newcwd = a:node.path.getDir().str()
       exec "wincmd w"
-      exec "cd " . newcwd
+      exec "cd " . fnameescape(newcwd)
       exec "terminal"
-      exec "cd " . oldcwd
+      exec "cd " . fnameescape(oldcwd)
     endfunction
 
     function! NERDTree_G(node)
