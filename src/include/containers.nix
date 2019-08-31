@@ -1,7 +1,7 @@
 { config, pkgs, ... } :
 let
 
-  mykey = import <passwords/pubkey>;
+  mykey = import <nixcfg/passwords/pubkey>;
 
   template = index : programs : {
     users.users = {
@@ -9,7 +9,7 @@ let
         home = "/home/banker";
         uid = 10000 + index;
         createHome = true;
-        hashedPassword = import <passwords/banker>;
+        hashedPassword = import <nixcfg/passwords/banker>;
         shell = pkgs.bash;
         openssh.authorizedKeys.keys = [ mykey ];
       };

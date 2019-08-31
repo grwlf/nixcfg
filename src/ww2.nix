@@ -18,7 +18,6 @@ rec {
       ./include/subpixel.nix
       ./include/haskell.nix
       ./include/bashrc.nix
-      ./include/cvimrc.nix
       ./include/systools.nix
       ./include/fonts.nix
       ./include/user-smironov.nix
@@ -58,7 +57,7 @@ rec {
   networking = {
     hostName = "ww2";
     networkmanager.enable = true;
-    proxy.default = "Mironov_S:${import <passwords/kasper>}@proxy.avp.ru:3128";
+    proxy.default = "Mironov_S:${import <nixcfg/passwords/kasper>}@proxy.avp.ru:3128";
   };
 
   networking.firewall = {

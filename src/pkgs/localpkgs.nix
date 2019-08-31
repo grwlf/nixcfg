@@ -1,13 +1,14 @@
-{ pkgs ? import <nixpkgs> {} } :
+{ pkgs ? import <nixpkgs> {}, me } :
 
 let
   local = rec {
     callPackage = pkgs.lib.callPackageWith collection;
 
     collection = (pkgs // rec {
+      inherit me;
       nixpkgs=pkgs;
       placeTo = to : x : pkgs.stdenv.mkDerivation {
-        name = "moved-${x.name}";
+        name = "moved"; # can't mention x here to allow simple paths
         buildCommand = ''
           . $stdenv/setup
           mkdir -pv `dirname $out/${to}`
@@ -19,6 +20,7 @@ let
       '';
       myvim = callPackage ./myvim.nix {};
       myprofile = placeTo "/etc/myprofile" (callPackage ./myprofile.nix {});
+      cvimrc = placeTo "/etc/cvimrc" (callPackage ./cvimrc.nix {});
       photofetcher = callPackage ./photofetcher.nix {};
       thunar_uca = callPackage ./thunar_uca.nix {};
       xscreensaver-run = pkgs.callPackage ./xscreensaver-run.nix {};

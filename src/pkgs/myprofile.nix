@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {}, myvim } :
+{ pkgs ? import <nixpkgs> {}, myvim, me } :
 
 with pkgs;
 let
@@ -11,17 +11,16 @@ pkgs.writeText "myprofile.sh" ''
   export VERSION_CONTROL=numbered
   export SVN_EDITOR=$EDITOR
   export GIT_EDITOR=$EDITOR
-  export LANG="ru_RU.UTF-8"
   export OOO_FORCE_DESKTOP=gnome
   export LC_COLLATE=C
   export HISTCONTROL=ignorespace:erasedups
-  export PATH="$HOME/.cabal/bin:$PATH"
-  export PATH="$HOME/local/bin:$PATH"
+  export PATH="/home/${me}/.cabal/bin:$PATH"
+  export PATH="/home/${me}/local/bin:$PATH"
 
   if env | grep -q SSH_CONNECTION= ; then
     if env | grep -q DISPLAY= ; then
       echo DISPLAY is $DISPLAY >/dev/null
-      echo "export DISPLAY=$DISPLAY" > $HOME/.display
+      echo "export DISPLAY=$DISPLAY" > /home/${me}/.display
     else
       echo No DISPLAY was set >/dev/null
     fi
@@ -117,20 +116,5 @@ pkgs.writeText "myprofile.sh" ''
   alias gsui='git submodule update --init'
   alias gsuir='git submodule update --init --recursive'
   alias gss='git submodule status'
-
-  #
-  # Custom aliases
-  #
-
-  # Set screen window name
-  # sn() {
-  #   PID=$(echo $STY | awk -F"." '{ print $1}')
-  #   if test -n "$PID" ; then
-  #     ${screen}/bin/screen -D -r "$PID" -X title "$@"
-  #   else
-  #     echo "Failed to get PID. Do you have GNU/Screen running?" >&2
-  #   fi
-  # }
-
 
 ''

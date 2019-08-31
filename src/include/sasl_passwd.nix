@@ -1,7 +1,7 @@
 { stdenv, postfix, writeText, coreutils, ... } :
 let
 
-  p = import <passwords/gmail>;
+  p = import <nixcfg/passwords/gmail>;
 
 in stdenv.mkDerivation {
   name = "sasl_passwd";

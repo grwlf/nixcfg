@@ -175,11 +175,11 @@ in
   /home/nixcfg
 
   export NIX_PATH=\
+  nixcfg=$NIXCFG_ROOT:\
   localpkgs=$NIXCFG_ROOT/src/pkgs/localpkgs.nix:\
   nixpkgs=$NIXCFG_ROOT/nixpkgs:\
   nixos=$NIXCFG_ROOT/nixpkgs/nixos:\
   nixos-config=$NIXCFG_ROOT/src/mrc-cbg-2.nix:\
-  passwords=$NIXCFG_ROOT/passwords
   '';
 
   environment.shellAliases = {

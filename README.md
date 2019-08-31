@@ -28,7 +28,7 @@ Setting up the environment
 
 1. Install the profile:
     ```
-   $ nix-build src/pkgs/myenv.nix
+   $ nix-build src/pkgs/myenv.nix --argstr me $USER
    $ nix-env -i ./result
    ```
 2. Link profile's bashrc with user `.bashrc`

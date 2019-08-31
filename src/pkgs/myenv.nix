@@ -1,4 +1,6 @@
-{ localpkgs ? import <localpkgs> {}
+{ me
+, pkgs ? import <nixpkgs> {}
+, localpkgs ? import <nixcfg/src/pkgs/localpkgs.nix> {inherit pkgs me;}
 } :
 let
   inherit (localpkgs) pkgs placeTo;
@@ -14,6 +16,7 @@ pkgs.buildEnv {
     thunar
     photofetcher
     (pkgs.callPackage ./videoconvert.nix {})
+    cvimrc
 
     unclutter
     xorg.xdpyinfo

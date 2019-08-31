@@ -16,7 +16,6 @@ rec {
       ./include/subpixel.nix
       ./include/haskell.nix
       ./include/bashrc.nix
-      ./include/cvimrc.nix
       ./include/systools.nix
       ./include/fonts.nix
       ./include/user-grwlf.nix
@@ -183,6 +182,23 @@ rec {
 
   services.ipfs = {
     enable = false; # FIXME
+  };
+
+  # NIXCFG_ROOT should point to the folder where this project is checked-out
+  # ~/.bash_profile may overwrite it
+  environment.extraInit = ''
+  export NIXCFG_ROOT=\
+  /home/${me}/proj/nixcfg
+
+  export NIX_PATH=\
+  nixcfg=$NIXCFG_ROOT:\
+  nixpkgs=$NIXCFG_ROOT/nixpkgs:\
+  nixos=$NIXCFG_ROOT/nixpkgs/nixos:\
+  nixos-config=$NIXCFG_ROOT/src/dt.nix:\
+  '';
+
+  environment.shellAliases = {
+    nix-env = "nix-env -f '<nixpkgs>'";
   };
 
   environment.systemPackages = with pkgs ; [
