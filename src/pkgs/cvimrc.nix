@@ -24,6 +24,8 @@ pkgs.writeText "cvimrc" ''
   map <C-ф>с :tabnew<Space>http://duckduckgo.com<CR>
   map o :open!<Space>
   map щ :open!<Space>
+  map O :open!<Space>
+  map Щ :open!<Space>
   map <A-o> :open!<Space>
   map <A-щ> :open!<Space>
   map <A-e> lastTab
