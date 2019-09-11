@@ -256,6 +256,21 @@ rec {
   #   enable = true;
   # };
 
+  environment.extraInit = ''
+  export NIXCFG_ROOT=\
+  /home/${me}/proj/nixcfg
+
+  export NIX_PATH=\
+  nixcfg=$NIXCFG_ROOT:\
+  nixpkgs=$NIXCFG_ROOT/nixpkgs:\
+  nixos=$NIXCFG_ROOT/nixpkgs/nixos:\
+  nixos-config=$NIXCFG_ROOT/src/dt.nix:\
+  '';
+
+  environment.shellAliases = {
+    nix-env = "nix-env -f '<nixpkgs>'";
+  };
+
   environment.systemPackages = with pkgs ; [
     rxvt_unicode
     networkmanagerapplet

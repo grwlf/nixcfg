@@ -294,7 +294,9 @@ vim_configurable.customize {
     " noremap <Tab> <C-w>w
     noremap ` <C-w>w
 
-    " noremap <C-p> <C-i>
+    " Terminal
+    nnoremap <C-w>t :terminal<CR>
+    nnoremap <C-w>е :terminal<CR>
 
     " Tabs
     map gr gT
