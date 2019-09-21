@@ -14,8 +14,15 @@ pkgs.writeText "myprofile.sh" ''
   export OOO_FORCE_DESKTOP=gnome
   export LC_COLLATE=C
   export HISTCONTROL=ignorespace:erasedups
-  export PATH="/home/${me}/.cabal/bin:$PATH"
-  export PATH="/home/${me}/local/bin:$PATH"
+
+  for p in "/home/${me}/.cabal/bin" \
+           "/home/${me}/.local/bin" \
+           "/home/${me}/local/bin" \
+           ; do
+    if ! echo $PATH | grep -q "$p" ; then
+      export PATH="$p:$PATH"
+    fi
+  done
 
   if env | grep -q SSH_CONNECTION= ; then
     if env | grep -q DISPLAY= ; then
@@ -46,12 +53,8 @@ pkgs.writeText "myprofile.sh" ''
   e() 		  { thunar . 2>/dev/null & }
   lt() 		  { ls -lhrt "$@"; }
 
-  log() 		{ ${vimbin} /var/log/messages + ; }
-  logx() 		{ ${vimbin} /var/log/X.0.log + ; }
-
   cdt() 		{ cd $HOME/tmp ; }
   cdd()     { cd $HOME/dwnl; }
-  cdnix()   { cd $HOME/proj/nixcfg ; }
   gitk() 		{ `which gitk` "$@" & }
   gitka() 	{ `which gitk` --all "$@" & }
   tiga()    { tig --all "$@" ; }
@@ -72,6 +75,7 @@ pkgs.writeText "myprofile.sh" ''
   wn()      { ${wmctrl}/bin/wmctrl -r :ACTIVE: -T "$@";  }
   encfs()   { `which encfs` -i 60 "$@" ; }
   encpriv() { `which encfs` -i 60  ~/.priv ~/priv "$@" ; }
+  vimpriv() { `which encfs` -i 60  ~/.priv ~/priv "$@"  && vim ~/priv ; }
   p()       { nix-shell -p pkgs.python3Packages.ipython \
                            pkgs.python3Packages.pandas \
                            pkgs.python3Packages.matplotlib \
