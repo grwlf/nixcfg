@@ -43,7 +43,7 @@ pkgs.writeText "myprofile.sh" ''
   s() 		  {
               if test -z "$TMUX" ; then
                 case `pwd` in
-                  *proj/*) ${tmux}/bin/tmux new -s `pwd | xargs basename` "$@" ;;
+                  *proj/*) ${tmux}/bin/tmux new -s `pwd | xargs basename` -A "$@" ;;
                   *) ${tmux}/bin/tmux "$@" ;;
                 esac
               else
