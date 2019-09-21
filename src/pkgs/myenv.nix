@@ -79,6 +79,7 @@ pkgs.buildEnv {
     urxvtb
 
     easytag
+    mosh
   ];
 }
 
