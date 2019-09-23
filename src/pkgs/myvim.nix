@@ -586,7 +586,9 @@ vim_configurable.customize {
     "let g:LanguageClient_loggingFile = "pyls.log"
     "let g:LanguageClient_loggingLevel = "DEBUG"
     let g:LanguageClient_serverCommands = {
-      \ 'python': ['pyls']
+      \ 'python': ['pyls'],
+      \ 'cpp': ['ccls'],
+      \ 'c': ['ccls']
       \ }
     nnoremap <F5> :call LanguageClient_contextMenu()<CR>
     nnoremap <silent> gh :call LanguageClient_textDocument_hover()<CR>
