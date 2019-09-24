@@ -147,12 +147,27 @@ rec {
       {
         name="dt2vps";
         user=me;
-        extraArguments="-N -D${toString ports.darktower_socks_port} -o 'ServerAliveInterval 30' -o 'ServerAliveCountMax 3' vps";
+        extraArguments=''
+          -N -D${toString ports.darktower_socks_port} \
+          -o ServerAliveInterval=30 \
+          -o ServerAliveCountMax=3 \
+          -o ExitOnForwardFailure=yes \
+          -p ${toString ports.vps_sshd_port} \
+          grwlf@${ports.vps_ip}
+        '';
       }
       {
         name = "vps2dt";
         user = me;
-        extraArguments = "-4 -N -R ${toString ports.vps_darktower_port}:127.0.0.1:${toString ports.darktower_sshd_port}  -o 'ServerAliveInterval 30' -o 'ServerAliveCountMax 3' vps";
+        extraArguments = ''
+          -4 -N \
+          -R ${toString ports.vps_darktower_port}:127.0.0.1:${toString ports.darktower_sshd_port} \
+          -o ServerAliveInterval=30 \
+          -o ServerAliveCountMax=3 \
+          -o ExitOnForwardFailure=yes \
+          -p ${toString ports.vps_sshd_port} \
+          grwlf@${ports.vps_ip}
+        '';
       }
     ];
   };
