@@ -17,6 +17,7 @@ pkgs.buildEnv {
     photofetcher
     (pkgs.callPackage ./videoconvert.nix {})
     cvimrc
+    mysshconfig
 
     unclutter
     xorg.xdpyinfo

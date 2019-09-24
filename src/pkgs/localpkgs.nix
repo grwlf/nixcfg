@@ -21,6 +21,7 @@ let
       myvim = callPackage ./myvim.nix {};
       myprofile = placeTo "/etc/myprofile" (callPackage ./myprofile.nix {});
       cvimrc = placeTo "/etc/cvimrc" (callPackage ./cvimrc.nix {});
+      mysshconfig = placeTo "/etc/ssh_config" (callPackage ./mysshconfig.nix {});
       photofetcher = callPackage ./photofetcher.nix {};
       thunar_uca = callPackage ./thunar_uca.nix {};
       xscreensaver-run = pkgs.callPackage ./xscreensaver-run.nix {};

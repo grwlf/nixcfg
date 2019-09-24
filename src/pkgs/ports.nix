@@ -1,5 +1,8 @@
 {
   vps_ip = "46.38.250.132";
+  dv_ip = "46.38.250.132";
+
+  dv_sshd_port = 22222;
 
   vps_goodfellow_port = 4345;
   vps_darktower_port = 4346;
