@@ -218,12 +218,27 @@ rec {
       {
         name="greybalde2vps";
         user=me;
-        extraArguments="-N -D${toString ports.greyblade_socks_port} -o 'ServerAliveInterval 30' -o 'ServerAliveCountMax 3' vps";
+        extraArguments=''
+          -N -D${toString ports.greyblade_socks_port} \
+          -o ServerAliveInterval=30 \
+          -o ServerAliveCountMax=3 \
+          -o ExitOnForwardFailure=yes \
+          -p ${toString ports.vps_sshd_port} \
+          grwlf@${ports.vps_ip}
+        '';
       }
       {
         name = "vps2greyblade";
         user = me;
-        extraArguments = "-4 -N -R ${toString ports.vps_greyblade_port}:127.0.0.1:${toString ports.greyblade_sshd_port}  -o 'ServerAliveInterval 30' -o 'ServerAliveCountMax 3' vps";
+        extraArguments = ''
+          -4 -N \
+          -R ${toString ports.vps_greyblade_port}:127.0.0.1:${toString ports.greyblade_sshd_port} \
+          -o ServerAliveInterval=30 \
+          -o ServerAliveCountMax=3 \
+          -o ExitOnForwardFailure=yes \
+          -p ${toString ports.vps_sshd_port} \
+          grwlf@${ports.vps_ip}
+        '';
       }
     ];
   };
@@ -264,7 +279,7 @@ rec {
   nixcfg=$NIXCFG_ROOT:\
   nixpkgs=$NIXCFG_ROOT/nixpkgs:\
   nixos=$NIXCFG_ROOT/nixpkgs/nixos:\
-  nixos-config=$NIXCFG_ROOT/src/dt.nix:\
+  nixos-config=$NIXCFG_ROOT/src/samsung-np900x3c.nix:\
   '';
 
   environment.shellAliases = {
