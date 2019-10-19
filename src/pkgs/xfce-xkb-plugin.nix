@@ -1,5 +1,5 @@
 { lib, xfce }:
 
-lib.overrideDerivation (xfce.xfce4_xkb_plugin) (o:{
+lib.overrideDerivation (xfce4-14.xfce4_xkb_plugin) (o:{
   name = o.name + "-patched";
 });

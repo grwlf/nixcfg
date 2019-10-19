@@ -106,7 +106,7 @@ rec {
     xkbOptions = "grp:alt_space_toggle, ctrl:swapcaps, grp_led:caps";
 
     desktopManager = {
-      xfce.enable = true;
+      xfce4-14.enable = true;
     };
 
     displayManager = {
@@ -118,6 +118,10 @@ rec {
       Option "StandbyTime" "0"
       Option "SuspendTime" "0"
       Option "OffTime" "0"
+    '';
+
+    screenSection = ''
+      Option "Coolbits" "4"
     '';
   };
 

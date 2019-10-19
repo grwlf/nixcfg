@@ -33,14 +33,13 @@ let
         ];
       });
       urxvtb = callPackage ./urxvtb.nix {};
-      thunar-bare = pkgs.lib.overrideDerivation pkgs.xfce.thunar-bare (a:{
-        name = a.name + "-patched";
+
+      thunar = pkgs.lib.overrideDerivation pkgs.xfce4-14.thunar (a:{
+        pname = a.name + "-patched";
         prePatch = ''
           cp -pv ${local.collection.thunar_uca} plugins/thunar-uca/uca.xml.in
         '';
       });
-
-      thunar = pkgs.xfce.thunar.override { inherit thunar-bare; };
     });
   };
 
