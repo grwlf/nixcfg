@@ -90,7 +90,7 @@ in
     #xkbOptions = "grp:alt_space_toggle, ctrl:swapcaps, grp_led:caps";
 
     desktopManager = {
-      xfce.enable = true;
+      xfce4-14.enable = true;
     };
 
     windowManager = {
