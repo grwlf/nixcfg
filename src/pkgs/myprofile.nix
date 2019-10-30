@@ -121,4 +121,12 @@ pkgs.writeText "myprofile.sh" ''
   alias gsuir='git submodule update --init --recursive'
   alias gss='git submodule status'
 
+  ${xdg-user-dirs}/bin/xdg-user-dirs-update --set DOWNLOAD "$HOME/dwnl"
+  ${xdg-user-dirs}/bin/xdg-user-dirs-update --set MUSIC "$HOME/music"
+  ${xdg-user-dirs}/bin/xdg-user-dirs-update --set DOCUMENTS "$HOME/pers"
+  ${xdg-user-dirs}/bin/xdg-user-dirs-update --set PICTURES "$HOME/photo"
+  ${xdg-user-dirs}/bin/xdg-user-dirs-update --set TEMPLATES "$HOME/templ"
+  ${xdg-user-dirs}/bin/xdg-user-dirs-update --set PUBLICSHARE "$HOME/pub"
+  ${xdg-user-dirs}/bin/xdg-user-dirs-update --set VIDEOS "$HOME/video"
+
 ''
