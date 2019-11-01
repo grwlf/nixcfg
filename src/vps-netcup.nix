@@ -165,7 +165,10 @@ rec {
 
   services.openvpn.servers = {
     myserver = {
-      config = ''
+      config = let
+        pwfile = pkgs.writeText "openvpn-management-pwfile"
+                                (import <nixcfg/passwords/openvpn-management>);
+      in ''
         port 1194
         proto udp
         dev tun
@@ -182,6 +185,8 @@ rec {
 
         user nobody
         group nogroup
+
+        management 127.0.0.1 5555 ${pwfile}
       '';
     };
   };
