@@ -1,3 +1,9 @@
 #!/bin/sh
 
-nix-build src/pkgs/myenv.nix --argstr me $USER && nix-env -i ./result
+if test -n "$1" ; then
+  SUFFIX="-$1"
+else
+  SUFFIX=""
+fi
+
+nix-build src/pkgs/myenv${SUFFIX}.nix --argstr me $USER && nix-env -i ./result

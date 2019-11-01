@@ -1,5 +1,10 @@
 { config, pkgs, ... } :
 {
+  programs = {
+    tmux = {
+      enable = true;
+    };
+  };
 
   environment.systemPackages = with pkgs ; [
     psmisc
@@ -17,7 +22,6 @@
     cacert
     w3m
     wget
-    tmux
     fuse
     mpg321
     catdoc
