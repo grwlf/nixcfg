@@ -61,7 +61,11 @@ rec {
     };
   };
 
-  programs.ssh.setXAuthLocation = true;
+  programs = {
+    ssh = {
+      setXAuthLocation = true;
+    };
+  };
 
   services.openssh.enable = true;
   services.openssh.ports = [ports.vps_sshd_port];
@@ -156,7 +160,7 @@ rec {
     enable = true;
     package = pkgs.syncthing;
     user = "syncthing";
-    dataDir = "/var/lib/syncthing";
+    dataDir = "/home/syncthing";
   };
 
   services.openvpn.servers = {
