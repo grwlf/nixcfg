@@ -41,6 +41,7 @@ rec {
       allowPing = true;
       allowedUDPPorts = [
         1194 # openvpn
+        34730 34731 # mosh
       ];
       allowedTCPPorts = [
         80
