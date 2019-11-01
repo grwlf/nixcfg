@@ -5,7 +5,10 @@
 { config, pkgs, ... }:
 
 let
-  my_ssh_port = 2222;
+  me = "grwlf";
+
+  ports = import ./pkgs/ports.nix;
+
 in
 rec {
   imports = [
@@ -58,18 +61,11 @@ rec {
     };
   };
 
-  # Select internationalisation properties.
-  # i18n = {
-  #   consoleFont = "lat9w-16";
-  #   consoleKeyMap = "us";
-  #   defaultLocale = "en_US.UTF-8";
-  # };
-
   programs.ssh.setXAuthLocation = true;
 
   services.openssh.enable = true;
-  services.openssh.ports = [my_ssh_port];
-  services.openssh.permitRootLogin = "yes";
+  services.openssh.ports = [ports.vps_sshd_port];
+  services.openssh.permitRootLogin = "no";
   services.openssh.gatewayPorts = "yes";
   services.openssh.forwardX11 = true;
 
@@ -138,7 +134,7 @@ rec {
       backend ssh
           mode tcp
           option tcplog
-          server ssh 127.0.0.1:${toString my_ssh_port}
+          server ssh 127.0.0.1:${toString ports.vps_sshd_port}
           timeout tunnel 600s
 
       frontend ssl
@@ -186,25 +182,22 @@ rec {
     };
   };
 
-  # services.ejabberd = {
-  #   enable = true;
-  #   imagemagick = true;
-  
-  #     acl:
-  #       admin:
-  #         user:
-  #           - "admin1": "example.org"
-  #     access:
-  #       configure:
-  #         admin: allow
-  #   '';
-  # };
+  environment.extraInit = ''
+  export NIXCFG_ROOT=\
+  /home/${me}/proj/nixcfg
+
+  export NIX_PATH=\
+  nixcfg=$NIXCFG_ROOT:\
+  nixpkgs=$NIXCFG_ROOT/nixpkgs:\
+  nixos=$NIXCFG_ROOT/nixpkgs/nixos:\
+  nixos-config=$NIXCFG_ROOT/src/vps-netcup.nix:\
+  '';
 
   environment.systemPackages = with pkgs ; [
-    myvim
-    postgresql
-    imagemagick
-    mlton
+    # myvim
+    # postgresql
+    # imagemagick
+    # mlton
   ];
 
   nixpkgs.config = {
