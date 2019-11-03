@@ -121,6 +121,10 @@ rec {
     enable = true;
   };
 
+  services.blueman = {
+    enable = true;
+  };
+
   services.xserver = {
     enable = true;
 
@@ -131,7 +135,7 @@ rec {
     xkbOptions = "grp:alt_space_toggle, ctrl:swapcaps, grp_led:caps";
 
     desktopManager = {
-      xfce.enable = true;
+      xfce4-14.enable = true;
     };
 
     displayManager = {
@@ -146,27 +150,27 @@ rec {
 
     multitouch.enable = false;
 
-    synaptics = {
-      enable = true;
-      accelFactor = "0.05";
-      maxSpeed = "10";
-      twoFingerScroll = true;
-      additionalOptions = ''
-        MatchProduct "ETPS"
-        Option "FingerLow"                 "3"
-        Option "FingerHigh"                "5"
-        Option "FingerPress"               "30"
-        Option "MaxTapTime"                "100"
-        Option "MaxDoubleTapTime"          "150"
-        Option "FastTaps"                  "0"
-        Option "VertTwoFingerScroll"       "1"
-        Option "HorizTwoFingerScroll"      "1"
-        Option "TrackstickSpeed"           "0"
-        Option "LTCornerButton"            "3"
-        Option "LBCornerButton"            "2"
-        Option "CoastingFriction"          "20"
-      '';
-    };
+    # synaptics = {
+    #   enable = true;
+    #   accelFactor = "0.05";
+    #   maxSpeed = "10";
+    #   twoFingerScroll = true;
+    #   additionalOptions = ''
+    #     MatchProduct "ETPS"
+    #     Option "FingerLow"                 "3"
+    #     Option "FingerHigh"                "5"
+    #     Option "FingerPress"               "30"
+    #     Option "MaxTapTime"                "100"
+    #     Option "MaxDoubleTapTime"          "150"
+    #     Option "FastTaps"                  "0"
+    #     Option "VertTwoFingerScroll"       "1"
+    #     Option "HorizTwoFingerScroll"      "1"
+    #     Option "TrackstickSpeed"           "0"
+    #     Option "LTCornerButton"            "3"
+    #     Option "LBCornerButton"            "2"
+    #     Option "CoastingFriction"          "20"
+    #   '';
+    # };
 
     serverFlagsSection = ''
       Option "BlankTime" "0"
