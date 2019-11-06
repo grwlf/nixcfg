@@ -156,7 +156,17 @@ in
     (mkuser "grechanik" 1050) //
     (mkuser "khalikov" 1070) //
     (mkuser "romanov" 1071) //
-    (mkuser "murygin" 1072);
+    (mkuser "murygin" 1072) //
+    {
+      "data" = {
+        uid = 2000;
+        group = "users";
+        home = "/home/data/";
+        createHome = true;
+        isNormalUser = false;
+        extraGroups = [];
+      };
+    };
 
   hardware = {
     opengl.driSupport32Bit = true;
