@@ -17,24 +17,24 @@ let
     cacert = cacert;
   };
 
-  lastplace = vimUtils.buildVimPluginFrom2Nix {
-    name = "lastplace";
-    src = fetchurl {
-      url = "https://github.com/farmergreg/vim-lastplace/archive/v3.1.1.tar.gz";
-      sha256 = "0vvp6nvq53yqbmnsqlgn0x3ci46vp8grrm7wqnd1cvclzf0n4359";
-    };
-    dependencies = [];
-  };
+  # lastplace = vimUtils.buildVimPluginFrom2Nix {
+  #   name = "lastplace";
+  #   src = fetchurl {
+  #     url = "https://github.com/farmergreg/vim-lastplace/archive/v3.1.1.tar.gz";
+  #     sha256 = "0vvp6nvq53yqbmnsqlgn0x3ci46vp8grrm7wqnd1cvclzf0n4359";
+  #   };
+  #   dependencies = [];
+  # };
 
 
-  bufexplorer = vimUtils.buildVimPluginFrom2Nix {
-    name = "bufexplorer";
-    src = fetchurl {
-      url = "https://github.com/jlanzarotta/bufexplorer/archive/v7.4.18.tar.gz";
-      sha256 = "10421mspkpkaayawzxdyrv83g95b450d9fskkk52r0yq6qyixwkc";
-    };
-    dependencies = [];
-  };
+  # bufexplorer = vimUtils.buildVimPluginFrom2Nix {
+  #   name = "bufexplorer";
+  #   src = fetchurl {
+  #     url = "https://github.com/jlanzarotta/bufexplorer/archive/v7.4.18.tar.gz";
+  #     sha256 = "10421mspkpkaayawzxdyrv83g95b450d9fskkk52r0yq6qyixwkc";
+  #   };
+  #   dependencies = [];
+  # };
 
   cyrvim = vimUtils.buildVimPluginFrom2Nix {
     name = "cyrvim";
@@ -131,7 +131,7 @@ vim_configurable.customize {
       changeColorScheme-vim
       # syntastic
       vim-hdevtools
-      lastplace
+      vim-lastplace
       grepper
       supertab
       # ctrlp
@@ -142,6 +142,7 @@ vim_configurable.customize {
       coquille
       LanguageClient-neovim
       ident-highlight
+      vim-gitgutter
     ];
   };
 
@@ -203,6 +204,9 @@ vim_configurable.customize {
     set smartindent
     set number
     set wildignore=*/.git/*,*/.hg/*,*/.svn/*
+    set nostartofline
+    set updatetime=100  " GitGutter
+    set signcolumn=yes
     call Ident(2)
 
     " Softwrapping
@@ -612,5 +616,10 @@ vim_configurable.customize {
     let g:indent_highlight_disabled = 0       " Disables the plugin, default 0
     let g:indent_highlight_bg_color = 233     " Color to be used for highlighting, default 233
     let g:indent_highlight_start_disabled = 0 " Disable indent-highlight, enable by explicitly toggling, default 1
+
+    " gitgutter
+    highlight GitGutterAdd    guifg=#009900 guibg=#073642 ctermfg=2
+    highlight GitGutterChange guifg=#bbbb00 guibg=#073642 ctermfg=3
+    highlight GitGutterDelete guifg=#ff2222 guibg=#073642 ctermfg=1
   '';
 }
