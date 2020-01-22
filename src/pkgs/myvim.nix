@@ -175,6 +175,7 @@ vim_configurable.customize {
       LanguageClient-neovim
       ident-highlight
       vim-gitgutter
+      vim-markdown
     ];
   };
 
@@ -254,6 +255,7 @@ vim_configurable.customize {
     au BufEnter *urs set filetype=ur
     au BufEnter *grm set filetype=ur
     au BufEnter nixos-config set filetype=nix
+    au BufEnter *pmd set filetype=markdown
 
     au FileType nix set commentstring=#\ %s
     au FileType python syn region Comment start=/"""/ end=/"""/
@@ -653,5 +655,8 @@ vim_configurable.customize {
     highlight GitGutterAdd    guifg=#009900 guibg=#073642 ctermfg=2
     highlight GitGutterChange guifg=#bbbb00 guibg=#073642 ctermfg=3
     highlight GitGutterDelete guifg=#ff2222 guibg=#073642 ctermfg=1
+
+    " Markdown
+    let g:vim_markdown_folding_disabled = 1
   '';
 }
