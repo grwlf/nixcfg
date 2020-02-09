@@ -260,6 +260,7 @@ vim_configurable.customize {
     au FileType nix set commentstring=#\ %s
     au FileType python syn region Comment start=/"""/ end=/"""/
     au FileType python let &omnifunc=""
+    au FileType python set comments+=b:#:
     au FileType asciidoc set comments+=fb:*
     au FileType asciidoc set comments+=fb:.
     au FileType markdown set textwidth=80
