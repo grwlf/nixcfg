@@ -17,7 +17,7 @@ in
     ./include/systools.nix
     ./include/subpixel.nix
     ./include/fonts.nix
-    ./include/postfix_relay.nix
+    # ./include/postfix_relay.nix
     ./include/templatecfg.nix
     ./include/user-grwlf.nix
     ./include/xfce412-overrides.nix
