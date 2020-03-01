@@ -3,6 +3,7 @@
 {config, pkgs, ...}:
 let
 
+  me = "grwlf";
   galtimir = "galtimir";
   vpsport = "4345";
   localssh = 2222;
@@ -19,7 +20,7 @@ in
     ./include/postfix_relay.nix
     ./include/templatecfg.nix
     ./include/user-grwlf.nix
-    ./include/xfce-overrides.nix
+    ./include/xfce412-overrides.nix
     ./include/wheel.nix
     ./include/ntpd.nix
     ./include/overrides.nix
@@ -27,7 +28,7 @@ in
 
   hardware.pulseaudio.enable = true;
 
-  boot.extraKernelParams = [
+  boot.kernelParams = [
     # SSD-friendly
     "elevator=noop"
   ];
@@ -121,12 +122,12 @@ in
     }
   ];
 
-  services.syncthing ={
-    enable = true;
-    package = pkgs.syncthing012;
-    user = galtimir;
-    dataDir = "/var/lib/syncthing-${galtimir}";
-  };
+  # services.syncthing ={
+  #   enable = true;
+  #   package = pkgs.syncthing012;
+  #   user = galtimir;
+  #   dataDir = "/var/lib/syncthing-${galtimir}";
+  # };
 
   users.extraUsers = {
     galtimir = {
@@ -137,6 +138,17 @@ in
       useDefaultShell = true;
     };
   };
+
+  environment.extraInit = ''
+  export NIXCFG_ROOT=\
+  /home/${me}/proj/nixcfg
+
+  export NIX_PATH=\
+  nixcfg=$NIXCFG_ROOT:\
+  nixpkgs=$NIXCFG_ROOT/nixpkgs:\
+  nixos=$NIXCFG_ROOT/nixpkgs/nixos:\
+  nixos-config=$NIXCFG_ROOT/src/goodfellow.nix:\
+  '';
 
   environment.systemPackages = with pkgs ; [
     # X11 apps
@@ -159,8 +171,8 @@ in
     ghostscript
     djview4
     skypeforlinux
-    tightvnc
-    wine
+    # tightvnc
+    # wine
     vlc
     gimp_2_8
     geeqie
