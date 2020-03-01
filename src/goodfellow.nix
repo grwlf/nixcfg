@@ -189,7 +189,7 @@ in
   nixpkgs.config = {
     allowUnfree = true;
     chrome.enableRealPlayer = false;
-    firefox.enableAdobeFlash = false;
+    firefox.enableAdobeFlash = true;
     chrome.jre = true;
   };
 }
