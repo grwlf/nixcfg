@@ -82,7 +82,7 @@ in
     layout = "ru,us";
     xkbOptions = "eurosign:e, grp:alt_shift_toggle, grp_led:caps";
     exportConfiguration = true;
-    startOpenSSHAgent = true;
+    # startOpenSSHAgent = true;
     synaptics = {
       enable = true;
       twoFingerScroll = false;
@@ -157,7 +157,7 @@ in
     glxinfo
     feh
     xcompmgr
-    zathura
+    # zathura
     evince
     xneur
     mplayer
@@ -174,7 +174,7 @@ in
     # tightvnc
     # wine
     vlc
-    gimp_2_8
+    gimp
     geeqie
     viewnior
     xfce.xfce4_xkb_plugin
