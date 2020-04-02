@@ -81,6 +81,7 @@ pkgs.buildEnv {
 
     easytag
     mosh
+    lssh
   ];
 }
 

@@ -26,6 +26,7 @@ let
       thunar_uca = callPackage ./thunar_uca.nix {};
       xscreensaver-run = pkgs.callPackage ./xscreensaver-run.nix {};
       mylock = callPackage ./mylock.nix {};
+      lssh = callPackage ./lssh.nix {};
       urxvt = (pkgs.rxvt_unicode-with-plugins.override {
         plugins = [
           pkgs.urxvt_perl
