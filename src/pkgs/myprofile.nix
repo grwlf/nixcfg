@@ -75,7 +75,11 @@ pkgs.writeText "myprofile.sh" ''
   wn()      { ${wmctrl}/bin/wmctrl -r :ACTIVE: -T "$@";  }
   encfs()   { `which encfs` -i 60 "$@" ; }
   encpriv() { `which encfs` -i 60  ~/.priv ~/priv "$@" ; }
-  vimpriv() { `which encfs` -i 60  ~/.priv ~/priv "$@"  && vim ~/priv ; }
+  vimpriv() { if ! mount | grep -q ~/priv ; then
+                `which encfs` -i 60 ~/.priv ~/priv "$@"
+              fi
+              vim ~/priv ;
+            }
   p()       { nix-shell -p pkgs.python3Packages.ipython \
                            pkgs.python3Packages.pandas \
                            pkgs.python3Packages.matplotlib \
