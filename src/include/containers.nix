@@ -22,7 +22,7 @@ let
         port = 22200+index;
       in {
         enable = true;
-        permitRootLogin = "no";
+        permitRootLogin = "yes";
         passwordAuthentication = true;
         forwardX11 = true;
         ports = [ port ];
