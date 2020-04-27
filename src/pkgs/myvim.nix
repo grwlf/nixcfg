@@ -240,6 +240,8 @@ vim_configurable.customize {
     set nostartofline
     set updatetime=100  " GitGutter
     set signcolumn=yes
+    set colorcolumn=81
+    highlight ColorColumn ctermbg=236
     call Ident(2)
 
     " Softwrapping
