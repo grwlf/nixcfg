@@ -74,6 +74,7 @@ let
     };
   };
 
+  # eprecated in favor of Coqtail
   coquille = vimUtils.buildVimPluginFrom2Nix {
     name = "coquille-8.4";
     # src = /home/grwlf/proj/coquille;
@@ -85,6 +86,16 @@ let
     dependencies = [ "vimbufsync" ];
   };
 
+  coqtail = vimUtils.buildVimPluginFrom2Nix {
+    name = "coqtail-999";
+    # src = /home/grwlf/proj/coqtail;
+    src = fetchgit {
+      url = "https://github.com/whonore/Coqtail";
+      rev = "ce11c6f241a834c4ea4a80079196c046a6f963c2";
+      sha256 = "sha256:1i5l240xhy638lyd1gws7aaiql7bcw9152cb8lak0na3nwmphqaa";
+    };
+    dependencies = [ "vimbufsync" ];
+  };
 
   fzf-pure = vimUtils.buildVimPluginFrom2Nix {
     name = "fzf-pure";
@@ -171,7 +182,8 @@ vim_configurable.customize {
       # fzfWrapper
       fzf-vim
       vimbufsync
-      coquille
+      # coquille
+      coqtail
       LanguageClient-neovim
       ident-highlight
       vim-gitgutter
