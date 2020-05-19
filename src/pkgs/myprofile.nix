@@ -80,11 +80,7 @@ pkgs.writeText "myprofile.sh" ''
               fi
               vim ~/priv ;
             }
-  p()       { nix-shell -p pkgs.python3Packages.ipython \
-                           pkgs.python3Packages.pandas \
-                           pkgs.python3Packages.matplotlib \
-                     --run ipython ; }
-
+  p()       { myipython "$@" ; }
   ydla()    { ${youtube-dl}/bin/youtube-dl --extract-audio --audio-format=vorbis "$@" ; }
 
   #

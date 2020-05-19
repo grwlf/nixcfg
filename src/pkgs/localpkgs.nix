@@ -34,20 +34,19 @@ let
         ];
       });
       urxvtb = callPackage ./urxvtb.nix {};
-
       thunar = pkgs.lib.overrideDerivation pkgs.xfce4-14.thunar (a:{
         pname = a.name + "-patched";
         prePatch = ''
           cp -pv ${local.collection.thunar_uca} plugins/thunar-uca/uca.xml.in
         '';
       });
-
       newsboat = pkgs.writeShellScriptBin "newsboat" ''
         ${pkgs.newsboat}/bin/newsboat \
           -u $HOME/pers/newsboat/urls \
           -C $NIXCFG_ROOT/src/cfg/newsboat \
           "$@"
         '';
+      mypython = callPackage ./mypython.nix {};
     });
   };
 

@@ -82,6 +82,8 @@ pkgs.buildEnv {
     easytag
     mosh
     lssh
+
+    mypython
   ];
 }
 
