@@ -41,6 +41,13 @@ let
           cp -pv ${local.collection.thunar_uca} plugins/thunar-uca/uca.xml.in
         '';
       });
+
+      newsboat = pkgs.writeShellScriptBin "newsboat" ''
+        ${pkgs.newsboat}/bin/newsboat \
+          -u $HOME/pers/newsboat/urls \
+          -C $NIXCFG_ROOT/src/cfg/newsboat \
+          "$@"
+        '';
     });
   };
 
