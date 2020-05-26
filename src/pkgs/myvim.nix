@@ -676,5 +676,10 @@ vim_configurable.customize {
     let g:vim_markdown_folding_disabled = 1
     let g:vim_markdown_new_list_item_indent = 2
     let g:vim_markdown_auto_insert_bullets = 0
+
+
+    " Reload the highlighting
+    noremap <F12> <Esc>:syntax sync fromstart<CR>
+    inoremap <F12> <C-o>:syntax sync fromstart<CR>
   '';
 }
