@@ -31,7 +31,7 @@ let
       };
 
     environment.systemPackages = (with pkgs ; [
-      xorg.xeyes nvi
+      xorg.xeyes
     ]) ++ programs;
 
     environment.extraInit = ''

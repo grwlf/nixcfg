@@ -71,6 +71,7 @@ rec {
     bluetooth.enable = false; # FIXME ??
     pulseaudio.enable = true;
     pulseaudio.package = pkgs.pulseaudioFull;
+    sane.enable = true;
   };
 
   time.timeZone = "Europe/Moscow";
@@ -112,7 +113,8 @@ rec {
     xkbOptions = "grp:alt_space_toggle, ctrl:swapcaps, grp_led:caps";
 
     desktopManager = {
-      xfce4-14.enable = true;
+      #xfce4-14.enable = true;
+      xfce.enable = true;
     };
 
     displayManager = {

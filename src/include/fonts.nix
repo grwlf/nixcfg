@@ -4,9 +4,9 @@
   fonts = {
     fontconfig.enable = true;
     enableFontDir = true;
-    enableCoreFonts = true;
     enableGhostscriptFonts = true;
     fonts = with pkgs ; [
+      corefonts
       liberation_ttf
       ttf_bitstream_vera
       dejavu_fonts
