@@ -99,6 +99,7 @@ rec {
 
   services.printing = {
     enable = true;
+    drivers = with pkgs; [ hplip ];
   };
 
   services.xserver = {
