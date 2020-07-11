@@ -270,6 +270,8 @@ vim_configurable.customize {
     au BufEnter *grm set filetype=ur
     au BufEnter nixos-config set filetype=nix
     au BufEnter *pmd set filetype=markdown
+    au BufEnter Dockerfile* set filetype=dockerfile
+    au BufEnter *docker set filetype=dockerfile
 
     au FileType nix set commentstring=#\ %s
     au FileType python syn region Comment start=/"""/ end=/"""/
