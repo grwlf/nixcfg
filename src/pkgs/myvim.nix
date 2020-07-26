@@ -120,37 +120,49 @@ let
     };
   };
 
-  LanguageClient-neovim = let
-    version = "0.1.155";
-    LanguageClient-neovim-src = fetchurl {
-      url = "https://github.com/autozimu/LanguageClient-neovim/archive/${version}.tar.gz";
-      sha256 = "sha256:0v9n450iwgvm1d4qwv742bjam3p747cvyrkapkgxy7n1ar8rz50i";
+ vim-python-pep8-indent = vimUtils.buildVimPluginFrom2Nix rec {
+    name = "vim-python-pep8-indent";
+    src = fetchFromGitHub {
+      owner = "Vimjas";
+      repo = name;
+      rev = "60ba5e1";
+      sha256 = "sha256:1blyhkykfnf4pgfq9hn9l8pq0iqdvig9m4zd8qq9aa9rlm8f0kzh";
     };
-    LanguageClient-neovim-bin = rustPlatform.buildRustPackage {
-      name = "LanguageClient-neovim-bin";
-      src = LanguageClient-neovim-src;
-
-      cargoSha256 = "sha256:139sj1aq0kr4r4qzhgcn2hb4dyvp5wxjz7bxbm0bbh9bv2pr98jq";
-      buildInputs = stdenv.lib.optionals stdenv.isDarwin [ CoreServices ];
-
-      # FIXME: Use impure version of CoreFoundation because of missing symbols.
-      #   Undefined symbols for architecture x86_64: "_CFURLResourceIsReachable"
-      preConfigure = stdenv.lib.optionalString stdenv.isDarwin ''
-        export NIX_LDFLAGS="-F${CoreFoundation}/Library/Frameworks -framework CoreFoundation $NIX_LDFLAGS"
-      '';
-    };
-  in vimUtils.buildVimPluginFrom2Nix {
-    pname = "LanguageClient-neovim";
-    inherit version;
-    src = LanguageClient-neovim-src;
-
-    propagatedBuildInputs = [ LanguageClient-neovim-bin ];
-
-    preFixup = ''
-      substituteInPlace "$out"/share/vim-plugins/LanguageClient-neovim/autoload/LanguageClient.vim \
-        --replace "let l:path = s:root . '/bin/'" "let l:path = '${LanguageClient-neovim-bin}' . '/bin/'"
-    '';
   };
+
+  # LanguageClient-neovim = let
+  #   version = "0.1.158";
+  #   LanguageClient-neovim-src = fetchurl {
+  #     url = "https://github.com/autozimu/LanguageClient-neovim/archive/${version}.tar.gz";
+  #     sha256 = "sha256:1pryfd5zbkkfdvfp4vxi4q99hfbqaiczbmq3g62winmmi37x2qym";
+  #   };
+  #   LanguageClient-neovim-bin = rustPlatform.buildRustPackage {
+  #     name = "LanguageClient-neovim-bin";
+  #     src = LanguageClient-neovim-src;
+
+  #     cargoSha256 = "sha256:139sj1aq0kr4r4qzhgcn2hb4dyvp5wxjz7bxbm0bbh9bv2pr98jq";
+  #     buildInputs = stdenv.lib.optionals stdenv.isDarwin [ CoreServices ];
+
+  #     cargoPatches = [ ./cargo-lock.patch ];
+
+  #     # FIXME: Use impure version of CoreFoundation because of missing symbols.
+  #     #   Undefined symbols for architecture x86_64: "_CFURLResourceIsReachable"
+  #     preConfigure = stdenv.lib.optionalString stdenv.isDarwin ''
+  #       export NIX_LDFLAGS="-F${CoreFoundation}/Library/Frameworks -framework CoreFoundation $NIX_LDFLAGS"
+  #     '';
+  #   };
+  # in vimUtils.buildVimPluginFrom2Nix {
+  #   pname = "LanguageClient-neovim";
+  #   inherit version;
+  #   src = LanguageClient-neovim-src;
+
+  #   propagatedBuildInputs = [ LanguageClient-neovim-bin ];
+
+  #   preFixup = ''
+  #     substituteInPlace "$out"/share/vim-plugins/LanguageClient-neovim/autoload/LanguageClient.vim \
+  #       --replace "let l:path = s:root . '/bin/'" "let l:path = '${LanguageClient-neovim-bin}' . '/bin/'"
+  #   '';
+  # };
 
 in
 
@@ -188,6 +200,7 @@ vim_configurable.customize {
       ident-highlight
       vim-gitgutter
       vim-markdown
+      vim-python-pep8-indent
     ];
   };
 
