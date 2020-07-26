@@ -27,11 +27,10 @@ let
       xscreensaver-run = pkgs.callPackage ./xscreensaver-run.nix {};
       mylock = callPackage ./mylock.nix {};
       lssh = callPackage ./lssh.nix {};
-      urxvt = (pkgs.rxvt_unicode-with-plugins.override {
-        plugins = [
-          pkgs.urxvt_perl
-          pkgs.urxvt_theme_switch
-        ];
+      urxvt = (pkgs.rxvt-unicode.override {
+        rxvt-unicode-plugins = with pkgs.rxvt-unicode-plugins; {
+          inherit perl theme-switch;
+        };
       });
       urxvtb = callPackage ./urxvtb.nix {};
       thunar = pkgs.lib.overrideDerivation pkgs.xfce4-14.thunar (a:{
