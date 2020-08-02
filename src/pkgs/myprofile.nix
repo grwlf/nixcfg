@@ -27,7 +27,8 @@ pkgs.writeText "myprofile.sh" ''
   if env | grep -q SSH_CONNECTION= ; then
     if env | grep -q DISPLAY= ; then
       echo DISPLAY is $DISPLAY >/dev/null
-      echo "export DISPLAY=$DISPLAY" > /home/${me}/.display
+      echo "$DISPLAY" > /home/${me}/.lastdisplay
+      echo 'export DISPLAY=$(cat /home/${me}/.lastdisplay)' > /home/${me}/.display
     else
       echo No DISPLAY was set >/dev/null
     fi
