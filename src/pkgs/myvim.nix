@@ -374,30 +374,31 @@ vim_configurable.customize {
     " Clear hlsearch
     nnoremap <CR> :nohlsearch<CR><CR>
 
-    function! _lastdisplay(default)
+    function! LastDisplay(default)
       let r = readfile($HOME . "/.lastdisplay","",1) + [a:default]
-      return r[0]
+      execute ":xrestore " . r[0]
     endfunction
+    command! -nargs=0 LD :call LastDisplay($DISPLAY)
 
-    function! _rreg2X()
-      let cmd = 'xsel -b -i ' . ' --display ' . _lastdisplay(':0')
-      :silent call system(cmd, @r)
-      if v:shell_error==0
-        echomsg 'Completed: ' . cmd
-      else
-        echomsg 'Failed (' . v:shell_error . '): ' . cmd
-      end
-    endfunction
-    function! _X2rreg()
-      let cmd = 'xsel -b -o ' . ' --display ' . _lastdisplay(':0')
-      :silent let tmp = system(cmd)
-      if v:shell_error==0
-        echomsg 'Completed: ' . cmd
-        let @r = tmp
-      else
-        echomsg 'Failed (' . v:shell_error . '): ' . cmd
-      end
-    endfunction
+    " function! _rreg2X()
+    "   let cmd = 'xsel -b -i ' . ' --display ' . _lastdisplay(':0')
+    "   :silent call system(cmd, @r)
+    "   if v:shell_error==0
+    "     echomsg 'Completed: ' . cmd
+    "   else
+    "     echomsg 'Failed (' . v:shell_error . '): ' . cmd
+    "   end
+    " endfunction
+    " function! _X2rreg()
+    "   let cmd = 'xsel -b -o ' . ' --display ' . _lastdisplay(':0')
+    "   :silent let tmp = system(cmd)
+    "   if v:shell_error==0
+    "     echomsg 'Completed: ' . cmd
+    "     let @r = tmp
+    "   else
+    "     echomsg 'Failed (' . v:shell_error . '): ' . cmd
+    "   end
+    " endfunction
 
     " Clipboard helpers
     if has("x11")
@@ -419,18 +420,18 @@ vim_configurable.customize {
       nnoremap "D "dP
       nnoremap "E "eP
 
-      vnoremap y "ry:call _rreg2X()<CR>
-      vnoremap d "rd:call _rreg2X()<CR>
-      vnoremap c "rc<C-o>:call _rreg2X()<CR>
-      nnoremap Y "ry$:call _rreg2X()<CR>
-      nnoremap D "rD:call _rreg2X()<CR>
-      nnoremap yy "ryy:call _rreg2X()<CR>
-      nnoremap yw "ryw:call _rreg2X()<CR>
-      nnoremap dd "rdd:call _rreg2X()<CR>
-      nnoremap cc "rcc<C-o>:call _rreg2X()<CR>
-      vnoremap p :call _X2rreg()<CR>"rp
-      nnoremap p :call _X2rreg()<CR>"rp
-      nnoremap P :call _X2rreg()<CR>"rP
+      vnoremap y "+y
+      vnoremap d "+d
+      vnoremap c "+c
+      nnoremap Y "+y$
+      nnoremap D "+D
+      nnoremap yy "+yy
+      nnoremap yw "+yw
+      nnoremap dd "+dd
+      nnoremap cc "+cc
+      vnoremap p "+p
+      nnoremap p "+p
+      nnoremap P "+P
     endif
 
     " Quicfix bindings
