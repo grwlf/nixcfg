@@ -130,40 +130,6 @@ let
     };
   };
 
-  # LanguageClient-neovim = let
-  #   version = "0.1.158";
-  #   LanguageClient-neovim-src = fetchurl {
-  #     url = "https://github.com/autozimu/LanguageClient-neovim/archive/${version}.tar.gz";
-  #     sha256 = "sha256:1pryfd5zbkkfdvfp4vxi4q99hfbqaiczbmq3g62winmmi37x2qym";
-  #   };
-  #   LanguageClient-neovim-bin = rustPlatform.buildRustPackage {
-  #     name = "LanguageClient-neovim-bin";
-  #     src = LanguageClient-neovim-src;
-
-  #     cargoSha256 = "sha256:139sj1aq0kr4r4qzhgcn2hb4dyvp5wxjz7bxbm0bbh9bv2pr98jq";
-  #     buildInputs = stdenv.lib.optionals stdenv.isDarwin [ CoreServices ];
-
-  #     cargoPatches = [ ./cargo-lock.patch ];
-
-  #     # FIXME: Use impure version of CoreFoundation because of missing symbols.
-  #     #   Undefined symbols for architecture x86_64: "_CFURLResourceIsReachable"
-  #     preConfigure = stdenv.lib.optionalString stdenv.isDarwin ''
-  #       export NIX_LDFLAGS="-F${CoreFoundation}/Library/Frameworks -framework CoreFoundation $NIX_LDFLAGS"
-  #     '';
-  #   };
-  # in vimUtils.buildVimPluginFrom2Nix {
-  #   pname = "LanguageClient-neovim";
-  #   inherit version;
-  #   src = LanguageClient-neovim-src;
-
-  #   propagatedBuildInputs = [ LanguageClient-neovim-bin ];
-
-  #   preFixup = ''
-  #     substituteInPlace "$out"/share/vim-plugins/LanguageClient-neovim/autoload/LanguageClient.vim \
-  #       --replace "let l:path = s:root . '/bin/'" "let l:path = '${LanguageClient-neovim-bin}' . '/bin/'"
-  #   '';
-  # };
-
 in
 
 vim_configurable.customize {
@@ -196,7 +162,7 @@ vim_configurable.customize {
       vimbufsync
       # coquille
       coqtail
-      LanguageClient-neovim
+      vim-lsc
       ident-highlight
       vim-gitgutter
       vim-markdown
@@ -358,9 +324,8 @@ vim_configurable.customize {
     " Open quickfix window
     nnoremap <Leader>f :cope<CR>
 
-    " Tab key cycles through windows
-    " noremap <Tab> <C-w>w
-    noremap ` <C-w>w
+    " Tab key cycles through windows backward (to get to NERDtree faster)
+    noremap ` <C-w>W
 
     " Terminal
     nnoremap <C-w>t :terminal<CR>
@@ -682,28 +647,49 @@ vim_configurable.customize {
     " LanguageClient & tagging
     "let g:LanguageClient_loggingFile = "pyls.log"
     "let g:LanguageClient_loggingLevel = "DEBUG"
-    let g:LanguageClient_serverCommands = {
-      \ 'python': ['pyls'],
-      \ 'cpp': ['ccls'],
-      \ 'c': ['ccls']
-      \ }
-    nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-    nnoremap <silent> gh :call LanguageClient_textDocument_hover()<CR>
-    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-    nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
-    nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
-    " nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-    nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<CR>
-    function! _run_ltag(tab)
-      if a:tab == 1
-        execute 'tabnew'
-      endif
-      let cw = expand('<cword>')
-      execute 'ltag ' . cw
-      execute 'lopen'
-    endfunction
-    map <C-]> :call _run_ltag(0)<CR>
-    map <C-/> :call _run_ltag(1)<CR>
+    " let g:LanguageClient_serverCommands = {
+    "   \ 'python': ['pyls'],
+    "   \ 'cpp': ['ccls'],
+    "   \ 'c': ['ccls']
+    "   \ }
+    " nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+    " nnoremap <silent> gh :call LanguageClient_textDocument_hover()<CR>
+    " nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+    " nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
+    " nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
+    " " nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+    " nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<CR>
+    " function! _run_ltag(tab)
+    "   if a:tab == 1
+    "     execute 'tabnew'
+    "   endif
+    "   let cw = expand('<cword>')
+    "   execute 'ltag ' . cw
+    "   execute 'lopen'
+    " endfunction
+    " map <C-]> :call _run_ltag(0)<CR>
+    " map <C-/> :call _run_ltag(1)<CR>
+
+    let g:lsc_server_commands = { 'python': 'pyls',
+                                \ 'cpp': 'ccls',
+                                \ 'c': 'ccls',
+                                \}
+    let g:lsc_auto_map = {
+        \ 'GoToDefinition': '<C-]>',
+        \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
+        \ 'FindReferences': 'gr',
+        \ 'NextReference': '<C-n>',
+        \ 'PreviousReference': '<C-p>',
+        \ 'FindImplementations': 'gI',
+        \ 'FindCodeActions': 'ga',
+        \ 'Rename': 'gR',
+        \ 'ShowHover': v:true,
+        \ 'DocumentSymbol': 'go',
+        \ 'WorkspaceSymbol': 'gS',
+        \ 'SignatureHelp': 'gm',
+        \ 'Completion': 'completefunc',
+        \}
+
 
     " IndentHighlight
     let g:indent_highlight_disabled = 0       " Disables the plugin, default 0
