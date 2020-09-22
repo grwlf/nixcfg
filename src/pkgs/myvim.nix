@@ -163,6 +163,7 @@ vim_configurable.customize {
       # coquille
       coqtail
       vim-lsc
+      jedi-vim
       ident-highlight
       vim-gitgutter
       vim-markdown
@@ -524,9 +525,11 @@ vim_configurable.customize {
         \                'grepformat': '%f:%l:%m',
         \                'escape':     '\^$.*[]"; '
         \              },
+        \ 'quickfix':  1,
         \ }
     function _run_grepper(args)
-      exec "Grepper -noqf -prompt -query '" . a:args . "'"
+      " exec "Grepper -noqf -prompt -query '" . a:args . "'"
+      exec "Grepper -prompt -query '" . a:args . "'"
     endfunction
     function! _get_visual_selection()
         " Why is this not a built-in Vim script function?!
@@ -634,6 +637,11 @@ vim_configurable.customize {
     let g:SuperTabCompleteCase = "match"
     let g:SuperTabLongestEnhanced = 1
 
+    autocmd FileType *
+      \ if &completefunc != "" |
+      \   call SuperTabChain(&completefunc, "<c-p>") |
+      \ endif
+
     " Surround
     xmap s S
 
@@ -645,12 +653,13 @@ vim_configurable.customize {
     nmap <RightMouse> <C-o>
 
     " LanguageClient & tagging
-    "let g:LanguageClient_loggingFile = "pyls.log"
-    "let g:LanguageClient_loggingLevel = "DEBUG"
+    " let g:LanguageClient_loggingFile = "pyls.log"
+    " let g:LanguageClient_loggingLevel = "DEBUG"
+    " let g:LanguageClient_rootMarkers = ['.root', '.ccls-root']
     " let g:LanguageClient_serverCommands = {
     "   \ 'python': ['pyls'],
-    "   \ 'cpp': ['ccls'],
-    "   \ 'c': ['ccls']
+    "   \ 'cpp': ['ccls', '-log-file=/tmp/ccls.log', '-v=1'],
+    "   \ 'c': ['ccls', '-log-file=/tmp/ccls.log', '-v=1']
     "   \ }
     " nnoremap <F5> :call LanguageClient_contextMenu()<CR>
     " nnoremap <silent> gh :call LanguageClient_textDocument_hover()<CR>
@@ -670,26 +679,47 @@ vim_configurable.customize {
     " map <C-]> :call _run_ltag(0)<CR>
     " map <C-/> :call _run_ltag(1)<CR>
 
-    let g:lsc_server_commands = { 'python': 'pyls',
-                                \ 'cpp': 'ccls',
-                                \ 'c': 'ccls',
-                                \}
-    let g:lsc_auto_map = {
-        \ 'GoToDefinition': '<C-]>',
-        \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
-        \ 'FindReferences': 'gr',
-        \ 'NextReference': '<C-n>',
-        \ 'PreviousReference': '<C-p>',
-        \ 'FindImplementations': 'gI',
-        \ 'FindCodeActions': 'ga',
-        \ 'Rename': 'gR',
-        \ 'ShowHover': v:true,
-        \ 'DocumentSymbol': 'go',
-        \ 'WorkspaceSymbol': 'gS',
-        \ 'SignatureHelp': 'gm',
-        \ 'Completion': 'completefunc',
-        \}
+    function! FindProjectRoot(lookFor)
+      let pathMaker='%:p'
+      while(len(expand(pathMaker))>len(expand(pathMaker.':h')))
+        let pathMaker=pathMaker.':h'
+        let fileToCheck=expand(pathMaker).'/'.a:lookFor
+        if filereadable(fileToCheck)||isdirectory(fileToCheck)
+          return expand(pathMaker)
+        endif
+      endwhile
+      return 0
+    endfunction
 
+    let g:lsc_server_commands = { 'python': 'pyls',
+                                \ 'cpp': {
+                                \   'command': 'ccls -log-file=/tmp/ccls-cpp.log -v=1',
+                                \   'message_hooks': {
+                                \     'initialize': {
+                                \           'initializationOptions': {'foo': 'bar'},
+                                \           'rootUri': {method, params ->
+                                \                         lsc#uri#documentUri(FindProjectRoot('.ccls-root'))},
+                                \     },
+                                \   },
+                                \ },
+                                \ 'c': 'ccls -log-file=/tmp/ccls-c.log -v=1',
+                                \}
+    let g:lsc_auto_map = { 'GoToDefinition': '<C-]>',
+                         \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
+                         \ 'FindReferences': 'gr',
+                         \ 'FindImplementations': 'gI',
+                         \ 'FindCodeActions': 'ga',
+                         \ 'Rename': 'gR',
+                         \ 'ShowHover': v:true,
+                         \ 'DocumentSymbol': 'go',
+                         \ 'WorkspaceSymbol': 'gS',
+                         \ 'SignatureHelp': 'gm',
+                         \ 'Completion': 'completefunc',
+                         \ 'NextReference': 'gn',
+                         \ 'PreviousReference': 'gp',
+                         \}
+
+    " let g:lsc_enable_diagnostics = v:false
 
     " IndentHighlight
     let g:indent_highlight_disabled = 0       " Disables the plugin, default 0
