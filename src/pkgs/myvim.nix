@@ -326,7 +326,7 @@ vim_configurable.customize {
     nnoremap <Leader>f :cope<CR>
 
     " Tab key cycles through windows backward (to get to NERDtree faster)
-    noremap ` <C-w>W
+    noremap ` <C-w>w
 
     " Terminal
     nnoremap <C-w>t :terminal<CR>
@@ -720,6 +720,12 @@ vim_configurable.customize {
                          \}
 
     " let g:lsc_enable_diagnostics = v:false
+    set noshowmode
+    let g:jedi#show_call_signatures = 2
+    let g:lsc_hover_popup = v:false
+
+    highlight link lscDiagnosticWarning SpellCap
+    highlight link lscDiagnosticError SpellCap
 
     " IndentHighlight
     let g:indent_highlight_disabled = 0       " Disables the plugin, default 0
