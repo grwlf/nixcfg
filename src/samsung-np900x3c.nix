@@ -135,7 +135,7 @@ rec {
     xkbOptions = "grp:alt_space_toggle, ctrl:swapcaps, grp_led:caps";
 
     desktopManager = {
-      xfce4-14.enable = true;
+      xfce.enable = true;
     };
 
     displayManager = {
@@ -148,7 +148,7 @@ rec {
       # };
     };
 
-    multitouch.enable = false;
+    # multitouch.enable = false;
 
     # synaptics = {
     #   enable = true;
