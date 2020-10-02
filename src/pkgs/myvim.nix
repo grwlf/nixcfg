@@ -130,6 +130,18 @@ let
     };
   };
 
+  vim-lsc = vimUtils.buildVimPluginFrom2Nix {
+    pname = "vim-lsc";
+    version = "2020-09-30";
+    src = fetchFromGitHub {
+      owner = "natebosch";
+      repo = "vim-lsc";
+      rev = "1f6e440c5485b26a75ca1db90bd793cb9a81d57b";
+      sha256 = "sha256:147rvcjq1h03x3bwgg0ii5jvsxvh4j6bk47z1hk349rn4ssi6fmr";
+    };
+  };
+
+
 in
 
 vim_configurable.customize {
@@ -255,7 +267,7 @@ vim_configurable.customize {
 
     au FileType nix set commentstring=#\ %s
     au FileType python syn region Comment start=/"""/ end=/"""/
-    au FileType python let &omnifunc=""
+    " au FileType python let &omnifunc=""
     au FileType python set comments+=b:#:
     au FileType asciidoc set comments+=fb:*
     au FileType asciidoc set comments+=fb:.

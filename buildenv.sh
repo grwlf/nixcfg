@@ -6,6 +6,8 @@ else
   SUFFIX=""
 fi
 
+set -e -x
+
 /var/run/current-system/sw/bin/nix-build src/pkgs/myenv${SUFFIX}.nix \
   --argstr me $USER \
   -o /tmp/result-env  \
