@@ -703,7 +703,9 @@ vim_configurable.customize {
       return 0
     endfunction
 
-    let g:lsc_server_commands = { 'python': 'pyls',
+    let g:lsc_server_commands = { 'python': {
+                                \   'command': ['pyls', '-vv', '--log-file', '/tmp/pyls.log'],
+                                \ },
                                 \ 'cpp': {
                                 \   'command': 'ccls -log-file=/tmp/ccls-cpp.log -v=1',
                                 \   'message_hooks': {
