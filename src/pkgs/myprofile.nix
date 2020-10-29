@@ -82,7 +82,7 @@ pkgs.writeText "myprofile.sh" ''
               vim ~/priv ;
             }
   p()       { myipython "$@" ; }
-  ydla()    { ${youtube-dl}/bin/youtube-dl --extract-audio --audio-format=vorbis "$@" ; }
+  ydla()    { ${youtube-dl}/bin/youtube-dl --extract-audio --audio-format=mp3 "$@" ; }
 
   #
   # GIT Aliases
