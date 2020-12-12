@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram "$out/bin/xscreensaver-run" \
-      --prefix PATH : "${xscreensaver}/libexec/xscreensaver"
+      --prefix PATH : "${xscreensaver}/libexec/xscreensaver" \
+      --prefix PATH : "${xscreensaver}/bin"
     '';
 
   meta = with stdenv.lib; {
