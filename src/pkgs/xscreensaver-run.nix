@@ -12,8 +12,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "grwlf";
     repo = "xscreensaver-run";
-    rev = "b722de024dacf65cf714539cc146fed1c82efab6";
-    sha256 = "sha256:1c5j1qapmfbddf5xr88j19bf8rwayhdsq7iybhb09zgk1443cbra";
+    rev = "ce1b7b2829240585e9518b6b4fb3fa3e7fe6f0a8";
+    sha256 = "sha256:161habpfhqzfhgmxvlcy8xqswari6hm7csn1hgp0afyzrv63hv74";
   };
 
   nativeBuildInputs = [ ];
