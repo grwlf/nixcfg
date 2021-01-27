@@ -180,6 +180,8 @@ vim_configurable.customize {
       vim-gitgutter
       vim-markdown
       vim-python-pep8-indent
+
+      vimtex
     ];
   };
 
@@ -756,9 +758,13 @@ vim_configurable.customize {
     let g:vim_markdown_new_list_item_indent = 2
     let g:vim_markdown_auto_insert_bullets = 0
 
-
     " Reload the highlighting
     noremap <F12> <Esc>:syntax sync fromstart<CR>
     inoremap <F12> <C-o>:syntax sync fromstart<CR>
+
+    " Vimlatex
+    let g:tex_flavor = 'latex'
+    let g:vimtex_view_method = 'zathura'
+    let g:vimtex_quickfix_mode=0
   '';
 }
