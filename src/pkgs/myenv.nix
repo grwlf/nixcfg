@@ -84,6 +84,9 @@ pkgs.buildEnv {
     lssh
 
     mypython
+
+    mydeadbeef
+    deadbeef-opener
   ];
 }
 

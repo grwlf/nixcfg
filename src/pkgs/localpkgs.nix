@@ -46,6 +46,11 @@ let
           "$@"
         '';
       mypython = callPackage ./mypython.nix {};
+      deadbeef-opener = callPackage ./deadbeef-opener.nix {};
+      deadbeef-lyricbar = callPackage ./deadbeef-lyricbar.nix {};
+      mydeadbeef = pkgs.deadbeef-with-plugins.override {
+        plugins = [ deadbeef-lyricbar ];
+      };
     });
   };
 

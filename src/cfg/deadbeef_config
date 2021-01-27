@@ -1,0 +1,112 @@
+ape.write_apev2 1
+artwork.filemask *cover*.jpg;*front*.jpg;*folder*.jpg;*cover*.png;*front*.png;*folder*.png
+cli_add_playlist_name Default
+converter.dsp_preset -1
+converter.encoder_preset 0
+converter.output_folder /home/grwlf
+converter.output_format 0
+converter.overwrite_action 0
+deadbeef_version 1.8.0
+filechooser.lastdir file:///home/grwlf/pers/%D0%9C%D0%B8%D0%BD%D1%83%D1%81%D0%BE%D0%B2%D0%BA%D0%B8
+gtkui.columns.playlist [{"title":"♫","id":"1","format":"%playstatus%","sort_format":"","size":"50","align":"0","color_override":"0","color":"#ff000000"},{"title":"Исполнитель","id":"-1","format":"$if(%artist%,%artist%,Unknown Artist)","sort_format":"","size":"357","align":"0","color_override":"0","color":"#ff000000"},{"title":"№","id":"-1","format":"%tracknumber%","sort_format":"","size":"26","align":"1","color_override":"0","color":"#ff000000"},{"title":"Название","id":"-1","format":"%title%","sort_format":"","size":"436","align":"0","color_override":"0","color":"#ff000000"},{"title":"Продолжительность","id":"-1","format":"%length%","sort_format":"","size":"165","align":"0","color_override":"0","color":"#ff000000"}]
+gtkui.columns.search [{"title":"Исполнитель / Альбом","id":"-1","format":"$if(%artist%,%artist%,Unknown Artist)[ - %album%]","sort_format":"","size":"150","align":"0","color_override":"0","color":"#ff000000"},{"title":"№","id":"-1","format":"%tracknumber%","sort_format":"","size":"50","align":"1","color_override":"0","color":"#ff000000"},{"title":"Название","id":"-1","format":"%title%","sort_format":"","size":"410","align":"0","color_override":"0","color":"#ff000000"},{"title":"Продолжительность","id":"-1","format":"%length%","sort_format":"","size":"50","align":"0","color_override":"0","color":"#ff000000"}]
+gtkui.eq.visible 0
+gtkui.layout.0.6.2 vbox expand="0 1" fill="1 1" homogeneous=0 {hbox expand="0 1 0" fill="1 1 1" homogeneous=0 {playtb {} seekbar {} volumebar {} } hsplitter locked=0 ratio=0,422857 pos=0 size2=0 {tabbed_playlist hideheaders=0 width=1036 {} lyricbar {} } } 
+gtkui.statusbar.visible 1
+gtkui.tabscroll 0
+gtkui.titlebar_playing_tf %artist% - %title% - DeaDBeeF-%_deadbeef_version%
+gtkui.titlebar_stopped_tf DeaDBeeF-%_deadbeef_version%
+hotkey.key01 "Ctrl f" 0 0 find
+hotkey.key02 "Ctrl o" 0 0 open_files
+hotkey.key03 "Ctrl q" 0 0 quit
+hotkey.key04 "Ctrl n" 0 0 new_playlist
+hotkey.key05 "Ctrl a" 0 0 select_all
+hotkey.key06 "Escape" 0 0 deselect_all
+hotkey.key07 "Ctrl m" 0 0 toggle_stop_after_current
+hotkey.key08 "Ctrl j" 0 0 jump_to_current_track
+hotkey.key09 "F1" 0 0 help
+hotkey.key10 "Delete" 1 0 remove_from_playlist
+hotkey.key11 "Ctrl w" 0 0 remove_current_playlist
+hotkey.key12 "Alt Return" 1 0 track_properties
+hotkey.key13 "Return" 0 0 play
+hotkey.key14 "Ctrl p" 0 0 toggle_pause
+hotkey.key15 "Alt 1" 0 0 playlist1
+hotkey.key16 "Alt 2" 0 0 playlist2
+hotkey.key17 "Alt 3" 0 0 playlist3
+hotkey.key18 "Alt 4" 0 0 playlist4
+hotkey.key19 "Alt 5" 0 0 playlist5
+hotkey.key20 "Alt 6" 0 0 playlist6
+hotkey.key21 "Alt 7" 0 0 playlist7
+hotkey.key22 "Alt 8" 0 0 playlist8
+hotkey.key23 "Alt 9" 0 0 playlist9
+hotkey.key24 "Alt 0" 0 0 playlist10
+hotkey.key25 "z" 0 0 prev
+hotkey.key26 "x" 0 0 play
+hotkey.key27 "c" 0 0 toggle_pause
+hotkey.key28 "v" 0 0 stop
+hotkey.key29 "b" 0 0 next
+hotkey.key30 "Ctrl k" 0 0 toggle_stop_after_album
+hotkey.key31 "space" 0 0 play_pause
+hotkey.key32 "F4" 1 0 open_scores
+hotkey.key33 "Right" 0 0 seek_1s_fwd
+hotkey.key34 "Left" 0 0 seek_1s_back
+hotkeys_created 1
+logwindow.geometry.h 200
+logwindow.geometry.w 400
+logwindow.geometry.x 430
+logwindow.geometry.y 289
+lyricbar.customcmd deadbeef-opener.sh --lyrics "%artist%" "%title%"
+lyricbar.lyrics.alignment 1
+mainwin.geometry.h 1385
+mainwin.geometry.maximized 1
+mainwin.geometry.w 2450
+mainwin.geometry.x 110
+mainwin.geometry.y 31
+mp3.id3v1_encoding iso8859-1
+mp3.id3v2_version 3
+mp3.write_id3v1 0
+mp3.write_id3v2 1
+network.proxy.port 8080
+output_plugin PulseAudio output plugin
+playback.loop 0
+playback.order 0
+playback.volume -8,699427
+playlist.current 1
+playlist.cursor.0 12
+playlist.cursor.1 196
+playlist.cursor.2 0
+playlist.cursor.3 6
+playlist.cursor.4 0
+playlist.scroll.0 -45
+playlist.scroll.1 3340
+playlist.scroll.2 0
+playlist.scroll.3 0
+playlist.scroll.4 0
+playlist.scroll.cursorfollowplayback 1
+playlist.stop_after_current 1
+playlist.tab.00000 Репертуар
+playlist.tab.00001 VK
+playlist.tab.00002 Default
+playlist.tab.00003 Опера
+prefwin.geometry.h 528
+prefwin.geometry.w 1047
+prefwin.geometry.x 1094
+prefwin.geometry.y 489
+resume.paused 1
+resume.playlist 1
+resume.position 126,40999
+resume.track 196
+searchwin.geometry.h 804
+searchwin.geometry.maximized 0
+searchwin.geometry.w 1166
+searchwin.geometry.x 306
+searchwin.geometry.y 274
+shellexec_config_wip [{"command": "mousepad \"%filename%\"", "title": "Открыть текст", "name": "Open_lyrics", "flags": ["local", "single"]}, {"command": "deadbeef-opener.sh --scores \"%f\"", "title": "Открыть ноты", "name": "open_scores", "flags": ["local", "single"]}]
+streamer.samplerate 44100
+streamer.samplerate_mult_44 44100
+streamer.samplerate_mult_48 48000
+trkproperties.geometry.h 429
+trkproperties.geometry.w 646
+trkproperties.geometry.x 501
+trkproperties.geometry.y 674
+wv.write_apev2 1
