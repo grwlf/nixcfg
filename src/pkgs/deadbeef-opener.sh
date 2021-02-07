@@ -5,18 +5,31 @@ echo "$0: $@" >>/tmp/lyricsbar.log
 # set -x
 if test "$1" == "--lyrics" ; then
   shift
-  ARTIST="$1"
-  ARTIST2="`echo "$ARTIST" | sed 's@^[Tt]he @@' | sed 's@ \?(.*).*@@'`"
-  echo "$ARTIST, $ARTIST2">&2
-  TITLE="$2"
-  TITLE2="`echo "$TITLE" | sed 's@^[Tt]he @@' | sed 's@ \?(.*).*@@'`"
-  echo "$TITLE, $TITLE2">&2
+  if test -n "$1" ; then
+    ARTIST="$1"
+    ARTIST2="`echo "$ARTIST" | sed 's@^[Tt]he @@' | sed 's@ \?(.*).*@@'`"
+    echo "ARTIST: $ARTIST, $ARTIST2">&2
+    shift
+    if test -n "$1" ; then
+      TITLE="$1"
+      TITLE2="`echo "$TITLE" | sed 's@^[Tt]he @@' | sed 's@ \?(.*).*@@'`"
+      echo "TITLE: $TITLE, $TITLE2">&2
+      shift
+      if test -n "$1" ; then
+        COMPOSER="$1"
+        COMPOSER2="`echo "$COMPOSER" | sed 's@^[Tt]he @@' | sed 's@ \?(.*).*@@'`"
+        echo "COMPOSER: $COMPOSER, $COMPOSER2">&2
+        shift
+      fi
+    fi
+  fi
 
   rm $HOME/.cache/deadbeef/lyrics/*
 
   IFS=$'\n'
-  for a in "$ARTIST" "$ARTIST2" ; do
+  for a in "$ARTIST" "$ARTIST2" "$COMPOSER" "$COMPOSER2"; do
     for t in "$TITLE" "$TITLE2" ; do
+      echo "SEARCHING: '$a' '$t'" >&2
       for f in `find \
           "$HOME/doc/Музыка/Аккорды/" \
           "$HOME/pers/Тексты/" \
