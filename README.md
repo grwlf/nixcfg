@@ -1,7 +1,13 @@
-Setting up the environment
-==========================
+What's this?
+============
 
-### Installing the system configuration
+This project is basically a collection of author's configuraiton in form of Nix
+expressions.
+
+Install
+-------
+
+### Installing the whole-system configuration
 
 1. Export the Nix paths via the `NIX_PATH` variable. Add the following lines to
    your `~/.bashrc`:
@@ -38,4 +44,14 @@ Setting up the environment
    fi
    ```
 
+
+Resources
+---------
+
+
+### E-Mail
+
+* [Mutt](http://www.mutt.org)
+* [MBSync](https://linux.die.net/man/1/mbsync)
+* [Protonmail bridge (paid)](https://protonmail.com/support/knowledge-base/bridge-for-linux/)
 
