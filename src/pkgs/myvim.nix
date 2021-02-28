@@ -428,9 +428,9 @@ vim_configurable.customize {
         endif
       endfor
       if found==1
-        exe "lclose"
+        exe "cclose"
       else
-        exe "lopen"
+        exe "copen"
       endif
     endfunction
 
@@ -439,8 +439,8 @@ vim_configurable.customize {
     QFmap <C-i> :lnewer<cr>
     QFmap q :q<cr>
 
-    nmap <C-j> :lnext<CR>
-    nmap <C-k> :lprev<CR>
+    nmap <C-j> :cnext<CR>
+    nmap <C-k> :cprev<CR>
     nmap <C-l> :call QFToggle()<CR>
     nnoremap <Esc>l :call QFToggle()<CR>
 
